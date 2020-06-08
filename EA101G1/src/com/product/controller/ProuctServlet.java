@@ -19,7 +19,6 @@ public class ProuctServlet extends HttpServlet {
      */
     public ProuctServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
