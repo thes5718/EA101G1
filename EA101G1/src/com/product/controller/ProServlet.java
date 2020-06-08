@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class ProuctServlet
  */
 @WebServlet("/ProuctServlet")
-public class ProuctServlet extends HttpServlet {
+public class ProServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProuctServlet() {
+    public ProServlet() {
         super();
     }
 
