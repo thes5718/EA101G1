@@ -14,7 +14,7 @@ public class ProDAO implements ProDAO_interface {
 	private static final String INSERT_STMT = "INSERT INTO PRODUCT(P_ID,PT_ID, P_NAME, P_PRICE, P_IMAGE,P_INFO, P_SALES, P_STOCK, P_STAT) VALUES ('P'||LPAD(TO_CHAR(SEQ_P_ID.NEXTVAL),3,'0'), ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = "SELECT P_ID,PT_ID,P_NAME,P_PRICE,P_IMAGE,P_INFO,P_SALES,P_STOCK,to_char(P_ADD_DATE,'yyyy-mm-dd') P_ADD_DATE,P_STAT FROM PRODUCT order by P_ID";
 	private static final String GET_ONE_STMT = "SELECT P_ID,PT_ID,P_NAME,P_PRICE,P_IMAGE,P_INFO,P_SALES,P_STOCK,to_char(P_ADD_DATE,'yyyy-mm-dd') P_ADD_DATE,P_STAT FROM PRODUCT where P_ID = ?";
-	private static final String DELETE = "DELETE FROM PRODUCT where P_ID = ?";
+	private static final String DELETE = "DELETE FROM PRODUCT WHERE P_ID = ?";
 	private static final String UPDATE = "UPDATE PRODUCT SET  PT_ID=?, P_NAME=?, P_PRICE=?, P_IMAGE=?, P_INFO=?, P_SALES=?, P_STOCK=?, P_STAT=? WHERE P_ID=?";
 
 	@Override

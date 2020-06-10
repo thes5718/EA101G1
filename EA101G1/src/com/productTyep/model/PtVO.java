@@ -1,6 +1,6 @@
 package com.productTyep.model;
 
-public class PtVO {
+public class PtVO implements java.io.Serializable{
 	private String pt_id;
 	private String typename;
 	public String getPt_id() {
