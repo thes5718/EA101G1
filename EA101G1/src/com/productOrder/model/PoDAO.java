@@ -8,36 +8,34 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.productType.model.PoVO;
-
-public class PoDAO {
+public class PoDAO implements PoDAO_interface{
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String userid = "DANNY";
 	String passwd = "123456";
 
-	private static final String INSERT = "INSERT INTO PRODUCT_ORDER(PO_ID,MEM_ID,ORDSTAT_ID) VALUES(TO_CHAR(sysdate,'yyyy-mm-dd')||'-'||LPAD(TO_CHAR(SEQ_PO_ID.NEXTVAL),6,'0'),'?','?')";
-	private static final String UPDATE = "UPDATE PRODUCT_ORDER SET ORDSTAT_ID,RETURN_FORM WHERE PO_ID=?";
+	private static final String INSERT = "INSERT INTO PRODUCT_ORDER(PO_ID,MEM_ID,ORDSTAT_ID) VALUES(TO_CHAR(sysdate,'yyyy-mm-dd')||'-'||LPAD(TO_CHAR(SEQ_PO_ID.NEXTVAL),6,'0'),?,?)";
+	private static final String UPDATE = "UPDATE PRODUCT_ORDER SET ORDSTAT_ID=?,RETURN_FORM=? WHERE PO_ID=?";
 	private static final String DELETE = "DELETE FROM PRODUCT_ORDER WHERE PO_ID=?";
-	private static final String GET_ALL_STMT = "SELECT PO_ID,MEM_ID,ORDSTAT_ID FROM PRODUCT_ORDER ORDER BY PO_ID";
-	private static final String GET_ONE_STMT = "SELECT PO_ID,MEM_ID,ORDSTAT_ID FROM PRODUCT_ORDER WHERE PO_ID=?";
+	private static final String GET_ALL_STMT = "SELECT PO_ID,MEM_ID,ORDSTAT_ID,to_char(ADD_DATE,'yyyy-mm-dd') ADD_DATE,RETURN_FORM FROM PRODUCT_ORDER ORDER BY PO_ID";
+	private static final String GET_ONE_STMT = "SELECT PO_ID,MEM_ID,ORDSTAT_ID,to_char(ADD_DATE,'yyyy-mm-dd') ADD_DATE,RETURN_FORM FROM PRODUCT_ORDER WHERE PO_ID=?";
 
 	public void insert(PoVO poVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		
+
 		try {
-			
+
 			Class.forName(driver);
-			con = DriverManager.getConnection(url,userid,passwd);
+			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT);
-			
-			pstmt.setString(1,poVO.getPo_id());
-			pstmt.setInt(2,poVO.getOrdstat_id());
-			
+
+			pstmt.setString(1, poVO.getMem_id());
+			pstmt.setString(2, poVO.getOrdstat_id());
+
 			pstmt.executeUpdate();
-			
-		}catch (ClassNotFoundException e) {
+
+		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
@@ -60,19 +58,20 @@ public class PoDAO {
 			}
 		}
 	}
-	
+
 	public void update(PoVO poVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		
+
 		try {
 			Class.forName(driver);
-			con = DriverManager.getConnection(url,userid,passwd);
+			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
-			
-			pstmt.setInt(1,poVO.getOrdstat_id());
-			pstmt.setString(2,poVO.getReturn_form());
-			
+
+			pstmt.setString(1, poVO.getOrdstat_id());
+			pstmt.setString(2, poVO.getReturn_form());
+			pstmt.setString(3, poVO.getPo_id());
+
 			pstmt.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
@@ -98,20 +97,20 @@ public class PoDAO {
 		}
 
 	}
-
-	public void delete(String pt_id) {
+	
+	public void delete(String po_id) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		
-		try { 
+
+		try {
 			Class.forName(driver);
-			con = DriverManager.getConnection(url,userid,passwd);
+			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(DELETE);
-			
-			pstmt.setString(1,pt_id);
-			
+
+			pstmt.setString(1, po_id);
+
 			pstmt.executeUpdate();
-		}catch (ClassNotFoundException e) {
+		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
@@ -135,28 +134,32 @@ public class PoDAO {
 		}
 	}
 
-	public PoVO findByPrimaryKey(String pt_id) {
+	public PoVO findByPrimaryKey(String po_id) {
 		PoVO poVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		try {
 			Class.forName(driver);
-			con = DriverManager.getConnection(url,userid,passwd);
+			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
+
+			pstmt.setString(1, po_id);
 			
-			pstmt.setString(1, pt_id);
 			rs = pstmt.executeQuery();
-			
+
 			while (rs.next()) {
-				
+
 				poVO = new PoVO();
-				poVO.setPo_id(rs.getString("pt_id"));
-				poVO.setTypename(rs.getString("typename"));
-		
+				poVO.setPo_id(rs.getString("po_id"));
+				poVO.setMem_id(rs.getString("mem_id"));
+				poVO.setOrdstat_id(rs.getString("ordstat_id"));
+				poVO.setAdd_date(rs.getDate("add_date"));
+				poVO.setReturn_form(rs.getString("return_form"));
 			}
-		}catch (ClassNotFoundException e) {
+			
+		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
@@ -186,31 +189,34 @@ public class PoDAO {
 			}
 		}
 		return poVO;
-		
-	}
 
+	}
+	
+	@Override
 	public List<PoVO> getAll() {
-		List <PoVO> list = new ArrayList<PoVO>();
+		List<PoVO> list = new ArrayList<PoVO>();
 		PoVO poVO = null;
-		
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+
 		try {
 			Class.forName(driver);
-			con = DriverManager.getConnection(url,userid,passwd);
+			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
-			
+
 			while (rs.next()) {
-				
 				poVO = new PoVO();
-				poVO.setPo_id(rs.getString("pt_id"));
-				poVO.setTypename(rs.getString("typename"));
+				poVO.setPo_id(rs.getString("po_id"));
+				poVO.setMem_id(rs.getString("mem_id"));
+				poVO.setOrdstat_id(rs.getString("ordstat_id"));
+				poVO.setAdd_date(rs.getDate("add_date"));
+				poVO.setReturn_form(rs.getString("return_form"));
 				list.add(poVO);
 			}
-		}catch (ClassNotFoundException e) {
+		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {

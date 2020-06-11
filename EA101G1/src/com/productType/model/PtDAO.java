@@ -1,9 +1,10 @@
 package com.productType.model;
 
 import java.util.*;
+
 import java.sql.*;
 
-public class PtDAO {
+public class PtDAO implements PtDAO_interface{
 
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
