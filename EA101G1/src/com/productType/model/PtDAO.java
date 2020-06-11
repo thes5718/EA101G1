@@ -1,4 +1,4 @@
-package com.productTyep.model;
+package com.productType.model;
 
 import java.util.*;
 import java.sql.*;

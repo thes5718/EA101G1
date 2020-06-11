@@ -14,8 +14,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.productTyep.model.PtDAO;
-import com.productTyep.model.PtVO;
+import com.productType.model.PtDAO;
+import com.productType.model.PtVO;
 
 
 public class test2 {

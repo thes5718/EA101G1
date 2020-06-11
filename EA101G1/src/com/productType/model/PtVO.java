@@ -1,4 +1,4 @@
-package com.productTyep.model;
+package com.productType.model;
 
 public class PtVO implements java.io.Serializable{
 	private String pt_id;
