@@ -1,0 +1,59 @@
+package com.product.model;
+
+import java.util.List;
+
+public class ProService {
+
+	private ProDAO_interface dao;
+
+	public ProService() {
+		dao = new ProDAO();
+	}
+
+	public ProVO addPro(String p_name, Double p_price, byte[] p_image, String p_info, Integer p_sales, Integer p_stock,
+			Integer p_stat) {
+
+		ProVO proVO = new ProVO();
+
+		proVO.setP_name(p_name);
+		proVO.setP_price(p_price);
+		proVO.setP_image(p_image);
+		proVO.setP_info(p_info);
+		proVO.setP_sales(p_sales);
+		proVO.setP_stock(p_stock);
+		proVO.setP_stat(p_stat);
+		dao.insert(proVO);
+
+		return proVO;
+
+	}
+
+	public ProVO updatePro(String p_name, Double p_price, byte[] p_image, String p_info, Integer p_sales,
+			Integer p_stock, Integer p_stat) {
+
+		ProVO proVO = new ProVO();
+
+		proVO.setP_name(p_name);
+		proVO.setP_price(p_price);
+		proVO.setP_image(p_image);
+		proVO.setP_info(p_info);
+		proVO.setP_sales(p_sales);
+		proVO.setP_stock(p_stock);
+		proVO.setP_stat(p_stat);
+		dao.update(proVO);
+
+		return proVO;
+
+	}
+	
+	public void deletePro(String p_id) {
+		dao.delete(p_id);
+	}
+	
+	public ProVO getOnePro(String p_id) {
+		return dao.findByPrimaryKey(p_id);
+	}
+	public List<ProVO> getAll(){
+		return dao.getAll();
+	}
+}
