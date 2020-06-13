@@ -1,4 +1,4 @@
-package com.poductOrderList;
+package com.poductOrderList.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PolDAO implements com.poductOrderList.PolDAO_interface{
+public class PolDAO implements com.poductOrderList.model.PolDAO_interface{
 	
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";

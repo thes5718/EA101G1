@@ -180,10 +180,10 @@ public class ProDAO implements ProDAO_interface {
 				proVO.setP_price(rs.getDouble("p_price"));
 				proVO.setP_image(rs.getBytes("p_image"));
 				proVO.setP_info(rs.getString("p_info"));
+				proVO.setP_sales(rs.getInt("p_sales"));
 				proVO.setP_stock(rs.getInt("p_stock"));
 				proVO.setP_add_date(rs.getDate("p_add_date"));
 				proVO.setP_stat(rs.getInt("p_stat"));
-				proVO.setP_add_date(rs.getDate("p_add_date"));
 			}
 
 			// Handle any driver errors
@@ -244,10 +244,10 @@ public class ProDAO implements ProDAO_interface {
 				proVO.setP_price(rs.getDouble("p_price"));
 				proVO.setP_image(rs.getBytes("p_image"));
 				proVO.setP_info(rs.getString("p_info"));
+				proVO.setP_sales(rs.getInt("p_sales"));
 				proVO.setP_stock(rs.getInt("p_stock"));
 				proVO.setP_add_date(rs.getDate("p_add_date"));
 				proVO.setP_stat(rs.getInt("p_stat"));
-				proVO.setP_add_date(rs.getDate("p_add_date"));
 				list.add(proVO);
 			}
 

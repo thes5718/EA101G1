@@ -13,7 +13,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Set;
 
+import com.product.model.ProVO;
 import com.productType.model.PtDAO;
 import com.productType.model.PtVO;
 
@@ -53,10 +55,25 @@ public class test2 {
 //		System.out.println("---------------------");
 //
 //		// ¬d¸ß
-		List<PtVO> list = dao.getAll();
-		for (PtVO pro : list) {
-			System.out.print(pro.getPt_id() + ",");
-			System.out.println(pro.getTypename());
+//		List<PtVO> list = dao.getAll();
+//		for (PtVO pro : list) {
+//			System.out.print(pro.getPt_id() + ",");
+//			System.out.println(pro.getTypename());
+//			System.out.println("---------------------");
+//			System.out.println();
+//		}
+		//¬d¸ß
+		Set<ProVO> set = dao.getProductByPtid("PT001");
+		for (ProVO pro : set) {
+			System.out.print(pro.getP_id() + ",");
+			System.out.println(pro.getPt_id()+",");
+			System.out.print(pro.getP_name() + ",");
+			System.out.print(pro.getP_price() + ",");
+			System.out.print(pro.getP_info() + ",");
+			System.out.print(pro.getP_sales() + ",");
+			System.out.print(pro.getP_stock() + ",");
+			System.out.println(pro.getP_add_date()+",");
+			System.out.println(pro.getP_stat());
 			System.out.println("---------------------");
 			System.out.println();
 		}

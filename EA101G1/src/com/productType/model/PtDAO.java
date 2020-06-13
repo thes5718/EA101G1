@@ -2,9 +2,11 @@ package com.productType.model;
 
 import java.util.*;
 
+import com.product.model.ProVO;
+
 import java.sql.*;
 
-public class PtDAO implements PtDAO_interface{
+public class PtDAO implements com.productType.model.PtDAO_interface{
 
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
@@ -16,7 +18,8 @@ public class PtDAO implements PtDAO_interface{
 	private static final String DELETE = "DELETE FROM PRODUCT_TYPE WHERE PT_ID=?";
 	private static final String GET_ALL_STMT = "SELECT PT_ID,TYPENAME FROM PRODUCT_TYPE ORDER BY PT_ID";
 	private static final String GET_ONE_STMT = "SELECT PT_ID,TYPENAME FROM PRODUCT_TYPE WHERE PT_ID=?";
-
+	private static final String GET_PRODUCT_BYPTID_STMT = "SELECT P_ID,PT_ID,P_NAME,P_PRICE,P_IMAGE,P_INFO,P_SALES,P_STOCK,to_char(P_ADD_DATE,'yyyy-mm-dd') P_ADD_DATE ,P_STAT FROM PRODUCT WHERE PT_ID = ? ORDER BY P_ID";																																																																																																																																																																																								
+	@Override
 	public void insert(PtVO ptVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -55,7 +58,7 @@ public class PtDAO implements PtDAO_interface{
 			}
 		}
 	}
-	
+	@Override
 	public void update(PtVO ptVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -93,7 +96,7 @@ public class PtDAO implements PtDAO_interface{
 		}
 
 	}
-
+	@Override
 	public void delete(String pt_id) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -129,7 +132,7 @@ public class PtDAO implements PtDAO_interface{
 			}
 		}
 	}
-
+	@Override
 	public PtVO findByPrimaryKey(String pt_id) {
 		PtVO ptVO = null;
 		Connection con = null;
@@ -183,7 +186,7 @@ public class PtDAO implements PtDAO_interface{
 		return ptVO;
 		
 	}
-
+	@Override
 	public List<PtVO> getAll() {
 		List <PtVO> list = new ArrayList<PtVO>();
 		PtVO ptVO = null;
@@ -236,5 +239,72 @@ public class PtDAO implements PtDAO_interface{
 		}
 		return list;
 	}
+	@Override
+	public Set<ProVO> getProductByPtid(String pt_id){
+		Set<ProVO> set = new LinkedHashSet<ProVO>();
+		ProVO proVO = null;
+	
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+	
+		try {
+			Class.forName(driver);
+	
+			con = DriverManager.getConnection(url,userid,passwd);
+			pstmt = con.prepareStatement(GET_PRODUCT_BYPTID_STMT);
+			pstmt.setString(1, pt_id);
+			rs = pstmt.executeQuery();
+	
+			while (rs.next()) {
+				proVO = new ProVO();
+				proVO.setP_id(rs.getString("p_id"));
+				proVO.setPt_id(rs.getString("pt_id"));
+				proVO.setP_name(rs.getString("p_name"));
+				proVO.setP_price(rs.getDouble("p_price"));
+				proVO.setP_image(rs.getBytes("p_image"));
+				proVO.setP_info(rs.getString("p_info"));
+				proVO.setP_sales(rs.getInt("p_sales"));
+				proVO.setP_stock(rs.getInt("p_stock"));
+				proVO.setP_add_date(rs.getDate("p_add_date"));
+				proVO.setP_stat(rs.getInt("p_stat"));
+				
+				set.add(proVO); // Store the row in the vector
+			}
+	
+			// Handle any SQL errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return set;
+	}
+		
 
 }

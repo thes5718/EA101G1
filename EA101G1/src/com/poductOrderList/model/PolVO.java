@@ -1,12 +1,9 @@
-package com.poductOrderList;
+package com.poductOrderList.model;
 
 import java.io.Serializable;
 
 public class PolVO implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	
 	private String po_id;
 	private String p_id;
 	private Integer order_qua;

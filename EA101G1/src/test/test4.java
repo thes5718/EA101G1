@@ -12,8 +12,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import com.poductOrderList.PolDAO;
-import com.poductOrderList.PolVO;
+import com.poductOrderList.model.PolDAO;
+import com.poductOrderList.model.PolVO;
 
 
 public class test4 {
@@ -26,8 +26,8 @@ public class test4 {
 			// ·s¼W
 			
 			PolVO polVO = new PolVO();
-			polVO.setPo_id("2020-06-11-000001");
-			polVO.setP_id("P002");
+			polVO.setPo_id("2020-06-11-000027");
+			polVO.setP_id("P003");
 			polVO.setOrder_qua(0);
 			polVO.setP_price(new Double(200));
 			dao.insert(polVO);
