@@ -1,6 +1,7 @@
 package test;
 
 import com.product.model.ProDAO;
+import com.product.model.ProService;
 import com.product.model.ProVO;
 
 import java.io.ByteArrayOutputStream;
@@ -22,25 +23,24 @@ public class test1 {
 
 		ProDAO dao = new ProDAO();
 //		
-//		try {
-//			byte[] pic = getPictureByteArray("items/product1.jpg");
-//			// 新增
-//			
-//			ProVO proVO1 = new ProVO();
-//			proVO1.setPt_id("PT001");
-//			proVO1.setP_name("話語霸權");
-//			proVO1.setP_price(new Double(20000));
-//			proVO1.setP_image(pic);
-//			proVO1.setP_info("架構重組");
-//			proVO1.setP_sales(10);
-//			proVO1.setP_stock(200);
-//			proVO1.setP_stat(0);
-//			dao.insert(proVO1);
-//			System.out.println("新增成功");
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		try {
+			byte[] pic = getPictureByteArray("WebContent/back-end/pro/images/product1.jpg");
+			// 新增
+			
+			ProVO proVO1 = new ProVO();
+			proVO1.setPt_id("PT001");
+			proVO1.setP_name("話語霸權");
+			proVO1.setP_price(new Double(20000));
+			proVO1.setP_image(pic);
+			proVO1.setP_info("架構重組");
+			proVO1.setP_stock(200);
+			proVO1.setP_stat(0);
+			dao.insert(proVO1);
+			System.out.println("新增成功");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 //		
 
 //		// 修改
@@ -66,7 +66,8 @@ public class test1 {
 		
 //
 //		// 刪除
-//		dao.delete("P018");
+//		dao.delete("P001");
+//		System.out.println("刪除成功");
 //
 //		// 查詢
 //		ProVO proVO1 = dao.findByPrimaryKey("P001");
@@ -81,19 +82,29 @@ public class test1 {
 //		System.out.println("---------------------");
 //
 //		// 查詢
-		List<ProVO> list = dao.getAll();
-		for (ProVO pro : list) {
-			System.out.print(pro.getP_id() + ",");
-			System.out.print(pro.getP_name() + ",");
-			System.out.print(pro.getP_price() + ",");
-			System.out.print(pro.getP_info() + ",");
-			System.out.print(pro.getP_sales() + ",");
-			System.out.print(pro.getP_stock() + ",");
-			System.out.println(pro.getP_add_date()+",");
-			System.out.println(pro.getP_stat());
-			System.out.println("---------------------");
-			System.out.println();
-		}
+//		List<ProVO> list = dao.getAll();
+//		for (ProVO pro : list) {
+//			System.out.print(pro.getP_id() + ",");
+//			System.out.print(pro.getP_name() + ",");
+//			System.out.print(pro.getP_price() + ",");
+//			System.out.print(pro.getP_info() + ",");
+//			System.out.print(pro.getP_sales() + ",");
+//			System.out.print(pro.getP_stock() + ",");
+//			System.out.println(pro.getP_add_date()+",");
+//			System.out.println(pro.getP_stat());
+//			System.out.println("---------------------");
+//			System.out.println();
+//		}
+		
+//		ProService svc = new ProService();
+//		byte[] bye = null;
+////		svc.deletePro("P001");
+////		System.out.println("刪除成功");
+////		svc.updateProStat("P009",10);
+//		svc.updatePro("P001", "PT001", "測試", 100.0, bye,"fdasfdsfds", 10, 20, 1);
+//		System.out.println("更新成功");
+		
+		
 	}
 
 	public static InputStream getPictureStream(String path) throws IOException {

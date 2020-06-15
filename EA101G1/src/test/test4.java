@@ -26,7 +26,7 @@ public class test4 {
 			// ·s¼W
 			
 			PolVO polVO = new PolVO();
-			polVO.setPo_id("2020-06-11-000027");
+			polVO.setPo_id("2020-06-11-000001");
 			polVO.setP_id("P003");
 			polVO.setOrder_qua(0);
 			polVO.setP_price(new Double(200));

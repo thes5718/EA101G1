@@ -49,7 +49,7 @@
 </c:if>
 
 <ul>
-  <li><a href='listAllPro.jsp'>List</a> all Pros.  <br><br></li>
+  <li><a href='listAllProduct.jsp'>List</a> all Pros.  <br><br></li>
   
   
   <li>
@@ -94,7 +94,7 @@
 <h3>商品管理</h3>
 
 <ul>
-  <li><a href='addpro.jsp'>Add</a> a new pro.</li>
+  <li><a href='addPro.jsp'>Add</a> a new pro.</li>
 </ul>
 
 </body>
