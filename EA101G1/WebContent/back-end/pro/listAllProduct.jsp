@@ -47,7 +47,7 @@
     padding: 5px;
     text-align: center;
   }
-  tr img{
+  td>img{
   width:200px;
   }
 </style>
@@ -92,7 +92,7 @@
 		
 		<tr>
 			<td>${proVO.p_id}</td>
-			<td>${proVO.pt_id}</td>
+			<td>${ ptSvc.getOneProductType(proVO.pt_id).typename }</td>
 			<td>${proVO.p_name}</td>
 			<td>${proVO.p_price}</td>
 			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/pro/proPic.do">

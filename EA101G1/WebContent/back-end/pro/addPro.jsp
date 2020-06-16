@@ -31,7 +31,6 @@ h4 {
 
 <style>
 table {
-	width: 450px;
 	background-color: white;
 	margin-top: 1px;
 	margin-bottom: 1px;
@@ -44,10 +43,13 @@ table, th, td {
 th, td {
 	padding: 1px;
 }
-div #preview{
-  	width: 100px;
-  	display:block;
-  }
+div #preview {
+	width: 500px;
+}
+
+ #preview img {
+	width: 200px;
+}
 </style>
 
 </head>
@@ -158,7 +160,7 @@ div #preview{
 							var img = document.createElement('img');
 
 							img.src = result;
-
+							preview.innerHTML = "";
 							preview.append(img);
 						});
 

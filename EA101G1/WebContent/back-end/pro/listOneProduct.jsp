@@ -1,10 +1,15 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ page import="com.product.model.*" %>
+<%@ page import="com.productType.model.*" %>
 
 <%
 	ProVO proVO = (ProVO) request.getAttribute("proVO");
 %>
 
+<%
+  PtService ptSvc = new PtService();
+  PtVO ptVO = ptSvc.getOneProductType(proVO.getPt_id());
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,11 +31,14 @@
     color: blue;
     display: inline;
   }
+  table td{
+  word-wrap:break-word;
+  }
 </style>
 
 <style>
   table {
-	width: 600px;
+  width:800px;
 	background-color: white;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -43,7 +51,7 @@
     text-align: center;
   }
   
-   tr img{
+   td>img{
   width:200px;
   }
 </style>
@@ -74,7 +82,7 @@
 	</tr>
 	<tr>
 		<td><%=proVO.getP_id()%></td>
-		<td><%=proVO.getPt_id()%></td>
+		<td><%=ptVO.getTypename()%></td>
 		<td><%=proVO.getP_name()%></td>
 		<td><%=proVO.getP_price()%></td>
 		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/pro/proPic.do">
