@@ -6,6 +6,10 @@ public class FavpVO implements Serializable{
 	private String p_id;
 	private String mem_id;
 	
+	public FavpVO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public String getP_id() {
 		return p_id;
 	}

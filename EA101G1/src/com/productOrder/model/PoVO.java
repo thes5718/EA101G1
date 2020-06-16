@@ -10,6 +10,10 @@ public class PoVO {
 	private Date add_date;
 	private String return_form;
 	
+	public PoVO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public String getPo_id() {
 		return po_id;
 	}

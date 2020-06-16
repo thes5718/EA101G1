@@ -5,7 +5,6 @@
 <%
   ProVO proVO = (ProVO) request.getAttribute("proVO"); //ProServlet.java (Concroller) 存入req的proVO物件 (包括幫忙取出的proVO, 也包括輸入資料錯誤時的proVO物件)
 %>
-<%= proVO==null %>--${proVO.pt_id}--跟第100行有關
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
@@ -41,6 +40,9 @@
   th, td {
     padding: 1px;
   }
+  div #preview{
+  	width: 200;
+  }
 </style>
 
 </head>
@@ -65,10 +67,10 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="pro.do" name="form1">
+<FORM METHOD="post" ACTION="pro.do" name="form1" enctype="multipart/form-data">
 <table>
 	<tr>
-		<td>商品編號:<font color=red><b>*</b></font></td>
+		<td>商品編號:</td>
 		<td><%=proVO.getP_id()%></td>
 	</tr>
 	
@@ -91,7 +93,14 @@
 	</tr>
 	<tr>
 		<td>商品圖片:</td>
-		<td><input type="file" name="p_image" accept="image/gif, image/jpeg, image/png"	value="<%=proVO.getP_image()%>" /></td>
+				<td><input type="file" name="p_image" id="myFile" 
+				accept="image/gif, image/jpeg, image/png" value="<%=proVO.getP_image()%>" /><br>
+					<div class="row">
+						<div id="preview"> <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/pro/proPic.do">
+			<img src="<%=request.getContextPath()%>/back-end/pro/proPic.do?p_id=${proVO.p_id}">
+			</FORM>
+			</div>
+					</div></td>
 	</tr>
 	<tr>
 		<td>商品描述:</td>
@@ -119,5 +128,45 @@
 <input type="hidden" name="p_sales" value="<%=proVO.getP_sales()%>">
 <input type="hidden" name="p_add_date" value="<%=proVO.getP_add_date()%>">
 <input type="submit" value="送出修改"></FORM>
+
+<script>
+		function init() {
+
+			var myFile = document.getElementById("myFile");
+			var preview = document.getElementById('preview');
+
+			myFile.addEventListener('change', function(e) {
+
+				var files = myFile.files;
+
+				if (files !== null && files.length > 0) {
+
+					var file = files[0];
+
+					console.log(file.type);
+					if (file.type.indexOf('image') > -1) {
+
+						var reader = new FileReader();
+
+						reader.addEventListener('load', function(e) {
+
+							var result = e.target.result;
+
+							var img = document.createElement('img');
+
+							img.src = result;
+
+							preview.append(img);
+						});
+
+						reader.readAsDataURL(file); // ***** 
+
+					}
+				}
+			});
+		}
+
+		window.onload = init;
+	</script>
 </body>
 </html>

@@ -4,10 +4,12 @@ import java.io.*;
 import java.util.*;
 
 import javax.servlet.*;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 
 import com.product.model.*;
 
+@MultipartConfig
 public class ProServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -78,7 +80,6 @@ public class ProServlet extends HttpServlet {
 			}
 
 		}
-		
 
 		if ("getOne_For_Update".equals(action)) { // 來自listAllPro.jsp的請求
 
@@ -89,8 +90,8 @@ public class ProServlet extends HttpServlet {
 
 			try {
 				/*************************** 1.接收請求參數 ****************************************/
-				String p_id = new String(req.getParameter("p_id"));//p001
-				
+				String p_id = new String(req.getParameter("p_id"));// p001
+
 				/*************************** 2.開始查詢資料 ****************************************/
 				ProService proSvc = new ProService();
 				ProVO proVO = proSvc.getOnePro(p_id);
@@ -122,43 +123,59 @@ public class ProServlet extends HttpServlet {
 
 				String p_name = req.getParameter("p_name");
 				if (p_name == null || p_name.trim().length() == 0) {
-					errorMsgs.add("商品名稱: 請勿空白");
+					errorMsgs.add("商品名稱請勿空白");
 				}
 
 				Double p_price = null;
-				try {
-					p_price = new Double(req.getParameter("p_price").trim());
-				} catch (NumberFormatException e) {
-					p_price = 0.0;
-					errorMsgs.add("獎金請填數字.");
+				String p_pricestr = req.getParameter("p_price");
+				if (p_pricestr == null || (p_pricestr.trim()).length() == 0) {
+					errorMsgs.add("商品價格請勿空白");
+				} else {
+					try {
+						p_price = new Double(req.getParameter("p_price").trim());
+					} catch (NumberFormatException e) {
+						errorMsgs.add("商品價格請填數字.");
+					}
 				}
 
 				String p_info = req.getParameter("p_info").trim();
 				if (p_info == null || p_info.trim().length() == 0) {
-					errorMsgs.add("描述請勿空白");
+					errorMsgs.add("商品描述請勿空白");
 				}
 
 				Integer p_stock = null;
-				try {
-					p_stock = new Integer(req.getParameter("p_stock").trim());
-				} catch (NumberFormatException e) {
-					p_stock = 0;
-					errorMsgs.add("庫存請填數字.");
+				String p_stockstr = req.getParameter("p_stock");
+				if (p_stockstr == null || p_stockstr.trim().length() == 0) {
+					errorMsgs.add("商品庫存請勿空白");
+				} else {
+					try {
+						p_stock = new Integer(req.getParameter("p_stock").trim());
+					} catch (NumberFormatException e) {
+						p_stock = 0;
+						errorMsgs.add("商品庫存請填數字.");
+					}
 				}
 
-				Integer p_stat = null;
-				try {
-					 p_stat = new Integer(req.getParameter("p_stat").trim());
-				} catch (NumberFormatException e) {
-					p_stat = 0;
-					errorMsgs.add("狀態請填數字.");
+				Integer p_stat = new Integer(req.getParameter("p_stat").trim());
+
+				byte[] p_image = null;
+				Part part = req.getPart("p_image");
+				InputStream in = part.getInputStream();
+
+				if (in.available() > 0) {
+					p_image = new byte[in.available()];
+					in.read(p_image);
+					in.close();
+				} else {
+					ProService ProSvc = new ProService();
+					ProVO proVO = ProSvc.getOnePro(p_id);
+					p_image = proVO.getP_image();
 				}
-				
-				byte[] p_image = req.getParameter("p_image").trim().getBytes();
+
 				String pt_id = req.getParameter("pt_id").trim();
 				Integer p_sales = new Integer(req.getParameter("p_sales"));
-				
-				java.sql.Date p_add_date = java.sql.Date.valueOf(req.getParameter("p_add_date").trim());;
+
+				java.sql.Date p_add_date = java.sql.Date.valueOf(req.getParameter("p_add_date").trim());
 
 				ProVO proVO = new ProVO();
 				proVO.setP_id(p_id);
@@ -169,6 +186,7 @@ public class ProServlet extends HttpServlet {
 				proVO.setP_info(p_info);
 				proVO.setP_stock(p_stock);
 				proVO.setP_stat(p_stat);
+				proVO.setP_add_date(p_add_date);
 				proVO.setP_sales(p_sales);
 
 				// Send the use back to the form, if there were errors
@@ -181,7 +199,8 @@ public class ProServlet extends HttpServlet {
 
 				/*************************** 2.開始修改資料 *****************************************/
 				ProService proSvc = new ProService();
-				proVO = proSvc.updatePro(p_id, pt_id, p_name, p_price, p_image, p_info, p_sales,p_stock, p_add_date, p_stat);
+				proVO = proSvc.updatePro(p_id, pt_id, p_name, p_price, p_image, p_info, p_sales, p_stock, p_add_date,
+						p_stat);
 
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("proVO", proVO); // 資料庫update成功後,正確的的proVO物件,存入req
@@ -210,56 +229,55 @@ public class ProServlet extends HttpServlet {
 				String pt_id = req.getParameter("pt_id").trim();
 				String p_name = req.getParameter("p_name");
 				if (p_name == null || p_name.trim().length() == 0) {
-					errorMsgs.add("商品名稱: 請勿空白");
+					errorMsgs.add("商品名稱請勿空白");
 				}
 
 				Double p_price = null;
-				try {
-					p_price = new Double(req.getParameter("p_price").trim());
-				} catch (NumberFormatException e) {
-					p_price = 0.0;
-					errorMsgs.add("獎金請填數字.");
+				String p_pricestr = req.getParameter("p_price");
+				if (p_pricestr == null || (p_pricestr.trim()).length() == 0) {
+					errorMsgs.add("商品價格請勿空白");
+				} else {
+					try {
+						p_price = new Double(req.getParameter("p_price").trim());
+					} catch (NumberFormatException e) {
+						p_price = 0.0;
+						errorMsgs.add("商品價格請填數字.");
+					}
 				}
 
 				String p_info = req.getParameter("p_info").trim();
 				if (p_info == null || p_info.trim().length() == 0) {
-					errorMsgs.add("描述請勿空白");
+					errorMsgs.add("商品描述請勿空白");
 				}
 
 				Integer p_stock = null;
-				try {
-					p_stock = new Integer(req.getParameter("p_stock").trim());
-				} catch (NumberFormatException e) {
-					p_stock = 0;
-					errorMsgs.add("庫存請填數字.");
+				String p_stockstr = req.getParameter("p_stock");
+				if (p_stockstr == null || p_stockstr.trim().length() == 0) {
+					errorMsgs.add("商品庫存請勿空白");
+				} else {
+					try {
+						p_stock = new Integer(req.getParameter("p_stock").trim());
+					} catch (NumberFormatException e) {
+						p_stock = 0;
+						errorMsgs.add("商品庫存請填數字.");
+					}
 				}
 
-				Integer p_stat = null;
-				try {
-					 p_stat = new Integer(req.getParameter("p_stat").trim());
-				} catch (NumberFormatException e) {
-					p_stat = 0;
-					errorMsgs.add("狀態請填數字.");
+				Integer p_stat = new Integer(req.getParameter("p_stat").trim());
+
+				byte[] p_image = null;
+				Part part = req.getPart("p_image");
+				InputStream in = part.getInputStream();
+
+				if (in.available() > 0) {
+					p_image = new byte[in.available()];
+					in.read(p_image);
+					in.close();
+				} else {
+					p_image = null;
+					errorMsgs.add("請選擇圖片");
 				}
-				
-				byte[] p_image = req.getParameter("p_image").trim().getBytes();
-				
-//				byte[] p_image = null;
-//				Part part = req.getPart("p_image");
-//				InputStream in = part.getInputStream();
-//				System.out.println(in.available());
-//				
-//				if(in.available()>0) {
-//					p_image = new byte[in.available()];
-//					in.read(p_image);
-//					in.close();
-//				}else {
-//					ProService svc = new ProService();
-//					ProVO proVO = svc.getOnePro(p_id);
-//					p_image = proVO.getP_image();
-//				}
-				
-				
+
 				ProVO proVO = new ProVO();
 				proVO.setPt_id(pt_id);
 				proVO.setP_name(p_name);

@@ -13,6 +13,10 @@ public class ProVO implements java.io.Serializable{
 	private Date p_add_date;
 	private Integer p_stat;
 	
+	public ProVO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public String getP_id() {
 		return p_id;
 	}

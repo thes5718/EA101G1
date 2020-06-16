@@ -32,4 +32,15 @@
 		<url-pattern>/back-end/pro/pro.do</url-pattern>
 		<url-pattern>/front/pro/pro.do</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ProPic</servlet-name>
+		<servlet-class>com.product.controller.ProPic</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>ProPic</servlet-name>
+		<url-pattern>/back-end/pro/proPic.do</url-pattern>
+		<url-pattern>/front/pro/proPic.do</url-pattern>
+	</servlet-mapping>
 </web-app>

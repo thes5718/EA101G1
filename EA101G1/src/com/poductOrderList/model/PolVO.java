@@ -9,6 +9,10 @@ public class PolVO implements Serializable{
 	private Integer order_qua;
 	private Double p_price;
 	
+	public PolVO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public String getPo_id() {
 		return po_id;
 	}
