@@ -10,7 +10,7 @@
     List<ProVO> list = proSvc.getAll();
     pageContext.setAttribute("list",list);
 %>
-
+<jsp:useBean id="ptSvc" scope="page" class="com.productType.model.PtService" />
 
 <html>
 <head>
@@ -76,7 +76,7 @@
 <table>
 	<tr>
 		<th>商品編號</th>
-		<th>分類編號</th>
+		<th>分類</th>
 		<th>商品名稱</th>
 		<th>商品價格</th>
 		<th>商品圖片</th>
