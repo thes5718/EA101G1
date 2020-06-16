@@ -79,13 +79,11 @@
 	</tr>
 	<tr>
 		<td>商品圖片:</td>
-		<td><input type="TEXT" name="p_image" size="45"
-			 value="<%= (proVO==null)? "10000" : proVO.getP_image()%>" /></td>
+		<td><input type="file" name="p_image" accept="image/gif, image/jpeg, image/png" /></td>
 	</tr>
 	<tr>
 		<td>商品描述:</td>
-		<td><input type="TEXT" name="p_info" size="45"
-			 placeholder="請輸入商品描述" /></td>
+		<td><textarea name="p_info" rows="6" cols="40"></textarea></td>
 	</tr>
 	<tr>
 		<td>庫存量:</td>
@@ -114,6 +112,3 @@
 <br>
 <input type="hidden" name="action" value="insert">
 <input type="submit" value="送出新增"></FORM>
-</body>
-
-</html>

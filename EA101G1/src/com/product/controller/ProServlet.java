@@ -206,6 +206,8 @@ public class ProServlet extends HttpServlet {
 
 			try {
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
+				String p_id = req.getParameter("p_id");
+				String pt_id = req.getParameter("pt_id").trim();
 				String p_name = req.getParameter("p_name");
 				if (p_name == null || p_name.trim().length() == 0) {
 					errorMsgs.add("商品名稱: 請勿空白");
@@ -241,8 +243,23 @@ public class ProServlet extends HttpServlet {
 				}
 				
 				byte[] p_image = req.getParameter("p_image").trim().getBytes();
-				String pt_id = req.getParameter("pt_id").trim();
-
+				
+//				byte[] p_image = null;
+//				Part part = req.getPart("p_image");
+//				InputStream in = part.getInputStream();
+//				System.out.println(in.available());
+//				
+//				if(in.available()>0) {
+//					p_image = new byte[in.available()];
+//					in.read(p_image);
+//					in.close();
+//				}else {
+//					ProService svc = new ProService();
+//					ProVO proVO = svc.getOnePro(p_id);
+//					p_image = proVO.getP_image();
+//				}
+				
+				
 				ProVO proVO = new ProVO();
 				proVO.setPt_id(pt_id);
 				proVO.setP_name(p_name);

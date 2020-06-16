@@ -91,7 +91,7 @@
 	</tr>
 	<tr>
 		<td>商品圖片:</td>
-		<td><input type="TEXT" name="p_image" size="45"	value="<%=proVO.getP_image()%>" /></td>
+		<td><input type="file" name="p_image" accept="image/gif, image/jpeg, image/png"	value="<%=proVO.getP_image()%>" /></td>
 	</tr>
 	<tr>
 		<td>商品描述:</td>

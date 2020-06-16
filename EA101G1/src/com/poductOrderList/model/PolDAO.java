@@ -216,21 +216,7 @@ public class PolDAO implements com.poductOrderList.model.PolDAO_interface{
 		return list;
 	}
 	
-	public static void main(String[] args) {
-
-		PolDAO dao = new PolDAO();
-
-		
-			// 新增
-			
-			PolVO polVO = new PolVO();
-			polVO.setPo_id("2020-06-11-000001");
-			polVO.setP_id("P002");
-			polVO.setOrder_qua(0);
-			polVO.setP_price(new Double(200));
-			dao.insert(polVO);
-			System.out.println("新增成功");
-	}
+	
 }
 
 

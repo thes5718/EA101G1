@@ -1,6 +1,10 @@
 package com.product.model;
 
 import java.util.*;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.*;
 
 
@@ -28,7 +32,6 @@ public class ProDAO implements ProDAO_interface {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
-
 			pstmt.setString(1, proVO.getPt_id());
 			pstmt.setString(2, proVO.getP_name());
 			pstmt.setDouble(3, proVO.getP_price());
@@ -281,4 +284,5 @@ public class ProDAO implements ProDAO_interface {
 		}
 		return list;
 	}
+	
 }
