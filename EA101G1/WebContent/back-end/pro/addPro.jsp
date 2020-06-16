@@ -56,7 +56,7 @@ div #preview{
 	<table id="table-1">
 		<tr>
 			<td>
-				<h3>商品資新增</h3>
+				<h3>商品資料新增</h3>
 			</td>
 			<td>
 				<h4>
