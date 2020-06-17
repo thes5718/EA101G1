@@ -129,11 +129,13 @@ public class ProServlet extends HttpServlet {
 				Double p_price = null;
 				String p_pricestr = req.getParameter("p_price");
 				if (p_pricestr == null || (p_pricestr.trim()).length() == 0) {
+					p_price = 0.0;
 					errorMsgs.add("商品價格請勿空白");
 				} else {
 					try {
 						p_price = new Double(req.getParameter("p_price").trim());
 					} catch (NumberFormatException e) {
+						p_price = 0.0;
 						errorMsgs.add("商品價格請填數字.");
 					}
 				}
@@ -146,6 +148,7 @@ public class ProServlet extends HttpServlet {
 				Integer p_stock = null;
 				String p_stockstr = req.getParameter("p_stock");
 				if (p_stockstr == null || p_stockstr.trim().length() == 0) {
+					p_stock = 0;
 					errorMsgs.add("商品庫存請勿空白");
 				} else {
 					try {
@@ -170,6 +173,7 @@ public class ProServlet extends HttpServlet {
 					ProService ProSvc = new ProService();
 					ProVO proVO = ProSvc.getOnePro(p_id);
 					p_image = proVO.getP_image();
+					in.close();
 				}
 
 				String pt_id = req.getParameter("pt_id").trim();
@@ -227,6 +231,7 @@ public class ProServlet extends HttpServlet {
 				/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 				String p_id = req.getParameter("p_id");
 				String pt_id = req.getParameter("pt_id").trim();
+				
 				String p_name = req.getParameter("p_name");
 				if (p_name == null || p_name.trim().length() == 0) {
 					errorMsgs.add("商品名稱請勿空白");
@@ -240,7 +245,6 @@ public class ProServlet extends HttpServlet {
 					try {
 						p_price = new Double(req.getParameter("p_price").trim());
 					} catch (NumberFormatException e) {
-						p_price = 0.0;
 						errorMsgs.add("商品價格請填數字.");
 					}
 				}
@@ -253,6 +257,7 @@ public class ProServlet extends HttpServlet {
 				Integer p_stock = null;
 				String p_stockstr = req.getParameter("p_stock");
 				if (p_stockstr == null || p_stockstr.trim().length() == 0) {
+					p_stock = 0;
 					errorMsgs.add("商品庫存請勿空白");
 				} else {
 					try {
@@ -266,15 +271,14 @@ public class ProServlet extends HttpServlet {
 				Integer p_stat = new Integer(req.getParameter("p_stat").trim());
 
 				byte[] p_image = null;
-				Part part = req.getPart("p_image");
-				InputStream in = part.getInputStream();
+				Part part = req.getPart("p_image");//資料
+				InputStream in = part.getInputStream();//資料
 
-				if (in.available() > 0) {
-					p_image = new byte[in.available()];
-					in.read(p_image);
+				if (in.available() > 0) { //如果有資料
+					p_image = new byte[in.available()];//開根資料一樣長度的byte陣列
+					in.read(p_image);//把資料存進去
 					in.close();
 				} else {
-					p_image = null;
 					errorMsgs.add("請選擇圖片");
 				}
 

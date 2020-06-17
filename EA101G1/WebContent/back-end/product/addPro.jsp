@@ -85,29 +85,30 @@ div #preview {
 		<table>
 			<tr>
 				<td>商品名稱:</td>
-				<td><input type="TEXT" name="p_name" size="45"
+				<td><input type="TEXT" name="p_name" size="45" <c:if test="${not empty proVO.getP_name()}">value="<%=proVO.getP_name()%>"</c:if>
 					placeholder="請輸入商品名稱" /></td>
 			</tr>
 			<tr>
 				<td>商品價格:</td>
-				<td><input type="TEXT" name="p_price" size="45"
+				<td><input type="TEXT" name="p_price" size="45" <c:if test="${not empty proVO.getP_price()}">value="<%=proVO.getP_price()%>"</c:if>
 					placeholder="請輸入商品價格" /></td>
 			</tr>
 			<tr>
 				<td>商品圖片:</td>
-				<td><input type="file" name="p_image" id="myFile" 
-				accept="image/gif, image/jpeg, image/png" /><br>
+				<td><input type="file" name="p_image" id="myFile" <c:if test="${not empty proVO.getP_image()}">value="<%=proVO.getP_image()%>"</c:if>
+				accept="image/gif, image/jpeg, image/png"/><br>
 					<div class="row">
 						<div id="preview"></div>
 					</div></td>
 			</tr>
 			<tr>
 				<td>商品描述:</td>
-				<td><textarea name="p_info" rows="6" cols="40"></textarea></td>
+				<td><textarea name="p_info" rows="6" cols="40">
+				<c:if test="${not empty proVO.getP_info()}"><%=proVO.getP_info()%></c:if></textarea></td>
 			</tr>
 			<tr>
 				<td>庫存量:</td>
-				<td><input type="TEXT" name="p_stock" size="45"
+				<td><input type="TEXT" name="p_stock" size="45" <c:if test="${not empty proVO.getP_stock()}">value="<%=proVO.getP_stock()%>"</c:if>
 					placeholder="請輸入商品庫存量" /></td>
 			</tr>
 			<tr>
