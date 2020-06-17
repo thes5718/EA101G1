@@ -29,8 +29,8 @@
 	
 	<servlet-mapping>
 		<servlet-name>ProServlet</servlet-name>
-		<url-pattern>/back-end/pro/pro.do</url-pattern>
-		<url-pattern>/front/pro/pro.do</url-pattern>
+		<url-pattern>/back-end/product/pro.do</url-pattern>
+		<url-pattern>/front/product/pro.do</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
@@ -40,7 +40,7 @@
 	
 	<servlet-mapping>
 		<servlet-name>ProPic</servlet-name>
-		<url-pattern>/back-end/pro/proPic.do</url-pattern>
-		<url-pattern>/front/pro/proPic.do</url-pattern>
+		<url-pattern>/back-end/product/proPic.do</url-pattern>
+		<url-pattern>/front/product/proPic.do</url-pattern>
 	</servlet-mapping>
 </web-app>

@@ -95,8 +95,8 @@
 			<td>${ ptSvc.getOneProductType(proVO.pt_id).typename }</td>
 			<td>${proVO.p_name}</td>
 			<td>${proVO.p_price}</td>
-			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/pro/proPic.do">
-			<td><img src="<%=request.getContextPath()%>/back-end/pro/proPic.do?p_id=${proVO.p_id}"></td>
+			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/product/proPic.do">
+			<td><img src="<%=request.getContextPath()%>/back-end/product/proPic.do?p_id=${proVO.p_id}"></td>
 			</FORM>
 			<td>${proVO.p_info}</td>
 			<td>${proVO.p_sales}</td>
@@ -105,7 +105,7 @@
 			<td>${(proVO.p_stat==0)? "下架中":"上架中"}</td>
 			
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/pro/pro.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/product/pro.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改">
 			     <input type="hidden" name="p_id"  value="${proVO.p_id}">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>

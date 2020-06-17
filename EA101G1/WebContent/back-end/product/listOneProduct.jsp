@@ -85,8 +85,8 @@
 		<td><%=ptVO.getTypename()%></td>
 		<td><%=proVO.getP_name()%></td>
 		<td><%=proVO.getP_price()%></td>
-		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/pro/proPic.do">
-			<td><img src="<%=request.getContextPath()%>/back-end/pro/proPic.do?p_id=${proVO.p_id}"></td>
+		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/product/proPic.do">
+			<td><img src="<%=request.getContextPath()%>/back-end/product/proPic.do?p_id=${proVO.p_id}"></td>
 			</FORM>
 		<td><%=proVO.getP_info()%></td>
 		<td><%=proVO.getP_sales()%></td>
