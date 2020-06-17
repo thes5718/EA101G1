@@ -25,51 +25,51 @@ public class test1 {
 //		
 		try {
 			byte[] pic = getPictureByteArray("WebContent/back-end/pro/images/product1.jpg");
-			// ·s¼W
+			// æ–°å¢
 			
 			ProVO proVO1 = new ProVO();
 			proVO1.setPt_id("PT001");
-			proVO1.setP_name("¸Ü»yÅQÅv");
+			proVO1.setP_name("è©±èªéœ¸æ¬Š");
 			proVO1.setP_price(new Double(20000));
 			proVO1.setP_image(pic);
-			proVO1.setP_info("¬[ºc­«²Õ");
+			proVO1.setP_info("æ¶æ§‹é‡çµ„");
 			proVO1.setP_stock(200);
 			proVO1.setP_stat(0);
 			dao.insert(proVO1);
-			System.out.println("·s¼W¦¨¥\");
+			System.out.println("æ–°å¢æˆåŠŸ");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 //		
 
-//		// ­×§ï
+//		// ä¿®æ”¹
 //		try {
 //			byte[] pic = getPictureByteArray("items/tomcat.png");
 //			
 //			ProVO proVO1 = new ProVO();
 //			proVO1.setPt_id("PT001");
-//			proVO1.setP_name("´cÅ]¿ß¨k");
+//			proVO1.setP_name("æƒ¡é­”è²“ç”·");
 //			proVO1.setP_price(new Double(87));
 //			proVO1.setP_image(pic);
-//			proVO1.setP_info("§A¤µ±ßªº´c¹Ú");
+//			proVO1.setP_info("ä½ ä»Šæ™šçš„æƒ¡å¤¢");
 //			proVO1.setP_sales(69);
 //			proVO1.setP_stock(81000);
 //			proVO1.setP_stat(0);
 //			proVO1.setP_id("P018");
 //			dao.update(proVO1);
-//			System.out.println("§ó·s¦¨¥\");
+//			System.out.println("æ›´æ–°æˆåŠŸ");
 //		} catch (IOException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
 		
 //
-//		// §R°£
+//		// åˆªé™¤
 //		dao.delete("P001");
-//		System.out.println("§R°£¦¨¥\");
+//		System.out.println("åˆªé™¤æˆåŠŸ");
 //
-//		// ¬d¸ß
+//		// æŸ¥è©¢
 //		ProVO proVO1 = dao.findByPrimaryKey("P001");
 //		System.out.print(proVO1.getP_id() + ",");
 //		System.out.print(proVO1.getP_name() + ",");
@@ -81,7 +81,7 @@ public class test1 {
 //		System.out.println(proVO1.getP_stat());
 //		System.out.println("---------------------");
 //
-//		// ¬d¸ß
+//		// æŸ¥è©¢
 //		List<ProVO> list = dao.getAll();
 //		for (ProVO pro : list) {
 //			System.out.print(pro.getP_id() + ",");
@@ -99,10 +99,10 @@ public class test1 {
 //		ProService svc = new ProService();
 //		byte[] bye = null;
 ////		svc.deletePro("P001");
-////		System.out.println("§R°£¦¨¥\");
+////		System.out.println("åˆªé™¤æˆåŠŸ");
 ////		svc.updateProStat("P009",10);
-//		svc.updatePro("P001", "PT001", "´ú¸Õ", 100.0, bye,"fdasfdsfds", 10, 20, 1);
-//		System.out.println("§ó·s¦¨¥\");
+//		svc.updatePro("P001", "PT001", "æ¸¬è©¦", 100.0, bye,"fdasfdsfds", 10, 20, 1);
+//		System.out.println("æ›´æ–°æˆåŠŸ");
 		
 		
 	}
@@ -113,11 +113,11 @@ public class test1 {
 		return fis;
 	}
 
-	// ¨Ï¥Îbyte[]¤è¦¡
+	// ä½¿ç”¨byte[]æ–¹å¼
 	public static byte[] getPictureByteArray(String path) throws IOException {
 		File file = new File(path);
 		FileInputStream fis = new FileInputStream(file);
-		ByteArrayOutputStream baos = new ByteArrayOutputStream(); // ¿é¥X¨ì¨t²Î¹w³]ªºbyte°}¦C
+		ByteArrayOutputStream baos = new ByteArrayOutputStream(); // è¼¸å‡ºåˆ°ç³»çµ±é è¨­çš„byteé™£åˆ—
 		byte[] buffer = new byte[8192];
 		int i;
 		while ((i = fis.read(buffer)) != -1) {
@@ -126,6 +126,6 @@ public class test1 {
 		baos.close();
 		fis.close();
 
-		return baos.toByteArray(); // ¦^¶Ç¹Ï¤ù¦ì¤¸¸ê®Æ
+		return baos.toByteArray(); // å›å‚³åœ–ç‰‡ä½å…ƒè³‡æ–™
 	}
 }

@@ -87,7 +87,7 @@
 		<th>°Ó«~ª¬ºA</th>
 		<th>­×§ï</th>
 	</tr>
-	<%@ include file="page1.file" %> 
+	<%@ include file="page/page1.file" %> 
 	<c:forEach var="proVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		
 		<tr>
@@ -113,7 +113,7 @@
 		</tr>
 	</c:forEach>
 </table>
-<%@ include file="page2.file" %>
+<%@ include file="page/page2.file" %>
 
 </body>
 </html>
