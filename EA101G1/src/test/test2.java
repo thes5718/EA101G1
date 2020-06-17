@@ -29,12 +29,12 @@ public class test2 {
 ////			
 //			PtVO ptVO1 = new PtVO();
 //			ptVO1.setPt_id("test");
-//			ptVO1.setTypename("´ú¸Õ");
+//			ptVO1.setTypename("æ¸¬è©¦");
 //			dao.insert(ptVO1);
-//			System.out.println("·s¼W¦¨¥\");
+//			System.out.println("æ–°å¢æˆåŠŸ");
 		
 
-//		// ­×§ï
+//		// ä¿®æ”¹
 //
 //			
 //			PtVO ptVO1 = new PtVO();
@@ -42,19 +42,19 @@ public class test2 {
 //			ptVO1.setTypename("weeeeeeeeeeeeeeeeeeeed");
 //			
 //			dao.update(ptVO1);
-//			System.out.println("§ó·s¦¨¥\");
+//			System.out.println("æ›´æ–°æˆåŠŸ");
 //		
 //
-//		// §R°£
+//		// åˆªé™¤
 //		dao.delete("test");
 //
-//		// ¬d¸ß
+//		// æŸ¥è©¢
 //		PtVO ptVO1 = dao.findByPrimaryKey("test");
 //		System.out.print(ptVO1.getPt_id() + ",");
 //		System.out.print(ptVO1.getTypename() + ",");
 //		System.out.println("---------------------");
 //
-//		// ¬d¸ß
+//		// æŸ¥è©¢
 //		List<PtVO> list = dao.getAll();
 //		for (PtVO pro : list) {
 //			System.out.print(pro.getPt_id() + ",");
@@ -62,7 +62,7 @@ public class test2 {
 //			System.out.println("---------------------");
 //			System.out.println();
 //		}
-		//¬d¸ß
+		//æŸ¥è©¢
 		Set<ProVO> set = dao.getProductByPtid("PT001");
 		for (ProVO pro : set) {
 			System.out.print(pro.getP_id() + ",");
@@ -85,11 +85,11 @@ public class test2 {
 		return fis;
 	}
 
-	// ¨Ï¥Îbyte[]¤è¦¡
+	// ä½¿ç”¨byte[]æ–¹å¼
 	public static byte[] getPictureByteArray(String path) throws IOException {
 		File file = new File(path);
 		FileInputStream fis = new FileInputStream(file);
-		ByteArrayOutputStream baos = new ByteArrayOutputStream(); // ¿é¥X¨ì¨t²Î¹w³]ªºbyte°}¦C
+		ByteArrayOutputStream baos = new ByteArrayOutputStream(); // è¼¸å‡ºåˆ°ç³»çµ±é è¨­çš„byteé™£åˆ—
 		byte[] buffer = new byte[8192];
 		int i;
 		while ((i = fis.read(buffer)) != -1) {
@@ -98,6 +98,6 @@ public class test2 {
 		baos.close();
 		fis.close();
 
-		return baos.toByteArray(); // ¦^¶Ç¹Ï¤ù¦ì¤¸¸ê®Æ
+		return baos.toByteArray(); // å›å‚³åœ–ç‰‡ä½å…ƒè³‡æ–™
 	}
 }

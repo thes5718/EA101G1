@@ -25,31 +25,31 @@ public class test3 {
 		PoDAO dao = new PoDAO();
 //		
 		
-			// ·s¼W
+			// æ–°å¢
 			
 //			PoVO poVO1 = new PoVO();
 //			poVO1.setMem_no("M000001");
 //			poVO1.setOrdstat_id("001");
 //			dao.insert(poVO1);
-//			System.out.println("·s¼W¦¨¥\");
+//			System.out.println("æ–°å¢æˆåŠŸ");
 //		
 		
 
-//		// ­×§ï
+//		// ä¿®æ”¹
 //		
 ////			
 //			PoVO poVO1 = new PoVO();
-//			poVO1.setReturn_form("Äê¨ì¥X¤ô");
+//			poVO1.setReturn_form("çˆ›åˆ°å‡ºæ°´");
 //			poVO1.setOrdstat_id("011");
 //			poVO1.setPo_id("2020-06-11-000025");
 //			dao.update(poVO1);
-//			System.out.println("§ó·s¦¨¥\");
+//			System.out.println("æ›´æ–°æˆåŠŸ");
 		
 //
-//		// §R°£
+//		// åˆªé™¤
 //		dao.delete("2020-06-11-000026");
 //
-//		// ¬d¸ß
+//		// æŸ¥è©¢
 //		PoVO poVO1 = dao.findByPrimaryKey("2020-06-11-000027");
 //		System.out.print(poVO1.getPo_id() + ",");
 //		System.out.print(poVO1.getMem_id() + ",");
@@ -58,7 +58,7 @@ public class test3 {
 //		System.out.print(poVO1.getReturn_form() + ",");
 //		System.out.println("---------------------");
 
-//		// ¬d¸ß
+//		// æŸ¥è©¢
 		List<PoVO> list = dao.getAll();
 		for (PoVO po : list) {
 			System.out.print(po.getPo_id() + ",");
@@ -77,11 +77,11 @@ public class test3 {
 		return fis;
 	}
 
-	// ¨Ï¥Îbyte[]¤è¦¡
+	// ä½¿ç”¨byte[]æ–¹å¼
 	public static byte[] getPictureByteArray(String path) throws IOException {
 		File file = new File(path);
 		FileInputStream fis = new FileInputStream(file);
-		ByteArrayOutputStream baos = new ByteArrayOutputStream(); // ¿é¥X¨ì¨t²Î¹w³]ªºbyte°}¦C
+		ByteArrayOutputStream baos = new ByteArrayOutputStream(); // è¼¸å‡ºåˆ°ç³»çµ±é è¨­çš„byteé™£åˆ—
 		byte[] buffer = new byte[8192];
 		int i;
 		while ((i = fis.read(buffer)) != -1) {
@@ -90,6 +90,6 @@ public class test3 {
 		baos.close();
 		fis.close();
 
-		return baos.toByteArray(); // ¦^¶Ç¹Ï¤ù¦ì¤¸¸ê®Æ
+		return baos.toByteArray(); // å›å‚³åœ–ç‰‡ä½å…ƒè³‡æ–™
 	}
 }

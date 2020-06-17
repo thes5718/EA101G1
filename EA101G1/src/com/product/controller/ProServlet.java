@@ -28,60 +28,60 @@ public class ProServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
-				/*************************** 1.±µ¦¬½Ğ¨D°Ñ¼Æ - ¿é¤J®æ¦¡ªº¿ù»~³B²z **********************/
+				/*************************** 1.æ¥æ”¶è«‹æ±‚åƒæ•¸ - è¼¸å…¥æ ¼å¼çš„éŒ¯èª¤è™•ç† **********************/
 				String str = req.getParameter("p_id");
 				if (str == null || (str.trim()).length() == 0) {
-					errorMsgs.add("½Ğ¿é¤J°Ó«~½s¸¹");
+					errorMsgs.add("è«‹è¼¸å…¥å•†å“ç·¨è™Ÿ");
 				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req.getRequestDispatcher("select_page.jsp");
 					failureView.forward(req, res);
-					return;// µ{¦¡¤¤Â_
+					return;// ç¨‹å¼ä¸­æ–·
 				}
 
 				String p_id = null;
 				try {
 					p_id = new String(str);
 				} catch (Exception e) {
-					errorMsgs.add("°Ó«~½s¸¹®æ¦¡¤£¥¿½T");
+					errorMsgs.add("å•†å“ç·¨è™Ÿæ ¼å¼ä¸æ­£ç¢º");
 				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req.getRequestDispatcher("select_page.jsp");
 					failureView.forward(req, res);
-					return;// µ{¦¡¤¤Â_
+					return;// ç¨‹å¼ä¸­æ–·
 				}
 
-				/*************************** 2.¶}©l¬d¸ß¸ê®Æ *****************************************/
+				/*************************** 2.é–‹å§‹æŸ¥è©¢è³‡æ–™ *****************************************/
 				ProService ProSvc = new ProService();
 				ProVO proVO = ProSvc.getOnePro(p_id);
 				if (proVO == null) {
-					errorMsgs.add("¬dµL¸ê®Æ");
+					errorMsgs.add("æŸ¥ç„¡è³‡æ–™");
 				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req.getRequestDispatcher("select_page.jsp");
 					failureView.forward(req, res);
-					return;// µ{¦¡¤¤Â_
+					return;// ç¨‹å¼ä¸­æ–·
 				}
 
-				/*************************** 3.¬d¸ß§¹¦¨,·Ç³ÆÂà¥æ(Send the Success view) *************/
-				req.setAttribute("proVO", proVO); // ¸ê®Æ®w¨ú¥XªºproVOª«¥ó,¦s¤Jreq
+				/*************************** 3.æŸ¥è©¢å®Œæˆ,æº–å‚™è½‰äº¤(Send the Success view) *************/
+				req.setAttribute("proVO", proVO); // è³‡æ–™åº«å–å‡ºçš„proVOç‰©ä»¶,å­˜å…¥req
 				String url = "listOneProduct.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // ¦¨¥\Âà¥æ listOnePro.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url); // æˆåŠŸè½‰äº¤ listOnePro.jsp
 				successView.forward(req, res);
 
-				/*************************** ¨ä¥L¥i¯àªº¿ù»~³B²z *************************************/
+				/*************************** å…¶ä»–å¯èƒ½çš„éŒ¯èª¤è™•ç† *************************************/
 			} catch (Exception e) {
-				errorMsgs.add("µLªk¨ú±o¸ê®Æ:" + e.getMessage());
+				errorMsgs.add("ç„¡æ³•å–å¾—è³‡æ–™:" + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("select_page.jsp");
 				failureView.forward(req, res);
 			}
 
 		}
 
-		if ("getOne_For_Update".equals(action)) { // ¨Ó¦ÛlistAllPro.jspªº½Ğ¨D
+		if ("getOne_For_Update".equals(action)) { // ä¾†è‡ªlistAllPro.jspçš„è«‹æ±‚
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -89,28 +89,28 @@ public class ProServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
-				/*************************** 1.±µ¦¬½Ğ¨D°Ñ¼Æ ****************************************/
+				/*************************** 1.æ¥æ”¶è«‹æ±‚åƒæ•¸ ****************************************/
 				String p_id = new String(req.getParameter("p_id"));// p001
 
-				/*************************** 2.¶}©l¬d¸ß¸ê®Æ ****************************************/
+				/*************************** 2.é–‹å§‹æŸ¥è©¢è³‡æ–™ ****************************************/
 				ProService proSvc = new ProService();
 				ProVO proVO = proSvc.getOnePro(p_id);
 
-				/*************************** 3.¬d¸ß§¹¦¨,·Ç³ÆÂà¥æ(Send the Success view) ************/
-				req.setAttribute("proVO", proVO); // ¸ê®Æ®w¨ú¥XªºproVOª«¥ó,¦s¤Jreq
+				/*************************** 3.æŸ¥è©¢å®Œæˆ,æº–å‚™è½‰äº¤(Send the Success view) ************/
+				req.setAttribute("proVO", proVO); // è³‡æ–™åº«å–å‡ºçš„proVOç‰©ä»¶,å­˜å…¥req
 				String url = "update_Pro_input.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);// ¦¨¥\Âà¥æ update_Pro_input.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url);// æˆåŠŸè½‰äº¤ update_Pro_input.jsp
 				successView.forward(req, res);
 
-				/*************************** ¨ä¥L¥i¯àªº¿ù»~³B²z **********************************/
+				/*************************** å…¶ä»–å¯èƒ½çš„éŒ¯èª¤è™•ç† **********************************/
 			} catch (Exception e) {
-				errorMsgs.add("µLªk¨ú±o­n­×§ïªº¸ê®Æ:" + e.getMessage());
+				errorMsgs.add("ç„¡æ³•å–å¾—è¦ä¿®æ”¹çš„è³‡æ–™:" + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("listAllProduct.jsp");
 				failureView.forward(req, res);
 			}
 		}
 
-		if ("update".equals(action)) { // ¨Ó¦Ûupdate_pro_input.jspªº½Ğ¨D
+		if ("update".equals(action)) { // ä¾†è‡ªupdate_pro_input.jspçš„è«‹æ±‚
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -118,41 +118,41 @@ public class ProServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
-				/*************************** 1.±µ¦¬½Ğ¨D°Ñ¼Æ - ¿é¤J®æ¦¡ªº¿ù»~³B²z **********************/
+				/*************************** 1.æ¥æ”¶è«‹æ±‚åƒæ•¸ - è¼¸å…¥æ ¼å¼çš„éŒ¯èª¤è™•ç† **********************/
 				String p_id = new String(req.getParameter("p_id").trim());
 
 				String p_name = req.getParameter("p_name");
 				if (p_name == null || p_name.trim().length() == 0) {
-					errorMsgs.add("°Ó«~¦WºÙ½Ğ¤ÅªÅ¥Õ");
+					errorMsgs.add("å•†å“åç¨±è«‹å‹¿ç©ºç™½");
 				}
 
 				Double p_price = null;
 				String p_pricestr = req.getParameter("p_price");
 				if (p_pricestr == null || (p_pricestr.trim()).length() == 0) {
-					errorMsgs.add("°Ó«~»ù®æ½Ğ¤ÅªÅ¥Õ");
+					errorMsgs.add("å•†å“åƒ¹æ ¼è«‹å‹¿ç©ºç™½");
 				} else {
 					try {
 						p_price = new Double(req.getParameter("p_price").trim());
 					} catch (NumberFormatException e) {
-						errorMsgs.add("°Ó«~»ù®æ½Ğ¶ñ¼Æ¦r.");
+						errorMsgs.add("å•†å“åƒ¹æ ¼è«‹å¡«æ•¸å­—.");
 					}
 				}
 
 				String p_info = req.getParameter("p_info").trim();
 				if (p_info == null || p_info.trim().length() == 0) {
-					errorMsgs.add("°Ó«~´y­z½Ğ¤ÅªÅ¥Õ");
+					errorMsgs.add("å•†å“æè¿°è«‹å‹¿ç©ºç™½");
 				}
 
 				Integer p_stock = null;
 				String p_stockstr = req.getParameter("p_stock");
 				if (p_stockstr == null || p_stockstr.trim().length() == 0) {
-					errorMsgs.add("°Ó«~®w¦s½Ğ¤ÅªÅ¥Õ");
+					errorMsgs.add("å•†å“åº«å­˜è«‹å‹¿ç©ºç™½");
 				} else {
 					try {
 						p_stock = new Integer(req.getParameter("p_stock").trim());
 					} catch (NumberFormatException e) {
 						p_stock = 0;
-						errorMsgs.add("°Ó«~®w¦s½Ğ¶ñ¼Æ¦r.");
+						errorMsgs.add("å•†å“åº«å­˜è«‹å¡«æ•¸å­—.");
 					}
 				}
 
@@ -191,32 +191,32 @@ public class ProServlet extends HttpServlet {
 
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("proVO", proVO); // §t¦³¿é¤J®æ¦¡¿ù»~ªºproVOª«¥ó,¤]¦s¤Jreq
+					req.setAttribute("proVO", proVO); // å«æœ‰è¼¸å…¥æ ¼å¼éŒ¯èª¤çš„proVOç‰©ä»¶,ä¹Ÿå­˜å…¥req
 					RequestDispatcher failureView = req.getRequestDispatcher("update_Pro_input.jsp");
 					failureView.forward(req, res);
-					return; // µ{¦¡¤¤Â_
+					return; // ç¨‹å¼ä¸­æ–·
 				}
 
-				/*************************** 2.¶}©l­×§ï¸ê®Æ *****************************************/
+				/*************************** 2.é–‹å§‹ä¿®æ”¹è³‡æ–™ *****************************************/
 				ProService proSvc = new ProService();
 				proVO = proSvc.updatePro(p_id, pt_id, p_name, p_price, p_image, p_info, p_sales, p_stock, p_add_date,
 						p_stat);
 
-				/*************************** 3.­×§ï§¹¦¨,·Ç³ÆÂà¥æ(Send the Success view) *************/
-				req.setAttribute("proVO", proVO); // ¸ê®Æ®wupdate¦¨¥\«á,¥¿½TªºªºproVOª«¥ó,¦s¤Jreq
+				/*************************** 3.ä¿®æ”¹å®Œæˆ,æº–å‚™è½‰äº¤(Send the Success view) *************/
+				req.setAttribute("proVO", proVO); // è³‡æ–™åº«updateæˆåŠŸå¾Œ,æ­£ç¢ºçš„çš„proVOç‰©ä»¶,å­˜å…¥req
 				String url = "listOneProduct.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // ­×§ï¦¨¥\«á,Âà¥ælistOnePro.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url); // ä¿®æ”¹æˆåŠŸå¾Œ,è½‰äº¤listOnePro.jsp
 				successView.forward(req, res);
 
-				/*************************** ¨ä¥L¥i¯àªº¿ù»~³B²z *************************************/
+				/*************************** å…¶ä»–å¯èƒ½çš„éŒ¯èª¤è™•ç† *************************************/
 			} catch (Exception e) {
-				errorMsgs.add("­×§ï¸ê®Æ¥¢±Ñ:" + e.getMessage());
+				errorMsgs.add("ä¿®æ”¹è³‡æ–™å¤±æ•—:" + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("update_Pro_input.jsp");
 				failureView.forward(req, res);
 			}
 		}
 
-		if ("insert".equals(action)) { // ¨Ó¦ÛaddPro.jspªº½Ğ¨D
+		if ("insert".equals(action)) { // ä¾†è‡ªaddPro.jspçš„è«‹æ±‚
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -224,42 +224,42 @@ public class ProServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
-				/*********************** 1.±µ¦¬½Ğ¨D°Ñ¼Æ - ¿é¤J®æ¦¡ªº¿ù»~³B²z *************************/
+				/*********************** 1.æ¥æ”¶è«‹æ±‚åƒæ•¸ - è¼¸å…¥æ ¼å¼çš„éŒ¯èª¤è™•ç† *************************/
 				String p_id = req.getParameter("p_id");
 				String pt_id = req.getParameter("pt_id").trim();
 				String p_name = req.getParameter("p_name");
 				if (p_name == null || p_name.trim().length() == 0) {
-					errorMsgs.add("°Ó«~¦WºÙ½Ğ¤ÅªÅ¥Õ");
+					errorMsgs.add("å•†å“åç¨±è«‹å‹¿ç©ºç™½");
 				}
 
 				Double p_price = null;
 				String p_pricestr = req.getParameter("p_price");
 				if (p_pricestr == null || (p_pricestr.trim()).length() == 0) {
-					errorMsgs.add("°Ó«~»ù®æ½Ğ¤ÅªÅ¥Õ");
+					errorMsgs.add("å•†å“åƒ¹æ ¼è«‹å‹¿ç©ºç™½");
 				} else {
 					try {
 						p_price = new Double(req.getParameter("p_price").trim());
 					} catch (NumberFormatException e) {
 						p_price = 0.0;
-						errorMsgs.add("°Ó«~»ù®æ½Ğ¶ñ¼Æ¦r.");
+						errorMsgs.add("å•†å“åƒ¹æ ¼è«‹å¡«æ•¸å­—.");
 					}
 				}
 
 				String p_info = req.getParameter("p_info").trim();
 				if (p_info == null || p_info.trim().length() == 0) {
-					errorMsgs.add("°Ó«~´y­z½Ğ¤ÅªÅ¥Õ");
+					errorMsgs.add("å•†å“æè¿°è«‹å‹¿ç©ºç™½");
 				}
 
 				Integer p_stock = null;
 				String p_stockstr = req.getParameter("p_stock");
 				if (p_stockstr == null || p_stockstr.trim().length() == 0) {
-					errorMsgs.add("°Ó«~®w¦s½Ğ¤ÅªÅ¥Õ");
+					errorMsgs.add("å•†å“åº«å­˜è«‹å‹¿ç©ºç™½");
 				} else {
 					try {
 						p_stock = new Integer(req.getParameter("p_stock").trim());
 					} catch (NumberFormatException e) {
 						p_stock = 0;
-						errorMsgs.add("°Ó«~®w¦s½Ğ¶ñ¼Æ¦r.");
+						errorMsgs.add("å•†å“åº«å­˜è«‹å¡«æ•¸å­—.");
 					}
 				}
 
@@ -275,7 +275,7 @@ public class ProServlet extends HttpServlet {
 					in.close();
 				} else {
 					p_image = null;
-					errorMsgs.add("½Ğ¿ï¾Ü¹Ï¤ù");
+					errorMsgs.add("è«‹é¸æ“‡åœ–ç‰‡");
 				}
 
 				ProVO proVO = new ProVO();
@@ -289,22 +289,22 @@ public class ProServlet extends HttpServlet {
 
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("proVO", proVO); // §t¦³¿é¤J®æ¦¡¿ù»~ªºproVOª«¥ó,¤]¦s¤Jreq
+					req.setAttribute("proVO", proVO); // å«æœ‰è¼¸å…¥æ ¼å¼éŒ¯èª¤çš„proVOç‰©ä»¶,ä¹Ÿå­˜å…¥req
 					RequestDispatcher failureView = req.getRequestDispatcher("addPro.jsp");
 					failureView.forward(req, res);
 					return;
 				}
 
-				/*************************** 2.¶}©l·s¼W¸ê®Æ ***************************************/
+				/*************************** 2.é–‹å§‹æ–°å¢è³‡æ–™ ***************************************/
 				ProService proSvc = new ProService();
 				proVO = proSvc.addPro(pt_id, p_name, p_price, p_image, p_info, p_stock, p_stat);
 
-				/*************************** 3.·s¼W§¹¦¨,·Ç³ÆÂà¥æ(Send the Success view) ***********/
+				/*************************** 3.æ–°å¢å®Œæˆ,æº–å‚™è½‰äº¤(Send the Success view) ***********/
 				String url = "listAllProduct.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // ·s¼W¦¨¥\«áÂà¥ælistAllPro.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url); // æ–°å¢æˆåŠŸå¾Œè½‰äº¤listAllPro.jsp
 				successView.forward(req, res);
 
-				/*************************** ¨ä¥L¥i¯àªº¿ù»~³B²z **********************************/
+				/*************************** å…¶ä»–å¯èƒ½çš„éŒ¯èª¤è™•ç† **********************************/
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("addPro.jsp");
@@ -312,7 +312,7 @@ public class ProServlet extends HttpServlet {
 			}
 		}
 
-		if ("delete".equals(action)) { // ¨Ó¦ÛlistAllProduct.jsp
+		if ("delete".equals(action)) { // ä¾†è‡ªlistAllProduct.jsp
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -320,21 +320,21 @@ public class ProServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
-				/*************************** 1.±µ¦¬½Ğ¨D°Ñ¼Æ ***************************************/
+				/*************************** 1.æ¥æ”¶è«‹æ±‚åƒæ•¸ ***************************************/
 				String p_id = req.getParameter("p_id");
 
-				/*************************** 2.¶}©l§R°£¸ê®Æ ***************************************/
+				/*************************** 2.é–‹å§‹åˆªé™¤è³‡æ–™ ***************************************/
 				ProService proSvc = new ProService();
 				proSvc.deletePro(p_id);
 
-				/*************************** 3.§R°£§¹¦¨,·Ç³ÆÂà¥æ(Send the Success view) ***********/
+				/*************************** 3.åˆªé™¤å®Œæˆ,æº–å‚™è½‰äº¤(Send the Success view) ***********/
 				String url = "listAllProduct.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);// §R°£¦¨¥\«á,Âà¥æ¦^°e¥X§R°£ªº¨Ó·½ºô­¶
+				RequestDispatcher successView = req.getRequestDispatcher(url);// åˆªé™¤æˆåŠŸå¾Œ,è½‰äº¤å›é€å‡ºåˆªé™¤çš„ä¾†æºç¶²é 
 				successView.forward(req, res);
 
-				/*************************** ¨ä¥L¥i¯àªº¿ù»~³B²z **********************************/
+				/*************************** å…¶ä»–å¯èƒ½çš„éŒ¯èª¤è™•ç† **********************************/
 			} catch (Exception e) {
-				errorMsgs.add("§R°£¸ê®Æ¥¢±Ñ:" + e.getMessage());
+				errorMsgs.add("åˆªé™¤è³‡æ–™å¤±æ•—:" + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("listAllProduct.jsp");
 				failureView.forward(req, res);
 			}

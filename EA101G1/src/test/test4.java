@@ -23,7 +23,7 @@ public class test4 {
 		PolDAO dao = new PolDAO();
 
 		
-			// ·s¼W
+			// æ–°å¢
 			
 			PolVO polVO = new PolVO();
 			polVO.setPo_id("2020-06-11-000001");
@@ -31,15 +31,15 @@ public class test4 {
 			polVO.setOrder_qua(0);
 			polVO.setP_price(new Double(200));
 			dao.insert(polVO);
-			System.out.println("·s¼W¦¨¥\");
+			System.out.println("æ–°å¢æˆåŠŸ");
 //		
 		
 
 //
-//		// §R°£
+//		// åˆªé™¤
 //		dao.delete("2020-06-11-000001","P003");
 //
-//		// ¬d¸ß
+//		// æŸ¥è©¢
 //		PolVO poVO1 = dao.findByPrimaryKey("2020-06-11-000002","P005");
 //		System.out.print(poVO1.getPo_id() + ",");
 //		System.out.print(poVO1.getP_id() + ",");
@@ -47,7 +47,7 @@ public class test4 {
 //		System.out.print(poVO1.getP_price());
 //		System.out.println("---------------------");
 
-//		// ¬d¸ß
+//		// æŸ¥è©¢
 //		List<PolVO> list = dao.getAll();
 //		for (PolVO po : list) {
 //			System.out.print(po.getPo_id() + ",");
@@ -65,11 +65,11 @@ public class test4 {
 		return fis;
 	}
 
-	// ¨Ï¥Îbyte[]¤è¦¡
+	// ä½¿ç”¨byte[]æ–¹å¼
 	public static byte[] getPictureByteArray(String path) throws IOException {
 		File file = new File(path);
 		FileInputStream fis = new FileInputStream(file);
-		ByteArrayOutputStream baos = new ByteArrayOutputStream(); // ¿é¥X¨ì¨t²Î¹w³]ªºbyte°}¦C
+		ByteArrayOutputStream baos = new ByteArrayOutputStream(); // è¼¸å‡ºåˆ°ç³»çµ±é è¨­çš„byteé™£åˆ—
 		byte[] buffer = new byte[8192];
 		int i;
 		while ((i = fis.read(buffer)) != -1) {
@@ -78,6 +78,6 @@ public class test4 {
 		baos.close();
 		fis.close();
 
-		return baos.toByteArray(); // ¦^¶Ç¹Ï¤ù¦ì¤¸¸ê®Æ
+		return baos.toByteArray(); // å›å‚³åœ–ç‰‡ä½å…ƒè³‡æ–™
 	}
 }

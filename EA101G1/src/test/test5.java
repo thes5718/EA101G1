@@ -24,22 +24,22 @@ public class test5 {
 		FavpDAO dao = new FavpDAO();
 
 		
-			// ·s¼W
+			// æ–°å¢
 			
 //			FavpVO favpVO = new FavpVO();
 //			favpVO.setP_id("P009");
 //			favpVO.setMem_id("M000001");
 //			dao.insert(favpVO);
-//			System.out.println("·s¼W¦¨¥\");
+//			System.out.println("æ–°å¢æˆåŠŸ");
 //		
 		
 
 //
-//		// §R°£
+//		// åˆªé™¤
 //		dao.delete("P009","M000001");
 //
 
-//		// ¬d¸ß
+//		// æŸ¥è©¢
 		List<FavpVO> list = dao.getFavpByMem("M000001");
 		for (FavpVO po : list) {
 			System.out.print(po.getP_id() + ",");
@@ -54,11 +54,11 @@ public class test5 {
 		return fis;
 	}
 
-	// ¨Ï¥Îbyte[]¤è¦¡
+	// ä½¿ç”¨byte[]æ–¹å¼
 	public static byte[] getPictureByteArray(String path) throws IOException {
 		File file = new File(path);
 		FileInputStream fis = new FileInputStream(file);
-		ByteArrayOutputStream baos = new ByteArrayOutputStream(); // ¿é¥X¨ì¨t²Î¹w³]ªºbyte°}¦C
+		ByteArrayOutputStream baos = new ByteArrayOutputStream(); // è¼¸å‡ºåˆ°ç³»çµ±é è¨­çš„byteé™£åˆ—
 		byte[] buffer = new byte[8192];
 		int i;
 		while ((i = fis.read(buffer)) != -1) {
@@ -67,6 +67,6 @@ public class test5 {
 		baos.close();
 		fis.close();
 
-		return baos.toByteArray(); // ¦^¶Ç¹Ï¤ù¦ì¤¸¸ê®Æ
+		return baos.toByteArray(); // å›å‚³åœ–ç‰‡ä½å…ƒè³‡æ–™
 	}
 }
