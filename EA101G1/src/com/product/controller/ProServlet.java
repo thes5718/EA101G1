@@ -272,10 +272,10 @@ public class ProServlet extends HttpServlet {
 
 				byte[] p_image = null;
 				Part part = req.getPart("p_image");//資料
+				System.out.println(part);
 				InputStream in = part.getInputStream();//資料
-
 				if (in.available() > 0) { //如果有資料
-					p_image = new byte[in.available()];//開根資料一樣長度的byte陣列
+					p_image = new byte[in.available()];//建立跟資料一樣長度的byte陣列
 					in.read(p_image);//把資料存進去
 					in.close();
 				} else {
