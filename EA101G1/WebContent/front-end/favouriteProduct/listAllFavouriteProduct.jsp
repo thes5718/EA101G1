@@ -4,13 +4,18 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.product.model.*"%>
 <%@ page import="com.favouriteProduct.model.*"%>
+<%@ page import="com.member.model.*"%>
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%
     FavpService favpSvc = new FavpService();
-    List<FavpVO> list = favpSvc.getProductByMem("M000001");
+    MemberVO memVO = (MemberVO) session.getAttribute("memberVO");
+    String mem_id = memVO.getMem_id();
+    List<FavpVO> list = favpSvc.getProductByMem(mem_id);
     pageContext.setAttribute("list",list);
 %>
+<%=memVO==null %>
+<%=memVO.getMem_id() %>
 <jsp:useBean id="proSvc" scope="page" class="com.product.model.ProService" />
 <jsp:useBean id="ptSvc" scope="page" class="com.productType.model.PtService" />
 

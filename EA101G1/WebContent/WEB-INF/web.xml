@@ -14,14 +14,14 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  
+
   <resource-ref>
 		<description>DB Connection</description>
 		<res-ref-name>jdbc/TestDB4</res-ref-name>
 		<res-type>javax.sql.DataSource</res-type>
 		<res-auth>Container</res-auth>
 	</resource-ref>
-	
+	<!--商品-->
 	<servlet>
 		<servlet-name>ProServlet</servlet-name>
 		<servlet-class>com.product.controller.ProServlet</servlet-class>
@@ -53,4 +53,84 @@
 		<servlet-name>FavpProduct</servlet-name>
 		<url-pattern>/front-end/favouriteProduct/favp.do</url-pattern>
 	</servlet-mapping>
+	<!--商品-->
+	
+	<!--會員 -->
+	<servlet>
+		<servlet-name>MemberServlet</servlet-name>
+		<servlet-class>com.member.controller.MemberServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MemberServlet</servlet-name>
+		<url-pattern>/member/member.do</url-pattern>
+		<url-pattern>/front-end/member/member.do</url-pattern>
+		<url-pattern>/back-end/member/member.do</url-pattern>
+		<url-pattern>/front-end/protected/member.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>PostServlet</servlet-name>
+		<servlet-class>com.post.controller.PostServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PostServlet</servlet-name>
+		<url-pattern>/post/post.do</url-pattern>
+		<url-pattern>/front-end/post/post.do</url-pattern>
+		<url-pattern>/front-end/protected/post.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>CommServlet</servlet-name>
+		<servlet-class>com.comm.controller.CommServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CommServlet</servlet-name>
+		<url-pattern>/comm/comm.do</url-pattern>
+		<url-pattern>/front-end/comm/comm.do</url-pattern>
+		<url-pattern>/front-end/protected/comm.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>LoginHandler</servlet-name>
+		<servlet-class>com.member.login.LoginHandler</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LoginHandler</servlet-name>
+		<url-pattern>/front-end/login/login.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ShowMemberPic</servlet-name>
+		<servlet-class>com.member.controller.ShowMemberPic</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ShowMemberPic</servlet-name>
+		<url-pattern>/member/ShowMemberPic.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ShowPostPic</servlet-name>
+		<servlet-class>com.post.controller.ShowPostPic</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ShowPostPic</servlet-name>
+		<url-pattern>/post/ShowPostPic.do</url-pattern>
+	</servlet-mapping>
+	
+	
+	
+	<filter>
+		<filter-name>LoginFilter</filter-name>
+		<filter-class>com.member.login.filter.LoginFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>LoginFilter</filter-name>
+		<url-pattern>/front-end/protected/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+	<!--會員 -->
 </web-app>

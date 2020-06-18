@@ -1,5 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=BIG5"
-    pageEncoding="BIG5"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.member.model.*" %>
+
+<%
+	MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,25 +13,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>S.F.G­º­¶</title>
-    <!-- TODO: ´«title ªºicon -->
+    <title>S.F.Gé¦–é </title>
+    <!-- TODO: æ›title çš„icon -->
     <link rel="icon shortcut" href="./img/ICON.ico">
-    <!-- Bootstrap©x¤èºô¯¸ https://getbootstrap.com/ -->
-    <!-- ³sµ²Bootstrap.min.css -->
+    <!-- Bootstrapå®˜æ–¹ç¶²ç«™ https://getbootstrap.com/ -->
+    <!-- é€£çµBootstrap.min.css -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <!-- ¨Ï¥Îfont awesome -->
+    <!-- ä½¿ç”¨font awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
         integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
-    <!-- ¨Ï¥Îgoogle Fonts -->
+    <!-- ä½¿ç”¨google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Sedgwick+Ave+Display&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lakki+Reddy&display=swap" rel="stylesheet">
 
-    <!-- ¨Ï¥Îstyle.css -->
-    <link rel="stylesheet" href="./css/style.css">
+    <!-- ä½¿ç”¨style.css -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/style.css">
 
-    <!-- ³sµ²Bootstrap©Ò»Ý­nªºjs -->
+    <!-- é€£çµBootstrapæ‰€éœ€è¦çš„js -->
     <!-- jquery.min.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- popper.min.js -->
@@ -41,16 +47,16 @@
 
 <body>
     <!-- navbar -->
-    <!-- ¨Ï¥ÎBoostrap Navbar -->
-    <!-- ³]©wNavbarºò¶Kµe­±¤W½t -->
-    <!-- b4-navbar-default ¦w¸ËBootstrap¥~±¾,¥i¥H¨Ï¥Î§Ö±¶«ü¥O -->
+    <!-- ä½¿ç”¨Boostrap Navbar -->
+    <!-- è¨­å®šNavbarç·Šè²¼ç•«é¢ä¸Šç·£ -->
+    <!-- b4-navbar-default å®‰è£Bootstrapå¤–æŽ›,å¯ä»¥ä½¿ç”¨å¿«æ·æŒ‡ä»¤ -->
     <nav class="navbar navbar-expand-md navbar-dark fixed-top">
-        <a class="navbar-brand" href="index.html">
+        <a class="navbar-brand" href="<%=request.getContextPath()%>/front-end/index.jsp">
             <span class="logo"><i class="fas fa-bomb"></i></span>
             <span class="logo2">S.F.G</span>
             <span class="logo3">{{{</span>
         </a>
-        <!-- ¤â¾÷¿ï³æ«ö¶s -->
+        <!-- æ‰‹æ©Ÿé¸å–®æŒ‰éˆ• -->
         <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId"
             aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -58,31 +64,38 @@
         
         <div class="navbar2 navbar-dark">
             <div class="row">
-                <div class="item col-md-2"><a href="#"></a>°Ó«°</div>
-                <div class="item col-md-2"><a href="#"></a>¹ÎÁÊ</div>
-                <div class="item col-md-2"><a href="#"></a>¥æ©ö</div>
-                <div class="item col-md-2"><a href="#"></a>°Q½×°Ï</div>
-                <div class="item col-md-2"><a href="#"></a>¬õ§Q</div>
+                <div class="item col-md-2"><a href="#"></a>å•†åŸŽ</div>
+                <div class="item col-md-2"><a href="#"></a>åœ˜è³¼</div>
+                <div class="item col-md-2"><a href="#"></a>äº¤æ˜“</div>
+                <div class="item col-md-2"><a href="#"></a>è¨Žè«–å€</div>
+                <div class="item col-md-2"><a href="#"></a>ç´…åˆ©</div>
                 <div class="item col-md-2"><a href="#"></a>Q&A</div>
             </div>
         </div>
 
         <div class="collapse navbar-collapse" id="collapsibleNavId">
             <ul class="navbar-nav ml-auto">
+                <c:if test="${memberVO == null}">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">µn¤J</a>
+                    <a class="nav-link" href="<%=request.getContextPath()%>/front-end/member/login.jsp">ç™»å…¥</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">µù¥U</a>
+                    <a class="nav-link" href="<%=request.getContextPath()%>/front-end/member/addMember.jsp">è¨»å†Š</a>
+                </li>
+            </c:if>
+            <c:if test="${memberVO ne null}">
+                <li class="nav-item">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/front-end/protected/listOneMember.jsp">æœƒå“¡ä¸­å¿ƒ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">·|­û¤¤¤ß</a>
+                	<a class="nav-link" href="<%=request.getContextPath()%>/front-end/member/member.do?action=logout">ç™»å‡º</a>
+                </li>
+          	</c:if>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">æˆ‘çš„æœ€æ„›</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">§Úªº³Ì·R</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">ÁÊª«¨®</a>
+                    <a class="nav-link" href="#">è³¼ç‰©è»Š</a>
                 </li>
 
             </ul>
@@ -92,12 +105,24 @@
     </nav>
     <!-- navbar end -->
     <section class="blank0"></section>
-    <!-- ¤º®e -->
+    <!-- å…§å®¹ -->
     <section class="blank1">
 
 
+
+
+
+
+
+
+
+
+
+
+
+
     </section>
-    <!-- ¤º®e ---end  -->
+    <!-- å…§å®¹ ---end  -->
 
 
         <!-- footer -->
@@ -105,64 +130,64 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-3 col-sm-6 footer-list">
-                        <h5>§Ö³t³sµ²</h4>
+                        <h5>å¿«é€Ÿé€£çµ</h4>
                         <ul>
                             <li>
-                                <a class="footer-link" href="">S.F.G­º­¶</a>
+                                <a class="footer-link" href="<%=request.getContextPath()%>/front-end/index.jsp">S.F.Gé¦–é </a>
                             </li>
                             <li>
-                                <a class="footer-link" href="">µù¥U·|­û</a>
+                                <a class="footer-link" href="<%=request.getContextPath()%>/front-end/member/addMember.jsp">è¨»å†Šæœƒå“¡</a>
                             </li>
                             <li>
-                                <a class="footer-link" href="">°Ó«°</a>
+                                <a class="footer-link" href="">å•†åŸŽ</a>
                             </li>
                             <li>
-                                <a class="footer-link" href="">¹ÎÁÊ</a>
+                                <a class="footer-link" href="">åœ˜è³¼</a>
                             </li>
                         </ul>
                     </div>
                     <div class="col-md-3 col-sm-6 footer-list">
-                        <h5 class="text-uppercase">·|­û¤¬°Ê</h5>
+                        <h5 class="text-uppercase">æœƒå“¡äº’å‹•</h5>
                         <ul>
                             <li>
-                                <a class="footer-link" href="">Äv¼Ð°Ï</a>
+                                <a class="footer-link" href="">ç«¶æ¨™å€</a>
                             </li>
                             <li>
-                                <a class="footer-link" href="">ª½ÁÊ°Ï</a>
+                                <a class="footer-link" href="">ç›´è³¼å€</a>
                             </li>
                             <li>
-                                <a class="footer-link" href="">°Q½×°Ï</a>
+                                <a class="footer-link" href="<%=request.getContextPath()%>/front-end/post/select_page.jsp">è¨Žè«–å€</a>
                             </li>
                             <li>
-                                <a class="footer-link" href="">²á¤Ñ«Ç</a>
+                                <a class="footer-link" href="">èŠå¤©å®¤</a>
                             </li>
                         </ul>
                     </div>
                     <div class="col-md-3 col-sm-6 footer-list">
-                        <h5 class="text-uppercase">Ãö©ó§Ú­Ì</h5>
+                        <h5 class="text-uppercase">é—œæ–¼æˆ‘å€‘</h5>
                         <ul>
                             <li>
-                                <a class="footer-link" href="">Ãö©óS.F.G</a>
+                                <a class="footer-link" href="">é—œæ–¼S.F.G</a>
                             </li>
                             <li>
-                                <a class="footer-link" href="">³Ì·s®ø®§</a>
+                                <a class="footer-link" href="">æœ€æ–°æ¶ˆæ¯</a>
                             </li>
                             <li>
-                                <a class="footer-link" href="">Áô¨pÅv¬Fµ¦</a>
+                                <a class="footer-link" href="">éš±ç§æ¬Šæ”¿ç­–</a>
                             </li>
                         </ul>
                     </div>
                     <div class="col-md-3 col-sm-6 footer-list">
-                        <h5 class="text-uppercase">§Þ³N¤ä´©</h5>
+                        <h5 class="text-uppercase">æŠ€è¡“æ”¯æ´</h5>
                         <ul>
                             <li>
-                                <a class="footer-link" href="">·s¤â¤W¸ô</a>
+                                <a class="footer-link" href="">æ–°æ‰‹ä¸Šè·¯</a>
                             </li>
                             <li>
-                                <a class="footer-link" href="">À°§U&¤ä´©</a>
+                                <a class="footer-link" href="">å¹«åŠ©&æ”¯æ´</a>
                             </li>
                             <li>
-                                <a class="footer-link" href="<%=request.getContextPath()%>/front-end/favouriteProduct/listAllFavouriteProduct.jsp">ªA°È±ø´Ú</a>
+                                <a class="footer-link" href="">æœå‹™æ¢æ¬¾</a>
                             </li>
                         </ul>                    
                     </div>
