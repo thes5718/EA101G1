@@ -16,7 +16,7 @@ public class FavpDAO implements com.favouriteProduct.model.FavpDAO_interface{
 	String passwd = "123456";
 	
 	private static final String INSERT_STMT = "INSERT INTO FAVOURITE_PRODUCT(P_ID,MEM_ID) VALUES (?,?)";
-	private static final String GET_FAVP_BY_MEM_STMT = "SELECT P_ID FROM FAVOURITE_PRODUCT WHERE MEM_ID = ?";
+	private static final String GET_FAVP_BY_MEM_STMT = "SELECT P_ID , MEM_ID FROM FAVOURITE_PRODUCT WHERE MEM_ID = ?";
 	private static final String DELETE = "DELETE FROM FAVOURITE_PRODUCT WHERE P_ID = ? AND MEM_ID = ?";
 	@Override
 	public void insert(FavpVO favpVO) {
@@ -115,6 +115,7 @@ public class FavpDAO implements com.favouriteProduct.model.FavpDAO_interface{
 			while(rs.next()) {
 				favpVO = new FavpVO();
 				
+				favpVO.setMem_id(rs.getString("mem_id"));
 				favpVO.setP_id(rs.getString("p_id"));
 				
 				list.add(favpVO);

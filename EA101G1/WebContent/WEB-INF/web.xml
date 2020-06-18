@@ -43,4 +43,14 @@
 		<url-pattern>/back-end/product/proPic.do</url-pattern>
 		<url-pattern>/front/product/proPic.do</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>FavpProduct</servlet-name>
+		<servlet-class>com.favouriteProduct.controller.FavpServlet</servlet-class>
+	</servlet>        
+	
+	<servlet-mapping>
+		<servlet-name>FavpProduct</servlet-name>
+		<url-pattern>/front-end/favouriteProduct/favp.do</url-pattern>
+	</servlet-mapping>
 </web-app>

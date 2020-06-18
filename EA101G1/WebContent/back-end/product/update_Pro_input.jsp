@@ -48,7 +48,7 @@ div #preview {
 	width: 500px;
 }
 
- #preview img {
+#preview img {
 	width: 200px;
 }
 </style>
@@ -80,8 +80,9 @@ div #preview {
 		</ul>
 	</c:if>
 
-	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/product/pro.do" name="form1"
-		enctype="multipart/form-data">
+	<FORM METHOD="post"
+		ACTION="<%=request.getContextPath()%>/back-end/product/pro.do"
+		name="form1" enctype="multipart/form-data">
 		<table>
 			<tr>
 				<td>商品編號:</td>
@@ -118,14 +119,16 @@ div #preview {
 						<div id="preview">
 							<FORM METHOD="post"
 								ACTION="<%=request.getContextPath()%>/back-end/product/proPic.do">
-								<img src="<%=request.getContextPath()%>/back-end/product/proPic.do?p_id=${proVO.p_id}">
+								<img
+									src="<%=request.getContextPath()%>/back-end/product/proPic.do?p_id=${proVO.p_id}">
 							</FORM>
 						</div>
 					</div></td>
 			</tr>
 			<tr>
 				<td>商品描述:</td>
-				<td><textarea name="p_info" rows="6" cols="40" 	value="<%=proVO.getP_info()%>"><%=proVO.getP_info()%></textarea></td>
+				<td><textarea name="p_info" rows="6" cols="40"
+						value="<%=proVO.getP_info()%>"><%=proVO.getP_info()%></textarea></td>
 			</tr>
 			<tr>
 				<td>庫存量:</td>
@@ -136,9 +139,7 @@ div #preview {
 				<td>商品狀態:</td>
 				<td><select size="1" name="p_stat">
 						<option value=0 ${(proVO.p_stat==0)? 'selected':'' }>下架
-						
 						<option value=1 ${(proVO.p_stat==1)? 'selected':'' }>上架
-						
 				</select></td>
 			</tr>
 
@@ -146,12 +147,11 @@ div #preview {
 
 
 		</table>
-		<br> <input type="hidden" name="action" value="update"> <input
-			type="hidden" name="p_id" value="<%=proVO.getP_id()%>"> <input
-			type="hidden" name="p_sales" value="<%=proVO.getP_sales()%>">
-		<input type="hidden" name="p_add_date"
-			value="<%=proVO.getP_add_date()%>"> <input type="submit"
-			value="送出修改">
+		<br> <input type="hidden" name="action" value="update"> 
+			 <input type="hidden" name="p_id" value="<%=proVO.getP_id()%>"> 
+			 <input type="hidden" name="p_sales" value="<%=proVO.getP_sales()%>">
+			 <input type="hidden" name="p_add_date" value="<%=proVO.getP_add_date()%>"> 
+			 <input type="submit" value="送出修改">
 	</FORM>
 
 	<script>

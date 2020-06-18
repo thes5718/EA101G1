@@ -95,11 +95,14 @@ div #preview {
 			</tr>
 			<tr>
 				<td>商品圖片:</td>
-				<td><input type="file" name="p_image" id="myFile" <c:if test="${not empty proVO.getP_image()}">value="<%=proVO.getP_image()%>"</c:if>
-				accept="image/gif, image/jpeg, image/png"/><br>
-					<div class="row">
-						<div id="preview"></div>
-					</div></td>
+				<td>
+					<img alt="" src="<%=request.getContextPath()%>/product/proPic.do?p_image=${proVO.p_image}">
+					<input type="file" name="p_image" id="myFile" <c:if test="${not empty proVO.getP_image()}">value="<%=proVO.getP_image()%>"</c:if>
+					accept="image/gif, image/jpeg, image/png"/><br>
+						<div class="row">
+							<div id="preview"></div>
+						</div>
+				</td>
 			</tr>
 			<tr>
 				<td>商品描述:</td>

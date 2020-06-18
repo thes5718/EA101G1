@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.util.List;
 
 import com.favouriteProduct.model.FavpDAO;
+import com.favouriteProduct.model.FavpService;
 import com.favouriteProduct.model.FavpVO;
 
 
@@ -36,15 +37,23 @@ public class test5 {
 
 //
 //		// 刪除
-//		dao.delete("P009","M000001");
+//		dao.delete("P005","M000001");
 //
 
 //		// 查詢
-		List<FavpVO> list = dao.getFavpByMem("M000001");
-		for (FavpVO po : list) {
-			System.out.print(po.getP_id() + ",");
-			System.out.println("---------------------");
-			System.out.println();
+//		List<FavpVO> list = dao.getFavpByMem("M000001");
+//		for (FavpVO po : list) {
+//			System.out.print(po.getP_id() + ",");
+//			System.out.println("---------------------");
+//			System.out.println();
+//		}
+		FavpService favpSvc = new FavpService();
+	    favpSvc.deleteFavp("P001", "M000001");
+		
+		List<FavpVO> list = favpSvc.getProductByMem("M000001");
+		for (FavpVO fa : list) {
+			System.out.println(fa.getMem_id());
+			System.out.println(fa.getP_id());
 		}
 	}
 
