@@ -18,4 +18,9 @@ public class FavpService {
 	public void deleteFavp(String p_id,String mem_id) {
 		dao.delete(p_id, mem_id);
 	}
+	
+	public void addFavp(FavpVO favpVO) {
+		
+		dao.insert(favpVO);
+	}
 }

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.favouriteProduct.model.FavpService;
+import com.favouriteProduct.model.FavpVO;
 
 @MultipartConfig
 public class FavpServlet extends HttpServlet {
@@ -38,6 +39,24 @@ public class FavpServlet extends HttpServlet {
 			} catch(Exception e) {
 				RequestDispatcher failureView = req.getRequestDispatcher("listAllFavouriteProduct.jsp");
 				failureView.forward(req, res);
+			}
+		}
+		
+		if("insert".equals("action")) {
+			
+			try {
+				String p_id = req.getParameter("p_id");
+				String mem_id = req.getParameter("mem_id");
+				
+				FavpVO favpVO = new FavpVO();
+				favpVO.setP_id(p_id);
+				favpVO.setMem_id(mem_id);
+				
+				FavpService favpSvc = new FavpService();
+				favpSvc.addFavp(favpVO);
+			}catch (Exception e) {
+//				RequestDispatcher failureView = req.getRequestDispatcher("listAllFavouriteProduct.jsp");
+//				failureView.forward(req, res);
 			}
 		}
 	}
