@@ -159,7 +159,7 @@
                                 <a class="footer-link" href="">新手上路</a>
                             </li>
                             <li>
-                                <a class="footer-link" href="">幫助&支援</a>
+                                <a class="footer-link" href="<%=request.getContextPath()%>/front-end/product/listAllProduct.jsp">幫助&支援</a>
                             </li>
                             <li>
                                 <a class="footer-link" href="<%=request.getContextPath()%>/front-end/favouriteProduct/listAllFavouriteProduct.jsp">服務條款</a>

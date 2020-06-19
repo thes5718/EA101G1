@@ -54,9 +54,12 @@ public class FavpServlet extends HttpServlet {
 				
 				FavpService favpSvc = new FavpService();
 				favpSvc.addFavp(favpVO);
+				
+				RequestDispatcher failureView = req.getRequestDispatcher("listAllFavouriteProduct.jsp");
+				failureView.forward(req, res);
 			}catch (Exception e) {
-//				RequestDispatcher failureView = req.getRequestDispatcher("listAllFavouriteProduct.jsp");
-//				failureView.forward(req, res);
+				RequestDispatcher failureView = req.getRequestDispatcher("listAllFavouriteProduct.jsp");
+				failureView.forward(req, res);
 			}
 		}
 	}

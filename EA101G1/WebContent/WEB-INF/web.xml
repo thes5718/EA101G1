@@ -52,6 +52,7 @@
 	<servlet-mapping>
 		<servlet-name>FavpProduct</servlet-name>
 		<url-pattern>/front-end/favouriteProduct/favp.do</url-pattern>
+		<url-pattern>/front-end/product/favp.do</url-pattern>
 	</servlet-mapping>
 	<!--商品-->
 	
