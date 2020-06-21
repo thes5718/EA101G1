@@ -33,7 +33,12 @@ public class OrdstatService {
 		return ordstatVO;	
 	}
 	
-	//查詢
+	//查詢一個狀態
+	public OrdstatVO listOneOrdstat(String ordstat_id) {
+		return dao.listOneOrdstat(ordstat_id);
+	}
+	
+	//查詢全部狀態
 	public List<OrdstatVO> getAll(){
 		return dao.getAll();
 	}

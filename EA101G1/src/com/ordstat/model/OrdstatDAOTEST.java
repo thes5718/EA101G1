@@ -22,18 +22,21 @@ public class OrdstatDAOTEST {
 //		dao.update(ordstatVO2);
 //		System.out.println("修改成功");
 		
-		//刪除
-//		dao.delete("018");
-//		System.out.println("刪除成功");
+		//查詢一個訂單狀態
+		OrdstatVO ordstatVO3 = dao.listOneOrdstat("005");
+		System.out.println(ordstatVO3.getOrdstat_id() + ",");
+		System.out.println(ordstatVO3.getOrdstat() );
+		
+		System.out.println("查詢結束");
 		
 		//查詢
-		List<OrdstatVO> list = dao.getAll();
-		for(OrdstatVO aOrdstat : list) {
-			System.out.println(aOrdstat.getOrdstat_id() + ",");
-			System.out.println(aOrdstat.getOrdstat() + ",");
-			System.out.println();
-		}
-		System.out.println("查詢結束");
+//		List<OrdstatVO> list = dao.getAll();
+//		for(OrdstatVO aOrdstat : list) {
+//			System.out.println(aOrdstat.getOrdstat_id() + ",");
+//			System.out.println(aOrdstat.getOrdstat() + ",");
+//			System.out.println();
+//		}
+//		System.out.println("查詢結束");
 		
 	}
 
