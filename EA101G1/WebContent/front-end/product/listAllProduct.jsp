@@ -161,7 +161,7 @@
 		<div class="display">
 		<div class="img"><img src="" alt=""></div>
 	<div class="card">
-		<div class="p_img" name="p_image"><FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/product/proPic.do">
+		<div class="p_img" name="p_image"><FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/product/proPic.do">
 			<img src="<%=request.getContextPath()%>/back-end/product/proPic.do?p_id=${proVO.p_id}">
 			</FORM>
 		</div>
@@ -171,10 +171,10 @@
 			
 			<div class="p_love" > 
 			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/product/favp.do" style="margin-bottom: 0px;">
-            <input type="submit" value="修改">			
+            <input type="submit" value="加入">			
             <input type="hidden" name="p_id"  value="${proVO.p_id}">
 			<input type="hidden" name="mem_id"  value="<%=memVO.getMem_id()%>">
-			<input type="hidden" name="action"	value="insert">
+			<input type="hidden" name="action"	value="inster">
 			</FORM>
 			</div>
 			<div class="p_car" >車</div>

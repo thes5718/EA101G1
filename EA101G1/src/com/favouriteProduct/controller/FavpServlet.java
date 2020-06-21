@@ -25,7 +25,7 @@ public class FavpServlet extends HttpServlet {
 		String action = req.getParameter("action");
 		
 		if("delete".equals(action)) {
-			
+			System.out.println("進來了");
 			try {
 				String p_id = req.getParameter("p_id");
 				String mem_id = req.getParameter("mem_id");
@@ -34,7 +34,7 @@ public class FavpServlet extends HttpServlet {
 				favpSvc.deleteFavp(p_id, mem_id);
 				
 				String url = "listAllFavouriteProduct.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
+				RequestDispatcher successView = req.getRequestDispatcher(url);// �������,頧漱���������雯���
 				successView.forward(req, res);
 			} catch(Exception e) {
 				RequestDispatcher failureView = req.getRequestDispatcher("listAllFavouriteProduct.jsp");
@@ -42,7 +42,7 @@ public class FavpServlet extends HttpServlet {
 			}
 		}
 		
-		if("insert".equals("action")) {
+		if("inster".equals(action)) {
 			
 			try {
 				String p_id = req.getParameter("p_id");
@@ -55,10 +55,11 @@ public class FavpServlet extends HttpServlet {
 				FavpService favpSvc = new FavpService();
 				favpSvc.addFavp(favpVO);
 				
-				RequestDispatcher failureView = req.getRequestDispatcher("listAllFavouriteProduct.jsp");
+				String url = "listAllProduct.jsp";
+				RequestDispatcher failureView = req.getRequestDispatcher(url);
 				failureView.forward(req, res);
 			}catch (Exception e) {
-				RequestDispatcher failureView = req.getRequestDispatcher("listAllFavouriteProduct.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("listAllProduct.jsp");
 				failureView.forward(req, res);
 			}
 		}
