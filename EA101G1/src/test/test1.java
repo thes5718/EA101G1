@@ -23,24 +23,24 @@ public class test1 {
 
 		ProDAO dao = new ProDAO();
 //		
-		try {
-			byte[] pic = getPictureByteArray("WebContent/back-end/pro/images/product1.jpg");
-			// 新增
-			
-			ProVO proVO1 = new ProVO();
-			proVO1.setPt_id("PT001");
-			proVO1.setP_name("話語霸權");
-			proVO1.setP_price(new Double(20000));
-			proVO1.setP_image(pic);
-			proVO1.setP_info("架構重組");
-			proVO1.setP_stock(200);
-			proVO1.setP_stat(0);
-			dao.insert(proVO1);
-			System.out.println("新增成功");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			byte[] pic = getPictureByteArray("WebContent/back-end/pro/images/product1.jpg");
+//			// 新增
+//			
+//			ProVO proVO1 = new ProVO();
+//			proVO1.setPt_id("PT001");
+//			proVO1.setP_name("話語霸權");
+//			proVO1.setP_price(new Double(20000));
+//			proVO1.setP_image(pic);
+//			proVO1.setP_info("架構重組");
+//			proVO1.setP_stock(200);
+//			proVO1.setP_stat(0);
+//			dao.insert(proVO1);
+//			System.out.println("新增成功");
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 //		
 
 //		// 修改
@@ -82,7 +82,7 @@ public class test1 {
 //		System.out.println("---------------------");
 //
 //		// 查詢
-//		List<ProVO> list = dao.getAll();
+//		List<ProVO> list = dao.findByPtId("PT001");
 //		for (ProVO pro : list) {
 //			System.out.print(pro.getP_id() + ",");
 //			System.out.print(pro.getP_name() + ",");
@@ -95,7 +95,7 @@ public class test1 {
 //			System.out.println("---------------------");
 //			System.out.println();
 //		}
-		
+//		
 //		ProService svc = new ProService();
 //		byte[] bye = null;
 ////		svc.deletePro("P001");
@@ -104,6 +104,21 @@ public class test1 {
 //		svc.updatePro("P001", "PT001", "測試", 100.0, bye,"fdasfdsfds", 10, 20, 1);
 //		System.out.println("更新成功");
 		
+		ProService proSVC = new ProService();
+		List <ProVO> list = proSVC.getAllByPtId("PT001");
+		
+		for (ProVO pro : list) {
+			System.out.print(pro.getP_id() + ",");
+			System.out.print(pro.getP_name() + ",");
+			System.out.print(pro.getP_price() + ",");
+			System.out.print(pro.getP_info() + ",");
+			System.out.print(pro.getP_sales() + ",");
+			System.out.print(pro.getP_stock() + ",");
+			System.out.println(pro.getP_add_date()+",");
+			System.out.println(pro.getP_stat());
+			System.out.println("---------------------");
+			System.out.println();
+		}
 		
 	}
 

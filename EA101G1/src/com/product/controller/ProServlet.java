@@ -315,6 +315,26 @@ public class ProServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		
+		if("getAll_ByPtId".equals(action)) {
+			
+			List<ProVO> list = new ArrayList<ProVO>();
+			
+			try {
+				String pt_id = req.getParameter("pt_id");
+				
+				ProService proSvc = new ProService();
+				list = proSvc.getAllByPtId(pt_id);
+				
+				req.setAttribute("list",list);
+				req.setAttribute("pt_id",pt_id);
+				RequestDispatcher failureView = req.getRequestDispatcher("listAllProductByPtId.jsp");
+				failureView.forward(req, res);
+			}catch (Exception e) {
+				RequestDispatcher failureView = req.getRequestDispatcher("select_page.jsp");
+				failureView.forward(req,res);
+			}
+		}
 
 		if ("delete".equals(action)) { // 來自listAllProduct.jsp
 

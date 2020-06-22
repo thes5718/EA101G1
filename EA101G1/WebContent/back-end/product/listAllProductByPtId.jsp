@@ -3,25 +3,19 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.product.model.*"%>
-<%@ page import="com.favouriteProduct.model.*"%>
-<%@ page import="com.member.model.*"%>
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%
-    FavpService favpSvc = new FavpService();
-    MemberVO memVO = (MemberVO) session.getAttribute("memberVO");
-    String mem_id = memVO.getMem_id();
-    List<FavpVO> list = favpSvc.getProductByMem(mem_id);
-    pageContext.setAttribute("list",list);
+    ProService proSvc = new ProService();
+    List<ProVO> list =(List<ProVO>)request.getAttribute("list");
+    String pt_id = (String)request.getAttribute("pt_id");
+    pageContext.setAttribute("list",list); 
 %>
-<%=memVO==null %>
-<%=memVO.getMem_id() %>
-<jsp:useBean id="proSvc" scope="page" class="com.product.model.ProService" />
 <jsp:useBean id="ptSvc" scope="page" class="com.productType.model.PtService" />
 
 <html>
 <head>
-<title>最愛商品 </title>
+<title><%=ptSvc.getOneProductType(pt_id).getTypename()%></title>
 
 <style>
   table#table-1 {
@@ -62,9 +56,10 @@
 </head>
 <body bgcolor='white'>
 
+<h4>此頁練習採用 EL 的寫法取值:</h4>
 <table id="table-1">
 	<tr><td>
-		 <h3>最愛商品</h3>
+		 <h3><%=ptSvc.getOneProductType(pt_id).getTypename()%></h3>
 		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
 	</td></tr>
 </table>
@@ -81,26 +76,40 @@
 
 <table>
 	<tr>
+		<th>商品編號</th>
+		<th>分類</th>
 		<th>商品名稱</th>
 		<th>商品價格</th>
 		<th>商品圖片</th>
+		<th>商品描述</th>
+		<th>銷售量</th>
+		<th>庫存量</th>
+		<th>上架日期</th>
+		<th>商品狀態</th>
 		<th>修改</th>
 	</tr>
 	<%@ include file="page/page1.file" %> 
-	<c:forEach var="favpVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-	
+	<c:forEach var="proVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+		
 		<tr>
-			<td>${proSvc.getOnePro(favpVO.p_id).p_name}</td>
-			<td>${proSvc.getOnePro(favpVO.p_id).p_price}</td>
+			<td>${proVO.p_id}</td>
+			<td>${ ptSvc.getOneProductType(proVO.pt_id).typename }</td>
+			<td>${proVO.p_name}</td>
+			<td>${proVO.p_price}</td>
 			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/product/proPic.do">
-			<td><img src="<%=request.getContextPath()%>/back-end/product/proPic.do?p_id=${favpVO.p_id}"></td>
+			<td><img src="<%=request.getContextPath()%>/back-end/product/proPic.do?p_id=${proVO.p_id}"></td>
 			</FORM>
+			<td>${proVO.p_info}</td>
+			<td>${proVO.p_sales}</td>
+			<td>${proVO.p_stock}</td>
+			<td><fmt:formatDate value="${proVO.p_add_date}" pattern="yyyy-MM-dd"/></td>
+			<td>${(proVO.p_stat==0)? "下架中":"上架中"}</td>
+			
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/favouriteProduct/favp.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="取消">
-			     <input type="hidden" name="p_id"  value="${favpVO.p_id}">
-			     <input type="hidden" name="mem_id"  value="${favpVO.mem_id}">
-			     <input type="hidden" name="action"	value="delete"></FORM>
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/product/pro.do" style="margin-bottom: 0px;">
+			     <input type="submit" value="修改">
+			     <input type="hidden" name="p_id"  value="${proVO.p_id}">
+			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
 		</tr>
 	</c:forEach>
