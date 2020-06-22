@@ -6,15 +6,19 @@
 <%@ page import="com.member.model.*"%>
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
-<%
-	MemberVO memVO = (MemberVO) session.getAttribute("memberVO");
+<%	MemberVO memVO=null;
+	if(session.getAttribute("memberVO")!=null){
+		memVO = (MemberVO) session.getAttribute("memberVO");
+	}else{
+		memVO = new MemberVO();
+		memVO.setMem_id("guest");
+	}
     ProService proSvc = new ProService();
     List<ProVO> list = proSvc.getAll();
     pageContext.setAttribute("list",list);
 %>
-<%=memVO.getMem_id() %>
-<jsp:useBean id="ptSvc" scope="page" class="com.productType.model.PtService" />
 
+<jsp:useBean id="ptSvc" scope="page" class="com.productType.model.PtService" />
 <html>
 <head>
 <title>所有員工資料 - listAllEmp.jsp</title>
@@ -171,13 +175,19 @@
 			
 			<div class="p_love" > 
 			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/product/favp.do" style="margin-bottom: 0px;">
-            <input type="submit" value="加入">			
+            <input type="submit" value="加入最愛">			
             <input type="hidden" name="p_id"  value="${proVO.p_id}">
-			<input type="hidden" name="mem_id"  value="<%=memVO.getMem_id()%>">
+			<input type="hidden" name="mem_id" value="<%=memVO.getMem_id()==null ? "": memVO.getMem_id()%>">
 			<input type="hidden" name="action"	value="inster">
 			</FORM>
 			</div>
-			<div class="p_car" >車</div>
+			<div class="p_car" ><FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/product/favp.do" style="margin-bottom: 0px;">
+            <input type="submit" value="加入購物車">			
+            <input type="hidden" name="p_id"  value="${proVO.p_id}">
+			<input type="hidden" name="mem_id" value="<%=memVO.getMem_id()==null ? "": memVO.getMem_id()%>">
+			<input type="hidden" name="action"	value="inster">
+			</FORM>
+			</div>
 		</div>
 	</div>
 		

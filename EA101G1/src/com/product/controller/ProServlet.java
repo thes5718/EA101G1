@@ -281,6 +281,13 @@ public class ProServlet extends HttpServlet {
 				} else {
 					errorMsgs.add("請選擇圖片");
 				}
+				
+//				Part filePart = req.getPart("file");
+//				InputStream fileContent = filePart.getInputStream();
+//				byte[] p_image = IOUtils.toByteArray(fileContent);
+//				if(p_image == null) {
+//				 errorMsgs.add("請選擇圖片");
+//				}
 
 				ProVO proVO = new ProVO();
 				proVO.setPt_id(pt_id);
