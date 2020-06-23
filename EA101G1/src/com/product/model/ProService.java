@@ -65,4 +65,8 @@ public class ProService {
 	public List<ProVO> getAll(){
 		return dao.getAll();
 	}
+	
+	public List<ProVO> getAllFront(){
+		return dao.getAllFront();
+	}
 }

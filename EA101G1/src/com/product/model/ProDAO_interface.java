@@ -8,5 +8,6 @@ public interface ProDAO_interface {
 		public void delete(String p_id);
 		public ProVO findByPrimaryKey(String p_id );
 		public List<ProVO> getAll();
+		public List<ProVO> getAllFront();
 		public List<ProVO> findByPtId(String pt_id);
 }

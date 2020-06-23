@@ -14,7 +14,7 @@
 		memVO.setMem_id("guest");
 	}
     ProService proSvc = new ProService();
-    List<ProVO> list = proSvc.getAll();
+    List<ProVO> list = proSvc.getAllFront();
     pageContext.setAttribute("list",list);
 %>
 
@@ -162,12 +162,11 @@
 	
 	<%@ include file="page/page1.file" %> 
 	<c:forEach var="proVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-		<div class="display">
+		<div class="display" >
 		<div class="img"><img src="" alt=""></div>
-	<div class="card">
-		<div class="p_img" name="p_image"><FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/product/proPic.do">
+	<div class="card" style="${(proVO.p_stat==0)?"display:none":""}">
+		<div class="p_img" name="p_image">
 			<img src="<%=request.getContextPath()%>/back-end/product/proPic.do?p_id=${proVO.p_id}">
-			</FORM>
 		</div>
 		<div class="p_word">
 			<div class="p_tital" name="p_name">${proVO.p_name}</div>
@@ -181,13 +180,20 @@
 			<input type="hidden" name="action"	value="inster">
 			</FORM>
 			</div>
-			<div class="p_car" ><FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/product/favp.do" style="margin-bottom: 0px;">
-            <input type="submit" value="加入購物車">			
-            <input type="hidden" name="p_id"  value="${proVO.p_id}">
-			<input type="hidden" name="mem_id" value="<%=memVO.getMem_id()==null ? "": memVO.getMem_id()%>">
-			<input type="hidden" name="action"	value="inster">
+			
+			<div class="p_car" >
+			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/product/Shopping.do" style="margin-bottom: 0px;" enctype="multipart/form-data">
+            <input type="submit" value="加入購物車" >			
+            <input type="hidden" name="p_name" value="${proVO.p_name}">
+            <input type="hidden" name="p_id" value="${proVO.p_id}">
+            <input type="hidden" name="p_price" value="${proVO.p_price}">
+            <input type="hidden" name="p_stock" value="${proVO.p_stock}">
+            <input type="hidden" name="quantity" value="1">
+			<input type="hidden" name="action"	value="ADD">
+			
 			</FORM>
 			</div>
+			
 		</div>
 	</div>
 		

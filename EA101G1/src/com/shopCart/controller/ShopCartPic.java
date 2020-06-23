@@ -1,4 +1,4 @@
-package com.product.controller;
+package com.shopCart.controller;
 
 import java.io.*;
 import java.sql.*;
@@ -9,10 +9,8 @@ import javax.servlet.*;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 import javax.sql.DataSource;
-
-import com.product.model.ProVO;
 @MultipartConfig
-public class ProPic2 extends HttpServlet {
+public class ShopCartPic extends HttpServlet {
 
 	Connection con;
 
@@ -23,10 +21,24 @@ public class ProPic2 extends HttpServlet {
 		ServletOutputStream out = res.getOutputStream();
 
 		try {
-			
-//			byte[] p_image = (byte[]) req.getAttribute("p_image");
-			out.write((byte[]) req.getAttribute("p_image"));
-			
+			Statement stmt = con.createStatement();
+			String P_ID = req.getParameter("p_id");
+			ResultSet rs = stmt.executeQuery(
+				"SELECT P_IMAGE FROM PRODUCT WHERE P_ID ='"+P_ID+"'");
+
+			if (rs.next()) {
+				BufferedInputStream in = new BufferedInputStream(rs.getBinaryStream("p_image"));
+				byte[] buf = new byte[4 * 1024]; // 4K buffer
+				int len;
+				while ((len = in.read(buf)) != -1) {
+					out.write(buf, 0, len);
+				}
+				in.close();
+			} else {
+				res.sendError(HttpServletResponse.SC_NOT_FOUND);
+			}
+			rs.close();
+			stmt.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 			InputStream in = getServletContext().getResourceAsStream("/NoData/null.jpg");

@@ -356,5 +356,73 @@ public class ProDAO implements ProDAO_interface {
 		}
 		return list;
 	}
+
+	@Override
+	public List<ProVO> getAllFront() {
+		List<ProVO> list = new ArrayList<ProVO>();
+		ProVO proVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ALL_STMT);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				
+				proVO = new ProVO();
+				if (rs.getInt("p_stat")!=0){
+				proVO.setP_id(rs.getString("p_id"));
+				proVO.setPt_id(rs.getString("pt_id"));
+				proVO.setP_name(rs.getString("p_name"));
+				proVO.setP_price(rs.getDouble("p_price"));
+				proVO.setP_image(rs.getBytes("p_image"));
+				proVO.setP_info(rs.getString("p_info"));
+				proVO.setP_sales(rs.getInt("p_sales"));
+				proVO.setP_stock(rs.getInt("p_stock"));
+				proVO.setP_add_date(rs.getDate("p_add_date"));
+				proVO.setP_stat(rs.getInt("p_stat"));
+				list.add(proVO);
+				}
+			}
+
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+	
 	
 }
