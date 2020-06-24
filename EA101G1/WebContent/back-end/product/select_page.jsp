@@ -2,6 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+
+<jsp:useBean id="proSvc" scope="page" class="com.product.model.ProService" />
+<jsp:useBean id="ptSvc" scope="page" class="com.productType.model.PtService" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,8 +64,6 @@
     </FORM>
   </li>
 
-  <jsp:useBean id="proSvc" scope="page" class="com.product.model.ProService" />
-   
   <li>
      <FORM METHOD="post" ACTION="pro.do" >
        <b>選擇商品編號:</b>
@@ -88,8 +89,20 @@
        <input type="submit" value="送出">
      </FORM>
   </li>
+  
+  <li>
+     <FORM METHOD="post" ACTION="pro.do" >
+       <b>選擇商品種類:</b>
+       <select size="1" name="pt_id">
+         <c:forEach var="ptVO" items="${ptSvc.all}" > 
+          <option value="${ptVO.pt_id}">${ptVO.typename}
+         </c:forEach>   
+       </select>
+       <input type="hidden" name="action" value="getAll_ByPtId">
+       <input type="submit" value="送出">
+     </FORM>
+  </li>
 </ul>
-
 
 <h3>商品管理</h3>
 

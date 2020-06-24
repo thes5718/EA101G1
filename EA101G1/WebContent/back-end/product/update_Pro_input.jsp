@@ -119,8 +119,7 @@ div #preview {
 						<div id="preview">
 							<FORM METHOD="post"
 								ACTION="<%=request.getContextPath()%>/back-end/product/proPic.do">
-								<img
-									src="<%=request.getContextPath()%>/back-end/product/proPic.do?p_id=${proVO.p_id}">
+								<img src="<%=request.getContextPath()%>/back-end/product/proPic.do?p_id=${proVO.p_id}">
 							</FORM>
 						</div>
 					</div></td>

@@ -57,7 +57,16 @@ public class ProService {
 	public ProVO getOnePro(String p_id) {
 		return dao.findByPrimaryKey(p_id);
 	}
+	
+	public List<ProVO> getAllByPtId(String pt_id){
+		return dao.findByPtId(pt_id);
+	}
+
 	public List<ProVO> getAll(){
 		return dao.getAll();
+	}
+	
+	public List<ProVO> getAllFront(){
+		return dao.getAllFront();
 	}
 }

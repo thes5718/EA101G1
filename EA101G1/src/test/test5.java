@@ -48,13 +48,22 @@ public class test5 {
 //			System.out.println();
 //		}
 		FavpService favpSvc = new FavpService();
-	    favpSvc.deleteFavp("P001", "M000001");
+//	    favpSvc.deleteFavp("P001", "M000001");
+//		
+//		List<FavpVO> list = favpSvc.getProductByMem("M000001");
+//		for (FavpVO fa : list) {
+//			System.out.println(fa.getMem_id());
+//			System.out.println(fa.getP_id());
+//		}
 		
-		List<FavpVO> list = favpSvc.getProductByMem("M000001");
-		for (FavpVO fa : list) {
-			System.out.println(fa.getMem_id());
-			System.out.println(fa.getP_id());
-		}
+		FavpVO favpVO = new FavpVO();
+		
+		favpVO.setMem_id("M000003");
+		favpVO.setP_id("P003");
+		
+		favpSvc.addFavp(favpVO);
+		
+		System.out.println("新增成功");
 	}
 
 	public static InputStream getPictureStream(String path) throws IOException {

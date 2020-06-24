@@ -8,6 +8,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.poductOrderList.model.PolDAO;
+import com.poductOrderList.model.PolVO;
+
+
 public class PoDAO implements PoDAO_interface{
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
@@ -20,7 +24,8 @@ public class PoDAO implements PoDAO_interface{
 	private static final String GET_ALL_STMT = "SELECT PO_ID,MEM_ID,ORDSTAT_ID,to_char(ADD_DATE,'yyyy-mm-dd') ADD_DATE,RETURN_FORM FROM PRODUCT_ORDER ORDER BY PO_ID";
 	private static final String GET_ONE_STMT = "SELECT PO_ID,MEM_ID,ORDSTAT_ID,to_char(ADD_DATE,'yyyy-mm-dd') ADD_DATE,RETURN_FORM FROM PRODUCT_ORDER WHERE PO_ID=?";
 	@Override
-	public void insert(PoVO poVO) {
+	
+	public void insert(PoVO poVO , List<PolVO> list) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -28,18 +33,56 @@ public class PoDAO implements PoDAO_interface{
 
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(INSERT);
-
+			
+			con.setAutoCommit(false);
+			
+			String cols[] = {"Po_id"};
+			pstmt = con.prepareStatement(INSERT,cols);
+			
 			pstmt.setString(1, poVO.getMem_id());
 			pstmt.setString(2, poVO.getOrdstat_id());
-
 			pstmt.executeUpdate();
-
+			
+			String next_po_id = null;
+			ResultSet rs = pstmt.getGeneratedKeys();
+			if(rs.next()) {
+				next_po_id = rs.getString(1);
+				System.out.println("自增主鍵值" +next_po_id + "(剛新增成功的部門編號)");
+			} else {
+				System.out.println("未取得自增主鍵值");
+			}
+			
+			rs.close();
+			
+			PolDAO dao = new PolDAO();
+			System.out.println("list.size()-A="+list.size());
+			for (PolVO pol : list) {
+				pol.setPo_id(new String(next_po_id)) ;
+				dao.insert2(pol,con);
+			}
+			
+			con.commit();
+			con.setAutoCommit(true);
+			
+			
 		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. " + se.getMessage());
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-dept");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (pstmt != null) {
@@ -57,6 +100,7 @@ public class PoDAO implements PoDAO_interface{
 				}
 			}
 		}
+
 	}
 	@Override
 	public void update(PoVO poVO) {

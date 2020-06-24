@@ -45,6 +45,16 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>ShopCartPic</servlet-name>
+		<servlet-class>com.shopCart.controller.ShopCartPic</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>ShopCartPic</servlet-name>
+		<url-pattern>/front/product/ShopCartPic.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>FavpProduct</servlet-name>
 		<servlet-class>com.favouriteProduct.controller.FavpServlet</servlet-class>
 	</servlet>        
@@ -54,6 +64,15 @@
 		<url-pattern>/front-end/favouriteProduct/favp.do</url-pattern>
 		<url-pattern>/front-end/product/favp.do</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		    <servlet-name>ShopCartServlet</servlet-name>
+		    <servlet-class>com.shopCart.controller.ShopCartServlet</servlet-class>
+	  </servlet>
+	  <servlet-mapping>
+		    <servlet-name>ShopCartServlet</servlet-name>
+		    <url-pattern>/front-end/product/Shopping.do</url-pattern>
+	  </servlet-mapping>
 	<!--商品-->
 	
 	<!--會員 -->

@@ -2,6 +2,8 @@ package test;
 
 
 
+import com.poductOrderList.model.PolDAO;
+import com.poductOrderList.model.PolVO;
 import com.productOrder.model.PoDAO;
 import com.productOrder.model.PoVO;
 
@@ -15,6 +17,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -59,16 +62,38 @@ public class test3 {
 //		System.out.println("---------------------");
 
 //		// 查詢
-		List<PoVO> list = dao.getAll();
-		for (PoVO po : list) {
-			System.out.print(po.getPo_id() + ",");
-			System.out.print(po.getMem_id() + ",");
-			System.out.print(po.getOrdstat_id() + ",");
-			System.out.print(po.getAdd_date() + ",");
-			System.out.print(po.getReturn_form() + ",");
-			System.out.println("---------------------");
-			System.out.println();
-		}
+//		List<PoVO> list = dao.getAll();
+//		for (PoVO po : list) {
+//			System.out.print(po.getPo_id() + ",");
+//			System.out.print(po.getMem_id() + ",");
+//			System.out.print(po.getOrdstat_id() + ",");
+//			System.out.print(po.getAdd_date() + ",");
+//			System.out.print(po.getReturn_form() + ",");
+//			System.out.println("---------------------");
+//			System.out.println();
+//		}
+		
+		List<PolVO> list = new ArrayList<PolVO>();
+		PolVO polVO = new PolVO();
+		polVO.setP_id("P006");
+		polVO.setP_price(new Double(200));
+		polVO.setOrder_qua(30);
+		list.add(polVO);
+		PolVO polVO2 = new PolVO();
+		polVO2.setP_id("P005");
+		polVO2.setP_price(new Double(230));
+		polVO2.setOrder_qua(10);
+		list.add(polVO2);
+		
+		PoVO poVO = new PoVO();
+		poVO.setMem_id("M000006");
+		poVO.setOrdstat_id("001");
+		
+		PoDAO podao = new PoDAO();
+		podao.insert(poVO, list);
+		System.out.println("新增成功");
+		
+		
 	}
 
 	public static InputStream getPictureStream(String path) throws IOException {
