@@ -7,12 +7,14 @@
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%	MemberVO memVO=null;
+
 	if(session.getAttribute("memberVO")!=null){
 		memVO = (MemberVO) session.getAttribute("memberVO");
 	}else{
 		memVO = new MemberVO();
 		memVO.setMem_id("guest");
 	}
+	
     ProService proSvc = new ProService();
     List<ProVO> list = proSvc.getAllFront();
     pageContext.setAttribute("list",list);
@@ -182,7 +184,7 @@
 			</div>
 			
 			<div class="p_car" >
-			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/product/Shopping.do" style="margin-bottom: 0px;" enctype="multipart/form-data">
+			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/shopCart/Shopping.do" style="margin-bottom: 0px;" enctype="multipart/form-data">
             <input type="submit" value="加入購物車" >			
             <input type="hidden" name="p_name" value="${proVO.p_name}">
             <input type="hidden" name="p_id" value="${proVO.p_id}">
