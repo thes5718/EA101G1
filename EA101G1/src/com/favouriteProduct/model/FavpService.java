@@ -15,6 +15,11 @@ public class FavpService {
 		return dao.getFavpByMem(mem_id);
 	}
 	
+	public FavpVO getOne(String p_id , String mem_id) {
+		
+		return dao.getOneFavp(p_id, mem_id);
+	}
+	
 	public void deleteFavp(String p_id,String mem_id) {
 		dao.delete(p_id, mem_id);
 	}
@@ -23,4 +28,6 @@ public class FavpService {
 		
 		dao.insert(favpVO);
 	}
+	
+	
 }

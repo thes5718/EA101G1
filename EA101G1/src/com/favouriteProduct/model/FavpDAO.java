@@ -17,6 +17,7 @@ public class FavpDAO implements com.favouriteProduct.model.FavpDAO_interface{
 	
 	private static final String INSERT_STMT = "INSERT INTO FAVOURITE_PRODUCT(P_ID,MEM_ID) VALUES (?,?)";
 	private static final String GET_FAVP_BY_MEM_STMT = "SELECT P_ID , MEM_ID FROM FAVOURITE_PRODUCT WHERE MEM_ID = ?";
+	private static final String GET_ONE_FAVP_STMT = "SELECT P_ID , MEM_ID FROM FAVOURITE_PRODUCT WHERE P_ID=? AND MEM_ID=?";
 	private static final String DELETE = "DELETE FROM FAVOURITE_PRODUCT WHERE P_ID = ? AND MEM_ID = ?";
 	@Override
 	public void insert(FavpVO favpVO) {
@@ -25,7 +26,7 @@ public class FavpDAO implements com.favouriteProduct.model.FavpDAO_interface{
 		
 		try {
 			Class.forName(driver);
-			con = DriverManager.getConnection(url,userid,passwd);
+			con = DriverManager.getConnection(url,userid,passwd);		
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
 			pstmt.setString(1,favpVO.getP_id());
@@ -150,6 +151,60 @@ public class FavpDAO implements com.favouriteProduct.model.FavpDAO_interface{
 			}
 		}
 		return list;
+	}
+	@Override
+	public FavpVO getOneFavp(String p_id, String mem_id) {
+		FavpVO favpVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ONE_FAVP_STMT);
+			pstmt.setString(1,p_id);
+			pstmt.setString(2,mem_id);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				favpVO = new FavpVO();
+				
+				favpVO.setMem_id(mem_id);
+				favpVO.setP_id(p_id);
+			}
+			
+		}catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return favpVO;
 	}
 	
 	

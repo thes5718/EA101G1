@@ -41,7 +41,7 @@ public class FavpServlet extends HttpServlet {
 			}
 		}
 		
-		if("inster".equals(action)) {
+		if("insert".equals(action)) {
 			
 			try {
 				

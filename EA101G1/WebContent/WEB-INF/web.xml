@@ -55,12 +55,12 @@
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>FavpProduct</servlet-name>
+		<servlet-name>FavpServlet</servlet-name>
 		<servlet-class>com.favouriteProduct.controller.FavpServlet</servlet-class>
 	</servlet>        
 	
 	<servlet-mapping>
-		<servlet-name>FavpProduct</servlet-name>
+		<servlet-name>FavpServlet</servlet-name>
 		<url-pattern>/front-end/favouriteProduct/favp.do</url-pattern>
 		<url-pattern>/front-end/product/favp.do</url-pattern>
 	</servlet-mapping>
@@ -147,6 +147,7 @@
 		<filter-name>LoginFilter</filter-name>
 		<url-pattern>/front-end/protected/*</url-pattern>
 		<url-pattern>/front-end/shopCart/*</url-pattern>
+		<servlet-name>FavpProduct</servlet-name>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>
