@@ -290,6 +290,7 @@
 <script>
 $('img.img-icon').click(function(){
 	var source = $(this).attr('src');
+	if(${sessionScope.memberVO ne null}) {
 	if (source.includes('empty')){
 		// empty 為 空心愛心圖案, 代表收藏文章功能, 按下後置換圖片, 並且以AJAX方式送出請求
 		var thisID = this.id;
@@ -327,7 +328,7 @@ $('img.img-icon').click(function(){
 			data: {
 				p_id: p_id,
 				mem_id: mem_id,
-				arcion: 'delete'
+				action: 'delete2'
 			},
 			success: function(){
 				Swal.fire({
@@ -337,9 +338,17 @@ $('img.img-icon').click(function(){
 					timer: 750
 				})
 			}
-		});
+	});
+	
 	}
-});
+}else{
+	<%
+	session.setAttribute("location", request.getRequestURI());
+%>	
+document.location.href = '<%=request.getContextPath()%>/front-end/member/login.jsp';
+}
+	
+	});
 </script>
 
 

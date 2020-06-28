@@ -41,6 +41,21 @@ public class FavpServlet extends HttpServlet {
 			}
 		}
 		
+		if("delete2".equals(action)) {// ajax用 不轉傳任何網頁
+			try {
+				System.out.println("delete");
+				String p_id = req.getParameter("p_id");
+				String mem_id = req.getParameter("mem_id");
+				
+				FavpService favpSvc = new FavpService();
+				favpSvc.deleteFavp(p_id, mem_id);
+				
+			} catch(Exception e) {
+				RequestDispatcher failureView = req.getRequestDispatcher("listAllFavouriteProduct.jsp");
+				failureView.forward(req, res);
+			}
+		}
+		
 		if("insert".equals(action)) {
 			
 			try {
