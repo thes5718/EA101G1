@@ -2,6 +2,7 @@ package com.product.model;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProService {
 
@@ -67,6 +68,10 @@ public class ProService {
 	}
 	
 	public List<ProVO> getAllFront(){
-		return dao.getAllFront();
+		List<ProVO> list =dao.getAll().stream()
+		.filter(p ->p.getP_stat().equals(1))
+		.collect(Collectors.toList());
+		
+		return list;
 	}
 }

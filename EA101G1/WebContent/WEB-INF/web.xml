@@ -72,6 +72,7 @@
 	  <servlet-mapping>
 		    <servlet-name>ShopCartServlet</servlet-name>
 		    <url-pattern>/front-end/product/Shopping.do</url-pattern>
+		    <url-pattern>/front-end/shopCart/Shopping.do</url-pattern>
 	  </servlet-mapping>
 	<!--商品-->
 	
@@ -146,7 +147,6 @@
 	<filter-mapping>
 		<filter-name>LoginFilter</filter-name>
 		<url-pattern>/front-end/protected/*</url-pattern>
-		<url-pattern>/front-end/shopCart/*</url-pattern>
 		<servlet-name>FavpProduct</servlet-name>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>

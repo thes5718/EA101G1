@@ -171,13 +171,13 @@
 
 			background-size: cover;
 		}
-		img.img-icon {
+		.img-icon {
 			width: 90%;
 			height: 90%;
 			float: right;
 			margin: 0 2px;
 		}
-		img.img-icon:hover {
+		.img-icon:hover {
 			cursor:pointer;
 		}
 	</style>
@@ -226,7 +226,7 @@
                     <a class="nav-link" href="<%=request.getContextPath()%>/front-end/favouriteProduct/listAllFavouriteProduct.jsp">我的最愛</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">購物車</a>
+                    <a class="nav-link" href="<%=request.getContextPath()%>/front-end/shopCart/shopCart.jsp">購物車</a>
                 </li>
 
             </ul>
@@ -275,7 +275,15 @@
 			</div>
 			
 			<div class="p_car" >
-			<img class="img-icon" alt="" src="<%=request.getContextPath()%>/front-end/product/images/icons/shopping-cart.png" id="${proVO.p_name}${proVO.p_id}${proVO.p_price}${proVO.p_stock}" title="加入購物車">
+			<form name="shoppingForm" action="<%=request.getContextPath()%>/front-end/product/Shopping.do" method="POST">
+			<input type="hidden" name="p_id" value="${proVO.p_id}">
+      		<input type="hidden" name="p_name" value="${proVO.p_name}">
+      		<input type="hidden" name="quantity" value="1">
+      		<input type="hidden" name="p_price" value="${proVO.p_price}">
+      		<input type="hidden" name="p_stock" value="${proVO.p_stock}">
+      		<input type="hidden" name="action" value="ADD">	
+      		<input type="hidden" name="url" value="<%=request.getRequestURI()%>?<%=request.getQueryString()%>">
+      		<input type="image" class="img-icon" alt="Submit" src="<%=request.getContextPath()%>/front-end/product/images/icons/shopping-cart.png"  title="加入購物車" >
 			</FORM>
 			</div>
 			
@@ -290,9 +298,9 @@
 <script>
 $('img.img-icon').click(function(){
 	var source = $(this).attr('src');
-	if(${sessionScope.memberVO ne null}) {
 	if (source.includes('empty')){
 		// empty 為 空心愛心圖案, 代表收藏文章功能, 按下後置換圖片, 並且以AJAX方式送出請求
+		if(${sessionScope.memberVO ne null}) {
 		var thisID = this.id;
 		var p_id = thisID.substring(0, 4);
 		var mem_id = thisID.substring(4, 11);
@@ -315,8 +323,13 @@ $('img.img-icon').click(function(){
 				})
 			}
 		});
-		
-	} else if (source.includes('full')){
+		}else{
+			<%session.setAttribute("location", request.getRequestURI()+"?"+request.getQueryString());%>	
+			document.location.href = '<%=request.getContextPath()%>/front-end/member/login.jsp';
+		}
+	}
+	else if (source.includes('full')){
+		if(${sessionScope.memberVO ne null}) {
 		var thisID = this.id;
 		var p_id = thisID.substring(0, 4);
 		var mem_id = thisID.substring(4, 11);
@@ -339,15 +352,11 @@ $('img.img-icon').click(function(){
 				})
 			}
 	});
-	
+	}else{
+		<%session.setAttribute("location", request.getRequestURI()+"?"+request.getQueryString());%>	
+		document.location.href = '<%=request.getContextPath()%>/front-end/member/login.jsp';
 	}
-}else{
-	<%
-	session.setAttribute("location", request.getRequestURI());
-%>	
-document.location.href = '<%=request.getContextPath()%>/front-end/member/login.jsp';
-}
-	
+	}
 	});
 </script>
 

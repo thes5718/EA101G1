@@ -26,6 +26,7 @@ public class ShopCartServlet extends HttpServlet {
 
 			// 刪除購物車中的書籍
 			if (action.equals("DELETE")) {
+				System.out.println("123");
 				String del = req.getParameter("del");
 				int d = Integer.parseInt(del);
 				buylist.removeElementAt(d);//buylist.remove(d);新版寫法
@@ -33,7 +34,7 @@ public class ShopCartServlet extends HttpServlet {
 			// 新增書籍至購物車中
 			else if (action.equals("ADD")) {
 				boolean match = false;
-
+				System.out.println("123");
 				// 取得後來新增的書籍
 				PRODUCT aproduct = getProduct(req);
 				Double sub = aproduct.getQuantity()*aproduct.getPrice();
@@ -65,20 +66,22 @@ public class ShopCartServlet extends HttpServlet {
 			}
 
 			session.setAttribute("shoppingcart", buylist);
-			String url = "shopCart.jsp";
-			RequestDispatcher rd = req.getRequestDispatcher(url);
-			rd.forward(req, res);
+			String url = req.getParameter("url");
+			res.sendRedirect(url);
 		}
 
 		// 結帳，計算購物車書籍價錢總數
 		else if (action.equals("CHECKOUT")) {
-			float total = 0;
-			for (int i = 0; i < buylist.size(); i++) {
-				PRODUCT order = buylist.get(i);
-				Double price = new Double(order.getPrice());
-				Integer quantity = order.getQuantity();
-				total += (price * quantity);
-			}
+			double total = buylist.stream()
+					.mapToDouble(p ->p.getPrice() * p.getQuantity())
+					.sum();
+			
+//			for (int i = 0; i < buylist.size(); i++) {
+//				PRODUCT order = buylist.get(i);
+//				Double price = new Double(order.getPrice());
+//				Integer quantity = order.getQuantity();
+//				total += (price * quantity);
+//			}
 
 			String amount = String.valueOf(total);
 			req.setAttribute("amount", amount);
