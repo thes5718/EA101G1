@@ -11,8 +11,8 @@ import java.util.List;
 public class OrdstatDAO implements OrdstatDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "GAME";
-	String passwd = "GAME";
+	String userid = "EA101G1";
+	String passwd = "123456";
 
 	private static final String INSERT_STMT = "INSERT INTO ordstat(ordstat_id,ordstat) VALUES (LPAD(to_char(ORDSTAT_SEQ.NEXTVAL), 3, '0'）,?)";
 	private static final String UPDATE_STMT = "UPDATE ordstat set ordstat=? where ordstat_id=?";

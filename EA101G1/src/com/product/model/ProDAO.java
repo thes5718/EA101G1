@@ -12,7 +12,7 @@ public class ProDAO implements ProDAO_interface {
 
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "DANNY";
+	String userid = "EA101G1";
 	String passwd = "123456";
 
 	private static final String INSERT_STMT = "INSERT INTO PRODUCT(P_ID,PT_ID, P_NAME, P_PRICE, P_IMAGE,P_INFO, P_SALES, P_STOCK, P_STAT) VALUES ('P'||LPAD(TO_CHAR(SEQ_P_ID.NEXTVAL),3,'0'), ?, ?, ?, ?, ?, 0, ?, ?)";

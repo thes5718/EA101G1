@@ -12,7 +12,7 @@ public class PolDAO implements com.poductOrderList.model.PolDAO_interface{
 	
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "DANNY";
+	String userid = "EA101G1";
 	String passwd = "123456";
 	
 	private static final String INSERT="INSERT INTO PRODUCT_ORDER_LIST(PO_ID,P_ID,ORDER_QUA,P_PRICE) VALUES(?,?,?,?)";

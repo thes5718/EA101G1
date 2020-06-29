@@ -10,7 +10,7 @@ public class PtDAO implements com.productType.model.PtDAO_interface{
 
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "DANNY";
+	String userid = "EA101G1";
 	String passwd = "123456";
 
 	private static final String INSERT = "INSERT INTO PRODUCT_TYPE(PT_ID,TYPENAME) VALUES(?,?)";

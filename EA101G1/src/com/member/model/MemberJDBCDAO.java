@@ -9,7 +9,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "EA101";
+	String userid = "EA101G1";
 	String passwd = "123456";
 	
 	private static final String INSERT_STMT = "INSERT INTO member (mem_id, mem_email, mem_pass, mem_name, mem_icon, mem_phone, mem_addr, bank_acc, card_no, card_yy, card_mm, card_sec, mem_autho, mem_bonus, mem_joindat, mem_birth, mem_warn) VALUES ('M'||LPAD(to_char(member_seq.NEXTVAL), 6, '0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";

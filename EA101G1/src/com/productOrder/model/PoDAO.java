@@ -15,7 +15,7 @@ import com.poductOrderList.model.PolVO;
 public class PoDAO implements PoDAO_interface{
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "DANNY";
+	String userid = "EA101G1";
 	String passwd = "123456";
 
 	private static final String INSERT = "INSERT INTO PRODUCT_ORDER(PO_ID,MEM_ID,ORDSTAT_ID) VALUES(TO_CHAR(sysdate,'yyyy-mm-dd')||'-'||LPAD(TO_CHAR(SEQ_PO_ID.NEXTVAL),6,'0'),?,?)";

@@ -6,7 +6,7 @@ import java.util.*;
 public class DisCountJDBC implements DisCountDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "DANNY";
+	String userid = "EA101G1";
 	String passwd = "123456";
 	private static final String INSERT_STMT = "INSERT INTO DISCOUNT(DIS_ID,DIS_NAME,STAR_DATE,END_DATE) VALUES ('DIS'||LPAD(TO_CHAR(SEQ_DIS_ID.NEXTVAL),3,'0'),?,?,?)";
 	public static final String GET_ALL_STMT = "SELECT * FROM DISCOUNT";
