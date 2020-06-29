@@ -8,8 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.poductOrderList.model.PolDAO;
-import com.poductOrderList.model.PolVO;
+import com.productOrderList.model.PolDAO;
+import com.productOrderList.model.PolVO;
 
 
 public class PoDAO implements PoDAO_interface{
@@ -18,7 +18,7 @@ public class PoDAO implements PoDAO_interface{
 	String userid = "EA101G1";
 	String passwd = "123456";
 
-	private static final String INSERT = "INSERT INTO PRODUCT_ORDER(PO_ID,MEM_ID,ORDSTAT_ID) VALUES(TO_CHAR(sysdate,'yyyy-mm-dd')||'-'||LPAD(TO_CHAR(SEQ_PO_ID.NEXTVAL),6,'0'),?,?)";
+	private static final String INSERT = "INSERT INTO PRODUCT_ORDER(PO_ID,MEM_ID,ORDSTAT_ID) VALUES(TO_CHAR(sysdate,'yyyy-mm-dd')||'-'||LPAD(TO_CHAR(SEQ_PO_ID.NEXTVAL),6,'0'),?,'001')";
 	private static final String UPDATE = "UPDATE PRODUCT_ORDER SET ORDSTAT_ID=?,RETURN_FORM=? WHERE PO_ID=?";
 	private static final String DELETE = "DELETE FROM PRODUCT_ORDER WHERE PO_ID=?";
 	private static final String GET_ALL_STMT = "SELECT PO_ID,MEM_ID,ORDSTAT_ID,to_char(ADD_DATE,'yyyy-mm-dd') ADD_DATE,RETURN_FORM FROM PRODUCT_ORDER ORDER BY PO_ID";
@@ -40,7 +40,6 @@ public class PoDAO implements PoDAO_interface{
 			pstmt = con.prepareStatement(INSERT,cols);
 			
 			pstmt.setString(1, poVO.getMem_id());
-			pstmt.setString(2, poVO.getOrdstat_id());
 			pstmt.executeUpdate();
 			
 			String next_po_id = null;

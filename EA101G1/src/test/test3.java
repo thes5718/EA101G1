@@ -2,10 +2,11 @@ package test;
 
 
 
-import com.poductOrderList.model.PolDAO;
-import com.poductOrderList.model.PolVO;
 import com.productOrder.model.PoDAO;
+import com.productOrder.model.PoService;
 import com.productOrder.model.PoVO;
+import com.productOrderList.model.PolDAO;
+import com.productOrderList.model.PolVO;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -85,12 +86,15 @@ public class test3 {
 		polVO2.setOrder_qua(10);
 		list.add(polVO2);
 		
-		PoVO poVO = new PoVO();
-		poVO.setMem_id("M000006");
-		poVO.setOrdstat_id("001");
+//		PoVO poVO = new PoVO();
+//		poVO.setMem_id("M000006");
 		
-		PoDAO podao = new PoDAO();
-		podao.insert(poVO, list);
+//		PoDAO podao = new PoDAO();
+//		podao.insert(poVO, list);
+		
+		
+		PoService poSvc = new PoService();
+		poSvc.AddOrder("M000006", list);
 		System.out.println("新增成功");
 		
 		

@@ -74,6 +74,15 @@
 		    <url-pattern>/front-end/product/Shopping.do</url-pattern>
 		    <url-pattern>/front-end/shopCart/Shopping.do</url-pattern>
 	  </servlet-mapping>
+	  
+	  <servlet>
+		    <servlet-name>PoServlet</servlet-name>
+		    <servlet-class>com.productOrder.controller.PoServlet</servlet-class>
+	  </servlet>
+	  <servlet-mapping>
+		    <servlet-name>PoServlet</servlet-name>
+		    <url-pattern>/front-end/shopCart/Po.do</url-pattern>
+	  </servlet-mapping>
 	<!--商品-->
 	
 	<!--會員 -->
@@ -147,6 +156,7 @@
 	<filter-mapping>
 		<filter-name>LoginFilter</filter-name>
 		<url-pattern>/front-end/protected/*</url-pattern>
+		<url-pattern>/front-end/shopCart/Checkout.jsp</url-pattern>
 		<servlet-name>FavpProduct</servlet-name>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>

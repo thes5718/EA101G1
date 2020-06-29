@@ -12,8 +12,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import com.poductOrderList.model.PolDAO;
-import com.poductOrderList.model.PolVO;
+import com.productOrderList.model.PolDAO;
+import com.productOrderList.model.PolVO;
 
 
 public class test4 {

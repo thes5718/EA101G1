@@ -2,7 +2,7 @@ package com.productOrder.model;
 
 import java.util.List;
 
-import com.poductOrderList.model.PolVO;
+import com.productOrderList.model.PolVO;
 
 
 public interface PoDAO_interface {

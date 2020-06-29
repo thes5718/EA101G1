@@ -14,7 +14,7 @@
 
 <html>
 <head>
-<title>所有員工資料 - listAllEmp.jsp</title>
+<title>所有商品資料 - listAllPro.jsp</title>
 
 <style>
   table#table-1 {
