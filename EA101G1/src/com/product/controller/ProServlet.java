@@ -267,9 +267,9 @@ public class ProServlet extends HttpServlet {
 						errorMsgs.add("商品庫存請填數字.");
 					}
 				}
-
+				
+				
 				Integer p_stat = new Integer(req.getParameter("p_stat").trim());
-
 				byte[] p_image = null;
 				Part part = req.getPart("p_image");//資料
 				InputStream in = part.getInputStream();//資料

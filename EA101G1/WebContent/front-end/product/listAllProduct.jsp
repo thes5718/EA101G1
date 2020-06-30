@@ -4,14 +4,15 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.product.model.*"%>
 <%@ page import="com.member.model.*"%>
+<%@ page import="com.shopCart.model.PRODUCT" %>
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
-<%	MemberVO memVO=null;
-
-	if(session.getAttribute("memberVO")!=null){
-		memVO = (MemberVO) session.getAttribute("memberVO");
+<%	Vector<PRODUCT> buylist=null;
+	if(session.getAttribute("shoppingcart")!=null){
+	buylist = (Vector<PRODUCT>) session.getAttribute("shoppingcart");
+	}else{
+		buylist= new Vector<PRODUCT>();
 	}
-	
     ProService proSvc = new ProService();
     List<ProVO> list = proSvc.getAllFront();
     pageContext.setAttribute("list",list);
@@ -226,7 +227,7 @@
                     <a class="nav-link" href="<%=request.getContextPath()%>/front-end/favouriteProduct/listAllFavouriteProduct.jsp">我的最愛</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<%=request.getContextPath()%>/front-end/shopCart/shopCart.jsp">購物車</a>
+                    <a class="nav-link" href="<%=request.getContextPath()%>/front-end/shopCart/shopCart.jsp">購物車(<%=buylist.size() %>)</a>
                 </li>
 
             </ul>
@@ -357,6 +358,15 @@ $('img.img-icon').click(function(){
 		document.location.href = '<%=request.getContextPath()%>/front-end/member/login.jsp';
 	}
 	}
+	});
+	
+$('input.img-icon').click(function(){
+	Swal.fire({
+		icon: 'info',
+		title: '加入成功',
+		showConfirmButton: false,
+		timer: 750
+	})
 	});
 </script>
 

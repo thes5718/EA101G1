@@ -44,7 +44,6 @@
 			polvo.setOrder_qua(quantity);
 			polvo.setP_price(price);
 			
-			
 			list.add(polvo);
 	%>
 	<tr>
@@ -64,14 +63,13 @@
 		<td colspan="3"><div align="center"><font color="red"><b>總金額：</b></font><font color="red"><b>$<%=amount%></b></font></div></td>
 	</tr>
 </table>
-<p>
-          <form name="checkoutForm" action="<%=request.getContextPath()%>/front-end/shopCart/Po.do" method="POST">
-              <input type="hidden" name="action" value="insert"> 
-              <input type="hidden" name="mem_id" value="${sessionScope.memberVO.mem_id}">
-              <input type="hidden" name="amount" value=<%= amount%>>
-              <input type="submit" value="確認結帳">
-          </form>
-<p><a href="<%=request.getContextPath() %>/front-end/product/listAllProduct.jsp">是否繼續購物</a>
+<p id="end"><a href="<%=request.getContextPath() %>/front-end/product/listAllProduct.jsp">是否繼續購物</a>
+
+<script>
+$(#end).click(function(){
+	<%session.removeAttribute("shoppingcart");%>
+});
+</script>
 </center>
 </body>
 </html>

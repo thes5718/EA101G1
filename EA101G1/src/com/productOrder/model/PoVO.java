@@ -9,6 +9,8 @@ public class PoVO {
 	private String ordstat_id;
 	private Date add_date;
 	private String return_form;
+	private Double amount;
+	
 	
 	public PoVO() {
 		super();
@@ -43,5 +45,11 @@ public class PoVO {
 	}
 	public void setReturn_form(String return_form) {
 		this.return_form = return_form;
+	}
+	public Double getAmount() {
+		return amount;
+	}
+	public void setAmount(Double amount) {
+		this.amount = amount;
 	}
 }

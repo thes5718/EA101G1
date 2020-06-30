@@ -36,16 +36,16 @@ public class PoServlet extends HttpServlet {
 		if("insert".equals(action)) {
 			try {
 				String mem_id = req.getParameter("mem_id");
-				System.out.println(mem_id);
+				Double amount = new Double (req.getParameter("amount"));
 				List <PolVO> list = (ArrayList<PolVO>)session.getAttribute("list");
-				for(PolVO polvo : list) {
-					System.out.println(polvo.getPo_id());
-					System.out.println(polvo.getOrder_qua());
-					System.out.println(polvo.getP_price());
-				}
 				PoService poSvc = new PoService();
-				poSvc.AddOrder(mem_id, list);
+				poSvc.AddOrder(mem_id , amount, list);
+				
 				System.out.println("訂單已成立");
+				
+				String url = "End.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);
+				successView.forward(req, res);
 			}catch (Exception e) {
 				System.out.println("訂單已失敗");
 				e.printStackTrace();

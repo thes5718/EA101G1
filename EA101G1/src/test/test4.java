@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.util.List;
 
 import com.productOrderList.model.PolDAO;
+import com.productOrderList.model.PolService;
 import com.productOrderList.model.PolVO;
 
 
@@ -25,14 +26,14 @@ public class test4 {
 		
 			// 新增
 			
-			PolVO polVO = new PolVO();
-			polVO.setPo_id("2020-06-11-000001");
-			polVO.setP_id("P003");
-			polVO.setOrder_qua(0);
-			polVO.setP_price(new Double(200));
-			dao.insert(polVO);
-			System.out.println("新增成功");
-//		
+//			PolVO polVO = new PolVO();
+//			polVO.setPo_id("2020-06-11-000001");
+//			polVO.setP_id("P003");
+//			polVO.setOrder_qua(0);
+//			polVO.setP_price(new Double(200));
+//			dao.insert(polVO);
+//			System.out.println("新增成功");
+////		
 		
 
 //
@@ -57,6 +58,15 @@ public class test4 {
 //			System.out.println("---------------------");
 //			System.out.println();
 //		}
+			PolService polSvc = new PolService();
+			List <PolVO> list = polSvc.getPolbyPoId("2020-06-30-000005");
+			for(PolVO polVO: list) {
+				System.out.println(polVO.getP_id());
+				System.out.println(polVO.getPo_id());
+				System.out.println(polVO.getOrder_qua());
+				System.out.println(polVO.getP_price());
+				System.out.println("-----------------------");
+			}
 	}
 
 	public static InputStream getPictureStream(String path) throws IOException {

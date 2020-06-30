@@ -26,7 +26,7 @@ public class test3 {
 
 	public static void main(String[] args) {
 
-		PoDAO dao = new PoDAO();
+//		PoDAO dao = new PoDAO();
 //		
 		
 			// 新增
@@ -74,31 +74,31 @@ public class test3 {
 //			System.out.println();
 //		}
 		
-		List<PolVO> list = new ArrayList<PolVO>();
-		PolVO polVO = new PolVO();
-		polVO.setP_id("P006");
-		polVO.setP_price(new Double(200));
-		polVO.setOrder_qua(30);
-		list.add(polVO);
-		PolVO polVO2 = new PolVO();
-		polVO2.setP_id("P005");
-		polVO2.setP_price(new Double(230));
-		polVO2.setOrder_qua(10);
-		list.add(polVO2);
-		
+//		List<PolVO> list = new ArrayList<PolVO>();
+//		PolVO polVO = new PolVO();
+//		polVO.setP_id("P006");
+//		polVO.setP_price(new Double(200));
+//		polVO.setOrder_qua(30);
+//		list.add(polVO);
+//		PolVO polVO2 = new PolVO();
+//		polVO2.setP_id("P005");
+//		polVO2.setP_price(new Double(230));
+//		polVO2.setOrder_qua(10);
+//		list.add(polVO2);
+//		
 //		PoVO poVO = new PoVO();
 //		poVO.setMem_id("M000006");
 		
 //		PoDAO podao = new PoDAO();
 //		podao.insert(poVO, list);
-		
-		
-		PoService poSvc = new PoService();
-		poSvc.AddOrder("M000006", list);
-		System.out.println("新增成功");
-		
-		
-	}
+//		
+//		
+//		PoService poSvc = new PoService();
+//		poSvc.AddOrder("M000006", list);
+//		System.out.println("新增成功");
+//		
+//		
+}
 
 	public static InputStream getPictureStream(String path) throws IOException {
 		File file = new File(path);
