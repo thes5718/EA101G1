@@ -6,9 +6,9 @@
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%
-    PoService poSvc = new PoService();
-    List<PoVO> list = poSvc.getAll();
-    pageContext.setAttribute("list",list);
+PoService poSvc = new PoService();
+List<PoVO> list = poSvc.getOrder("003");
+pageContext.setAttribute("list",list);
 %>
 <jsp:useBean id="polSvc" scope="page" class="com.productOrderList.model.PolService" />
 <jsp:useBean id="ordSvc" scope="page" class="com.ordstat.model.OrdstatService" />
@@ -83,10 +83,12 @@
 			<td>${ordSvc.listOneOrdstat(poVO.ordstat_id).ordstat}</td>
 			<td>${poVO.amount}</td>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/product/pro.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="修改">
-			     <input type="hidden" name="p_id"  value="${proVO.p_id}">
-			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/productorder/Po.do" style="margin-bottom: 0px;">
+			     <input type="submit" value="出貨">
+			     <input type="hidden" name="po_id"  value="${poVO.po_id}">
+			     <input type="hidden" name="ordstat_id"  value="006">
+			     <input type="hidden" name="url" value="<%=request.getServletPath()%>?<%=request.getQueryString()%>">
+			     <input type="hidden" name="action"	value="updateOrdStat"></FORM>
 			</td>
 		</tr>
 		<c:forEach var="polVO" items="${polSvc.getPolbyPoId(poVO.po_id)}">

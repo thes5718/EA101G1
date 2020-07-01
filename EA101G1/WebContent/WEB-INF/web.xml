@@ -82,6 +82,7 @@
 	  <servlet-mapping>
 		    <servlet-name>PoServlet</servlet-name>
 		    <url-pattern>/front-end/shopCart/Po.do</url-pattern>
+		    <url-pattern>/front-end/productorder/Po.do</url-pattern>
 	  </servlet-mapping>
 	<!--商品-->
 	

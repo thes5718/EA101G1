@@ -7,7 +7,7 @@
 
 <%
     PoService poSvc = new PoService();
-    List<PoVO> list = poSvc.getAll();
+    List<PoVO> list = poSvc.getOrder("003");
     pageContext.setAttribute("list",list);
 %>
 <jsp:useBean id="polSvc" scope="page" class="com.productOrderList.model.PolService" />
@@ -58,8 +58,9 @@
 <body bgcolor='white'>
 
 
-<table style:"margin:0px auto">
-	<c:forEach var="poVO" items="${list}">
+<table>
+
+	<c:forEach var="poVO" items="${list}" >
 	<tr>
 		<th>訂單編號</th>
 		<th>日期</th>
@@ -75,11 +76,11 @@
 			<td>${poVO.amount}</td>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/productorder/Po.do" style="margin-bottom: 0px;">
-			  	<c:if test="${poVO.ordstat_id == 003}">
 			     <input type="submit" value="取消">
-			     <input type="hidden" name="ordstat_id"  value="007">
-			    </c:if> 
 			     <input type="hidden" name="po_id"  value="${poVO.po_id}">
+			     <input type="hidden" name="ordstat_id"  value="007">
+			     <input type="hidden" name="show" value="#nav-waiting-tab">
+			     <input type="hidden" name="url" value="<%=request.getServletPath()%>?<%=request.getQueryString()%>">
 			     <input type="hidden" name="action"	value="updateOrdStat"></FORM>
 			</td>
 		</tr>
@@ -95,6 +96,7 @@
 		
 	</c:forEach>
 </table>
+
 
 </body>
 </html>
