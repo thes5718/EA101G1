@@ -15,7 +15,7 @@
 <jsp:useBean id="proSvc" scope="page" class="com.product.model.ProService" />
 <html>
 <head>
-<title>所有商品資料 - listAllPro.jsp</title>
+<title>所有訂單資料</title>
 
 <style>
   table#table-1 {
@@ -75,10 +75,15 @@
 			<td>${poVO.amount}</td>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/productorder/Po.do" style="margin-bottom: 0px;">
-			  	<c:if test="${poVO.ordstat_id == 003}">
+			  	<c:if test="${poVO.ordstat_id == '003'}">
 			     <input type="submit" value="取消">
 			     <input type="hidden" name="ordstat_id"  value="007">
 			    </c:if> 
+			    <c:if test="${poVO.ordstat_id == '006'}">
+			     <input type="submit" value="完成">
+			     <input type="hidden" name="ordstat_id"  value="007">
+			    </c:if> 
+			     <input type="hidden" name="url" value="<%=request.getServletPath()%>?<%=request.getQueryString()%>">
 			     <input type="hidden" name="po_id"  value="${poVO.po_id}">
 			     <input type="hidden" name="action"	value="updateOrdStat"></FORM>
 			</td>

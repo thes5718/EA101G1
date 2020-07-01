@@ -15,7 +15,7 @@
 <jsp:useBean id="proSvc" scope="page" class="com.product.model.ProService" />
 <html>
 <head>
-<title>所有商品資料 - listAllPro.jsp</title>
+<title>已取消訂單列表</title>
 
 <style>
   table#table-1 {
