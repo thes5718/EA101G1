@@ -32,6 +32,7 @@ public class ShopCartServlet extends HttpServlet {
 			}
 			// 新增書籍至購物車中
 			else if (action.equals("ADD")) {
+				System.out.println("1");
 				boolean match = false;
 				// 取得後來新增的書籍
 				PRODUCT aproduct = getProduct(req);
@@ -65,6 +66,7 @@ public class ShopCartServlet extends HttpServlet {
 
 			session.setAttribute("shoppingcart", buylist);
 			String url = req.getParameter("url");
+			System.out.println(url);
 			res.sendRedirect(url);
 		}
 

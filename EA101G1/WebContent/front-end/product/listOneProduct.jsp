@@ -9,11 +9,47 @@
 <%
     ProVO proVO = (ProVO)request.getAttribute("proVO");
 %>
-
+<%= proVO==null%>
 <jsp:useBean id="proSvc" scope="page" class="com.product.model.ProService" />
+<jsp:useBean id="favpSvc" scope="page" class="com.favouriteProduct.model.FavpService" />
 <html>
 <head>
-<%-- <title><%=proVO.getP_name() %></title> --%>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>所有商品資料 - listAllPro.jsp</title>
+ <!-- TODO: 換title 的icon -->
+    <link rel="icon shortcut" href="./img/ICON.ico">
+    <!-- Bootstrap官方網站 https://getbootstrap.com/ -->
+    <!-- 連結Bootstrap.min.css -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- 使用font awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
+        integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <!-- 使用google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Sedgwick+Ave+Display&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lakki+Reddy&display=swap" rel="stylesheet">
+
+    <!-- 使用style.css -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/style.css">
+
+    <!-- 連結Bootstrap所需要的js -->
+    <!-- jquery.min.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- popper.min.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <!-- bootstrap.min.js -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+        
+    <!-- SweetAlert2 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <style type="text/css" media="screen">
 		 
@@ -138,16 +174,14 @@
 			</div>
 			
 			<div class="p_car" >
-			<form name="shoppingForm" action="<%=request.getContextPath()%>/front-end/product/Shopping.do" method="POST">
-			<input type="hidden" name="p_id" value="${proVO.p_id}">
-      		<input type="hidden" name="p_name" value="${proVO.p_name}">
-      		<input type="hidden" name="quantity" value="1">
-      		<input type="hidden" name="p_price" value="${proVO.p_price}">
-      		<input type="hidden" name="p_stock" value="${proVO.p_stock}">
-      		<input type="hidden" name="action" value="ADD">	
-      		<input type="hidden" name="url" value="<%=request.getRequestURI()%>?<%=request.getQueryString()%>">
-      		<input type="image" class="img-icon" alt="Submit" src="<%=request.getContextPath()%>/front-end/product/images/icons/shopping-cart.png"  title="加入購物車" >
-			</FORM>
+			<input type="hidden" id="p_id" name="p_id" value="${proVO.p_id}">
+      		<input type="hidden" id="p_name" name="p_name" value="${proVO.p_name}">
+      		<input type="hidden" id="quantity" name="quantity" value="1">
+      		<input type="hidden" id="p_price" name="p_price" value="${proVO.p_price}">
+      		<input type="hidden" id="p_stock" name="p_stock" value="${proVO.p_stock}">
+      		<input type="hidden" id="action" name="action" value="ADD">	
+      		<input type="hidden" id="url" name="url" value="<%=request.getServletPath()%>?<%=request.getQueryString()%>">
+      		<input type="image" class="img-icon"  src="<%=request.getContextPath()%>/front-end/product/images/icons/shopping-cart.png"  title="加入購物車" >
 			</div>
 		</div>
 	</div>
@@ -178,7 +212,7 @@ $('img.img-icon').click(function(){
 			data: {
 				p_id: p_id,
 				mem_id: mem_id,
-				action: 'insert'
+				action: 'insert2'
 			},
 			success: function(){
 				Swal.fire({
@@ -226,13 +260,26 @@ $('img.img-icon').click(function(){
 	});
 	
 $('input.img-icon').click(function(){
-	Swal.fire({
-		icon: 'info',
-		title: '加入成功',
-		showConfirmButton: false,
-		timer: 750
+	$.ajax({
+		url: '<%=request.getContextPath()%>/front-end/product/Shopping.do',
+		type: 'POST',
+		data: {
+			p_id:$('#p_id').val(),
+      		p_name:$('#p_name').val(),
+      		quantity:$('#quantity').val(),
+      		p_price:$('#p_price').val(),
+      		p_stock:$('#p_stock').val(),
+      		action:$('#action').val(),
+      		url:$('url').val()
+		}
 	})
-	});
+	Swal.fire({
+				icon: 'info',
+				title: '加入'+$('#quantity').val()+'項商品',
+				showConfirmButton: false,
+				timer: 750
+			})
+});
 	</script>
 
 </body>

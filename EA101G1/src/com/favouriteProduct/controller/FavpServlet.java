@@ -56,8 +56,7 @@ public class FavpServlet extends HttpServlet {
 			}
 		}
 		
-		if("insert".equals(action)) {
-			
+		if("insert".equals(action)||"insert2".equals(action)) {
 			try {
 				
 				String p_id = req.getParameter("p_id");
@@ -74,7 +73,12 @@ public class FavpServlet extends HttpServlet {
 					FavpService favpSvc = new FavpService();
 					favpSvc.addFavp(favpVO);
 					
-					String url = "listAllProduct.jsp";
+					String url;
+					if("insert".equals(action)) {
+					url = "listAllProduct.jsp";
+					}else {
+						url="listOneProduct.jsp";
+					}
 					RequestDispatcher failureView = req.getRequestDispatcher(url);
 					failureView.forward(req, res);
 				}
