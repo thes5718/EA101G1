@@ -30,7 +30,7 @@
 	<servlet-mapping>
 		<servlet-name>ProServlet</servlet-name>
 		<url-pattern>/back-end/product/pro.do</url-pattern>
-		<url-pattern>/front/product/pro.do</url-pattern>
+		<url-pattern>/front-end/product/pro.do</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
@@ -41,7 +41,7 @@
 	<servlet-mapping>
 		<servlet-name>ProPic</servlet-name>
 		<url-pattern>/back-end/product/proPic.do</url-pattern>
-		<url-pattern>/front/product/proPic.do</url-pattern>
+		<url-pattern>/front-end/product/proPic.do</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
@@ -158,6 +158,8 @@
 		<filter-name>LoginFilter</filter-name>
 		<url-pattern>/front-end/protected/*</url-pattern>
 		<url-pattern>/front-end/shopCart/Checkout.jsp</url-pattern>
+		<url-pattern>/front-end/productorder/*</url-pattern>
+		<url-pattern>/front-end/favouriteProduct/*</url-pattern>
 		<servlet-name>FavpProduct</servlet-name>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>

@@ -74,6 +74,7 @@ public class PoServlet extends HttpServlet {
 			}
 		}
 		
+		
 		if("updateOrdStat".equals(action)) {
 			
 			try {

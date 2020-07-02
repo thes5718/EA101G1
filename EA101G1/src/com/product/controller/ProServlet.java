@@ -26,10 +26,11 @@ public class ProServlet extends HttpServlet {
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-
+			String str = req.getParameter("p_id");
+			System.out.println(str);
 			try {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-				String str = req.getParameter("p_id");
+//				String str = req.getParameter("p_id");
 				if (str == null || (str.trim()).length() == 0) {
 					errorMsgs.add("請輸入商品編號");
 				}
@@ -71,7 +72,7 @@ public class ProServlet extends HttpServlet {
 				String url = "listOneProduct.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOnePro.jsp
 				successView.forward(req, res);
-
+				
 				/*************************** 其他可能的錯誤處理 *************************************/
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());

@@ -83,7 +83,7 @@
 	margin-bottom: 5px;
   }
   table, th, td {
-    border: 1px solid #CCCCFF;
+/*     border: 1px solid #CCCCFF; */
   }
   th, td {
     padding: 5px;
@@ -103,14 +103,15 @@
 		 }
 
 		.card{
-			border:1px solid black;
 			position: relative;
-			width: 700px;
-			height: 220px;
+			width: 750px;
+			height: 200px;
+			
+			margin-bottom:5px;
 		}
 		.p_img{
 			width: 200px;
-			border:1px solid blue;
+/* 			border:1px solid blue; */
 			position: absolute;
 			height: 200px;
 
@@ -118,18 +119,22 @@
 			
 		}
 		.p_img>img{
-			width: 200px;
-			hieight:200px;
+			width: 90%;
+			hieight:90%;
+			
+			 position:absolute;
+			 left:5%;
+			 top:5%;
 		}
 		.p_word{
-			border:1px solid red;
+/* 			border:1px solid red; */
 			width: 68%;
 			height: 100%;
 			position:absolute;
 			right: 10px;
 		}
 		.p_tital{
-			border:1px solid green;
+/* 			border:1px solid green; */
 			/*相對於.word的位置*/
 			position: absolute;
 			top:10px;
@@ -139,7 +144,7 @@
 			width: 100%;
 		}
 		.p_price{
-			border:1px solid yellow;
+/* 			border:1px solid yellow; */
 			/*相對於.word的位置*/
 			position: absolute;
 			top:110px;
@@ -149,7 +154,7 @@
 			width: 100%;
 		}
 		.p_love{
-			border:1px solid yellow;
+/* 			border:1px solid yellow; */
 			/*相對於.word的位置*/
 			position: absolute;
 			right: 80px;
@@ -161,7 +166,7 @@
 			background-size: cover;
 		}
 		.p_car{
-			border:1px solid deeppink;
+/* 			border:1px solid deeppink; */
 			/*相對於.word的位置*/
 			position: absolute;
 			right: 20px;
@@ -180,6 +185,11 @@
 		}
 		.img-icon:hover {
 			cursor:pointer;
+		}
+		
+		front.p_name:hover {
+			cursor:pointer;
+			color:red;
 		}
 	</style>
 
@@ -240,28 +250,23 @@
     
     <!-- 內容 -->
     <section class="blank1">
-	<%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">請修正以下錯誤:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
 
-<table id="test">
+<div id="productShow" style="margin-left:350px">
 	
 	<%@ include file="page/page1.file" %> 
 	<c:forEach var="proVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		<div class="display" >
 		<div class="img"><img src="" alt=""></div>
-	<div class="card" style="${(proVO.p_stat==0)?"display:none":""}">
+	<div class="card">
 		<div class="p_img" name="p_image">
-			<img src="<%=request.getContextPath()%>/back-end/product/proPic.do?p_id=${proVO.p_id}">
+			<img class="rounded" src="<%=request.getContextPath()%>/front-end/product/proPic.do?p_id=${proVO.p_id}">
 		</div>
 		<div class="p_word">
-			<div class="p_tital" name="p_name">${proVO.p_name}</div>
+		<div class="p_tital" name="p_name"><front class="p_name">${proVO.p_name}</front></div>
+		<form class="p_nameform" action="<%=request.getContextPath()%>/front-end/product/pro.do" method="POST">
+			<input type="hidden" name="p_id" value="${proVO.p_id}">
+			<input type="hidden" name="action" value="getOne_For_Display">
+		</form>
 			<div class="p_price">$${proVO.p_price}</div>
 			
 			<div class="p_love" > 
@@ -292,11 +297,12 @@
 	</div>
 		
 	</c:forEach>
-</table>
+</div>
 <%@ include file="page/page2.file" %>
 <br>
 
 <script>
+// 加入最愛
 $('img.img-icon').click(function(){
 	var source = $(this).attr('src');
 	if (source.includes('empty')){
@@ -367,6 +373,13 @@ $('input.img-icon').click(function(){
 		showConfirmButton: false,
 		timer: 750
 	})
+	});
+	
+//連結至商品
+$('front.p_name').click(function(){
+	var index =$('front.p_name').index(this);
+	console.log(index);
+$(".p_nameform").eq(index).submit()
 	});
 </script>
 

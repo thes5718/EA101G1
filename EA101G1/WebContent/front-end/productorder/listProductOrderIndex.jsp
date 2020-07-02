@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.productOrder.model.*"%>
+<%@ page import="com.member.model.*" %>>
 
 <%
     PoService poSvc = new PoService();
@@ -77,9 +78,6 @@
   <div class="tab-pane fade" id="nav-finsh" role="tabpanel" aria-labelledby="nav-finsh-tab"><jsp:include page="listFinshProductOrder.jsp" /></div>
   <div class="tab-pane fade" id="nav-cancel-tab" role="tabpanel" aria-labelledby="nav-cancel-tab-tab"><jsp:include page="listCancelProductOrder.jsp" /></div>
 </div>
-
-
-
 
     <!-- body 結束標籤之前，載入Bootstrap 的 JS 及其相依性安裝(jQuery、Popper) -->
     <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>

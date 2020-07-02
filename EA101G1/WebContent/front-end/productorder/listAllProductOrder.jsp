@@ -3,11 +3,14 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.productOrder.model.*"%>
-<%-- 此頁練習採用 EL 的寫法取值 --%>
+<%@ page import="com.member.model.*"%>
 
 <%
     PoService poSvc = new PoService();
-    List<PoVO> list = poSvc.getAll();
+	MemberVO memVO = (MemberVO) session.getAttribute("memberVO");
+	String mem_id = memVO.getMem_id();
+    List<PoVO> listAll = poSvc.getAll();
+    List<PoVO> list = poSvc.getOrderByMemId(mem_id, listAll);
     pageContext.setAttribute("list",list);
 %>
 <jsp:useBean id="polSvc" scope="page" class="com.productOrderList.model.PolService" />

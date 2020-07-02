@@ -26,7 +26,7 @@ public class test3 {
 
 	public static void main(String[] args) {
 
-//		PoDAO dao = new PoDAO();
+		PoDAO dao = new PoDAO();
 //		
 		
 			// 新增
@@ -98,6 +98,17 @@ public class test3 {
 //		System.out.println("新增成功");
 //		
 //		
+		
+		PoService poSvc = new PoService();
+		List<PoVO> list = poSvc.getAll();
+		List<PoVO> list2 = poSvc.getOrderByMemId("M000002", list);
+		int i = 0;
+		for(PoVO poVO: list2 ) {
+			
+			i+=1;
+			System.out.print(i+" ");
+			System.out.println(poVO.getPo_id());
+		}
 }
 
 	public static InputStream getPictureStream(String path) throws IOException {
