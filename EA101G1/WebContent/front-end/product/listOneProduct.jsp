@@ -173,6 +173,13 @@
 			</c:choose>
 			</div>
 			
+			<div class="quantity">
+			數量:
+			<botton id="minus" type="botton">-</botton>
+			<input type="text" class="quantity" name="quantity" value="1" Readonly>
+			<botton id="plus" type="botton">+</botton>
+			</div>
+			
 			<div class="p_car" >
 			<input type="hidden" id="p_id" name="p_id" value="${proVO.p_id}">
       		<input type="hidden" id="p_name" name="p_name" value="${proVO.p_name}">
@@ -258,7 +265,7 @@ $('img.img-icon').click(function(){
 	}
 	}
 	});
-	
+//加入購物車	
 $('input.img-icon').click(function(){
 	$.ajax({
 		url: '<%=request.getContextPath()%>/front-end/product/Shopping.do',
@@ -280,6 +287,13 @@ $('input.img-icon').click(function(){
 				timer: 750
 			})
 });
+//控制加入數量
+var quantity=1;
+var maxquantity = parseInt("${proVO.p_stock}");
+$("minus").click(function(){
+	if(quantity > 1)
+		$(".quantity").attr("value", --quantity);
+})
 	</script>
 
 </body>
