@@ -52,64 +52,43 @@
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <style type="text/css" media="screen">
-		 
-		 body{
-		 	/*沒作用*/
-		 	margin: 0;
-		 }
+	div.container{
+  border: 1px solid red;
+  height:900px;
+  width:1400px;
+}
+div.row{
+  border: 1px solid green;
+  height:100%;
+}
+div.col-md-6{
+  border: 1px solid blue;
+}
 
-		.card{
-			position: relative;
-			width: 750px;
-			height: 200px;
-			
-			margin-bottom:5px;
-		}
-		.p_img{
-			width: 200px;
-/* 			border:1px solid blue; */
-			position: absolute;
-			height: 200px;
+div.col-md-5, div.col-md-7{
+  border: 1px solid orange;
+}
 
-			background-size: cover;
-			
-		}
-		.p_img>img{
-			width: 90%;
-			hieight:90%;
-			
-			 position:absolute;
-			 left:5%;
-			 top:5%;
-		}
-		.p_word{
-/* 			border:1px solid red; */
-			width: 68%;
-			height: 100%;
-			position:absolute;
-			right: 10px;
-		}
-		.p_tital{
-/* 			border:1px solid green; */
-			/*相對於.word的位置*/
-			position: absolute;
-			top:10px;
-			left: 0;
-			/*改動left width也要改 不然會凸出去*/
-			height: 30%;
-			width: 100%;
-		}
-		.p_price{
-/* 			border:1px solid yellow; */
-			/*相對於.word的位置*/
-			position: absolute;
-			top:110px;
-			left:0;
-			/*改動left width也要改 不然會凸出去*/
-			height:30%;
-			width: 100%;
-		}
-		.p_love{
+div.p_img{
+  border: 1px solid yellow;
+  display:block;
+  height:500px;
+  width:430px;
+  margin-left:5px;
+  margin-top:100px;
+}
+
+div.col-md-7{
+  margin-botton:10px;
+}
+img.rounded{
+	width:auto;
+	height:auto;
+	max-width:100%;
+	max-height:100%;
+}
+
+	.p_love{
 /* 			border:1px solid yellow; */
 			/*相對於.word的位置*/
 			position: absolute;
@@ -142,27 +121,63 @@
 		.img-icon:hover {
 			cursor:pointer;
 		}
-		
-		front.p_name:hover {
-			cursor:pointer;
-			color:red;
-		}
 	</style>
 
 
 </head>
 <body bgcolor='white'>
-	<div class="display" >
-		<div class="img"><img src="" alt=""></div>
-	<div class="card">
-		<div class="p_img" name="p_image">
-			<img class="rounded" src="<%=request.getContextPath()%>/back-end/product/proPic.do?p_id=${proVO.p_id}">
+	<!-- sm 以上範圍，三欄均分 -->
+<div class="container">
+  <div class="row">
+    
+    <div class="col-md-5">
+     <div class="p_img">
+     <img class="rounded" src="<%=request.getContextPath()%>/back-end/product/proPic.do?p_id=${proVO.p_id}">
+     </div>
+    </div>
+    
+    <div class="col-md-7">
+      <div class="row"style="height:10%"><div class="p_name">${proVO.p_name}</div></div>
+      
+      <div class="row"style="height:10%">
+        <div class="col-md-4"><div class="p_type"></div></div>
+        <div class="col-md-8"></div>
+      </div>
+      
+      <div class="row"style="height:60%">
+        <div class="col-md-4"></div>
+        <div class="col-md-8"><div class="p_info">${proVO.p_info}</div></div>
+      </div>
+      
+      <div class="row"style="height:10%">
+        <div class="col-md-4"><div class="p_stock">${proVO.p_stock}</div></div>
+        <div class="col-md-8"><div class="p_price">${proVO.p_price}</div>
+      </div>
+      </div>
+      
+      <div class="row"style="height:10%">
+        <div class="col-md-4"><div class="quantity"><div class="quantity">
+			數量:
+			<button id="minus" type="botton" class="btn btn-outline-dark">-</button>
+			<input type="text" class="quantity" name="quantity" value="1" style="width:35px">
+			<button id="plus" type="botton" class="btn btn-outline-dark">+</button>
+			</div></div>
 		</div>
-		<div class="p_word">
-			<div class="p_tital" name="p_name">${proVO.p_name}</div>
-			<div class="p_price">$${proVO.p_price}</div>
-			
-			<div class="p_love" > 
+        <div class="col-md-8"><div class="car"><div class="p_car" >
+			<form name="shoppingForm" action="<%=request.getContextPath()%>/front-end/product/Shopping.do" method="POST">
+			<input type="hidden" name="p_id" value="${proVO.p_id}">
+      		<input type="hidden" name="p_name" value="${proVO.p_name}">
+      		<input type="hidden" name="quantity" value="1">
+      		<input type="hidden" name="p_price" value="${proVO.p_price}">
+      		<input type="hidden" name="p_stock" value="${proVO.p_stock}">
+      		<input type="hidden" name="action" value="ADD">	
+      		<input type="hidden" name="url" value="<%=request.getRequestURI()%>?<%=request.getQueryString()%>">
+      		<input type="image" class="img-icon" alt="Submit" src="<%=request.getContextPath()%>/front-end/product/images/icons/shopping-cart.png"  title="加入購物車" >
+			</FORM>
+			</div>
+		</div>
+		
+        <div class="love"><div class="p_love" > 
 			<c:choose>
 			<c:when test="${favpSvc.getOne(proVO.p_id, sessionScope.memberVO.mem_id).p_id eq null}">
 			<img class="img-icon" alt="" src="<%=request.getContextPath()%>/front-end/product/images/icons/empty.png" id="${proVO.p_id}${sessionScope.memberVO.mem_id}" title="加入最愛">
@@ -171,29 +186,14 @@
 			<img class="img-icon" alt="" src="<%=request.getContextPath()%>/front-end/product/images/icons/full.png" id="${proVO.p_id}${sessionScope.memberVO.mem_id}" title="取消最愛">
 			</c:otherwise>
 			</c:choose>
-			</div>
-			
-			<div class="quantity">
-			數量:
-			<botton id="minus" type="botton">-</botton>
-			<input type="text" class="quantity" name="quantity" value="1" Readonly>
-			<botton id="plus" type="botton">+</botton>
-			</div>
-			
-			<div class="p_car" >
-			<input type="hidden" id="p_id" name="p_id" value="${proVO.p_id}">
-      		<input type="hidden" id="p_name" name="p_name" value="${proVO.p_name}">
-      		<input type="hidden" id="quantity" name="quantity" value="1">
-      		<input type="hidden" id="p_price" name="p_price" value="${proVO.p_price}">
-      		<input type="hidden" id="p_stock" name="p_stock" value="${proVO.p_stock}">
-      		<input type="hidden" id="action" name="action" value="ADD">	
-      		<input type="hidden" id="url" name="url" value="<%=request.getServletPath()%>?<%=request.getQueryString()%>">
-      		<input type="image" class="img-icon"  src="<%=request.getContextPath()%>/front-end/product/images/icons/shopping-cart.png"  title="加入購物車" >
-			</div>
+			</div></div>
 		</div>
-	</div>
-
-
+      </div>
+      
+    </div>
+    
+  </div>
+</div>
 
 
     <!-- body 結束標籤之前，載入Bootstrap 的 JS 及其相依性安裝(jQuery、Popper) -->
@@ -288,12 +288,20 @@ $('input.img-icon').click(function(){
 			})
 });
 //控制加入數量
-var quantity=1;
-var maxquantity = parseInt("${proVO.p_stock}");
-$("minus").click(function(){
-	if(quantity > 1)
-		$(".quantity").attr("value", --quantity);
-})
+$(document).ready(function() {
+	var quantity = 1;
+	var maxquantity = ${proVO.p_stock};
+	$("#minus").click(function(){
+		if(quantity > 1)
+			$("input.quantity").attr("value", --quantity);
+	})
+
+	$("#plus").click(function(){
+		if(maxquantity>quantity)
+			$("input.quantity").attr("value", ++quantity);
+	})
+
+});
 	</script>
 
 </body>

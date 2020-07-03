@@ -112,8 +112,8 @@ public class ProServlet extends HttpServlet {
 		}
 
 		if ("update".equals(action)) { // 來自update_pro_input.jsp的請求
-
-			List<String> errorMsgs = new LinkedList<String>();
+			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
+//			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -124,39 +124,39 @@ public class ProServlet extends HttpServlet {
 
 				String p_name = req.getParameter("p_name");
 				if (p_name == null || p_name.trim().length() == 0) {
-					errorMsgs.add("商品名稱請勿空白");
+					errorMsgs.put("p_name","商品名稱請勿空白");
 				}
 
 				Double p_price = null;
 				String p_pricestr = req.getParameter("p_price");
 				if (p_pricestr == null || (p_pricestr.trim()).length() == 0) {
 					p_price = 0.0;
-					errorMsgs.add("商品價格請勿空白");
+					errorMsgs.put("p_price","商品價格請勿空白");
 				} else {
 					try {
 						p_price = new Double(req.getParameter("p_price").trim());
 					} catch (NumberFormatException e) {
 						p_price = 0.0;
-						errorMsgs.add("商品價格請填數字.");
+						errorMsgs.put("p_price","商品價格請填數字.");
 					}
 				}
 
 				String p_info = req.getParameter("p_info").trim();
 				if (p_info == null || p_info.trim().length() == 0) {
-					errorMsgs.add("商品描述請勿空白");
+					errorMsgs.put("p_info","商品描述請勿空白");
 				}
 
 				Integer p_stock = null;
 				String p_stockstr = req.getParameter("p_stock");
 				if (p_stockstr == null || p_stockstr.trim().length() == 0) {
 					p_stock = 0;
-					errorMsgs.add("商品庫存請勿空白");
+					errorMsgs.put("p_stock","商品庫存請勿空白");
 				} else {
 					try {
 						p_stock = new Integer(req.getParameter("p_stock").trim());
 					} catch (NumberFormatException e) {
 						p_stock = 0;
-						errorMsgs.add("商品庫存請填數字.");
+						errorMsgs.put("p_stock","商品庫存請填數字.");
 					}
 				}
 
@@ -215,7 +215,7 @@ public class ProServlet extends HttpServlet {
 
 				/*************************** 其他可能的錯誤處理 *************************************/
 			} catch (Exception e) {
-				errorMsgs.add("修改資料失敗:" + e.getMessage());
+				errorMsgs.put("Exception","修改資料失敗:" + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("update_Pro_input.jsp");
 				failureView.forward(req, res);
 			}
@@ -223,7 +223,7 @@ public class ProServlet extends HttpServlet {
 
 		if ("insert".equals(action)) { // 來自addPro.jsp的請求
 
-			List<String> errorMsgs = new LinkedList<String>();
+			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -235,37 +235,37 @@ public class ProServlet extends HttpServlet {
 				
 				String p_name = req.getParameter("p_name");
 				if (p_name == null || p_name.trim().length() == 0) {
-					errorMsgs.add("商品名稱請勿空白");
+					errorMsgs.put("p_name","商品名稱請勿空白");
 				}
 
 				Double p_price = null;
 				String p_pricestr = req.getParameter("p_price");
 				if (p_pricestr == null || (p_pricestr.trim()).length() == 0) {
-					errorMsgs.add("商品價格請勿空白");
+					errorMsgs.put("p_price","商品價格請勿空白");
 				} else {
 					try {
 						p_price = new Double(req.getParameter("p_price").trim());
 					} catch (NumberFormatException e) {
-						errorMsgs.add("商品價格請填數字.");
+						errorMsgs.put("p_price","商品價格請填數字.");
 					}
 				}
 
 				String p_info = req.getParameter("p_info").trim();
 				if (p_info == null || p_info.trim().length() == 0) {
-					errorMsgs.add("商品描述請勿空白");
+					errorMsgs.put("p_info","商品描述請勿空白");
 				}
 
 				Integer p_stock = null;
 				String p_stockstr = req.getParameter("p_stock");
 				if (p_stockstr == null || p_stockstr.trim().length() == 0) {
 					p_stock = 0;
-					errorMsgs.add("商品庫存請勿空白");
+					errorMsgs.put("p_stock","商品庫存請勿空白");
 				} else {
 					try {
 						p_stock = new Integer(req.getParameter("p_stock").trim());
 					} catch (NumberFormatException e) {
 						p_stock = 0;
-						errorMsgs.add("商品庫存請填數字.");
+						errorMsgs.put("p_stock","商品庫存請填數字.");
 					}
 				}
 				
@@ -279,7 +279,7 @@ public class ProServlet extends HttpServlet {
 					in.read(p_image);//把資料存進去
 					in.close();
 				} else {
-					errorMsgs.add("請選擇圖片");
+					errorMsgs.put("p_image","請選擇圖片");
 				}
 				
 //				Part filePart = req.getPart("file");
@@ -317,7 +317,7 @@ public class ProServlet extends HttpServlet {
 
 				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
-				errorMsgs.add(e.getMessage());
+				errorMsgs.put("Exception",e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("addPro.jsp");
 				failureView.forward(req, res);
 			}

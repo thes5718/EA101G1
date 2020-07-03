@@ -2,27 +2,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.util.*"%>
-<%@ page import="com.product.model.*"%>
-<%@ page import="com.member.model.*"%>
-<%@ page import="com.shopCart.model.PRODUCT" %>
-<%-- 此頁練習採用 EL 的寫法取值 --%>
+<%@ page import="com.productOrder.model.*"%>
+<%@ page import="com.member.model.*" %>
+<%@ page import="com.product.model.*" %>
 
-<%	Vector<PRODUCT> buylist=null; //購物車顯示有多少東西
-	if(session.getAttribute("shoppingcart")!=null){
-	buylist = (Vector<PRODUCT>) session.getAttribute("shoppingcart");
-	}else{
-		buylist= new Vector<PRODUCT>();
-	}
-    ProService proSvc = new ProService();
-    List<ProVO> list = proSvc.getAllFront();
-    pageContext.setAttribute("list",list);
+<%
+    ProVO proVO = (ProVO)request.getAttribute("proVO");
 %>
-
-<jsp:useBean id="ptSvc" scope="page" class="com.productType.model.PtService" />
+<%= proVO==null%>
+<jsp:useBean id="proSvc" scope="page" class="com.product.model.ProService" />
 <jsp:useBean id="favpSvc" scope="page" class="com.favouriteProduct.model.FavpService" />
-<html lang="en">
+<html>
 <head>
-	<meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <title>所有商品資料 - listAllPro.jsp</title>
@@ -58,43 +50,7 @@
     <!-- SweetAlert2 -->
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
-<style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
-
-<style>
-  table {
-	width: 800px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
-  }
-  table, th, td {
-/*     border: 1px solid #CCCCFF; */
-  }
-  th, td {
-    padding: 5px;
-    text-align: center;
-  }
-  td>img{
-  width:200px;
-  }
-  
-</style>
-
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <style type="text/css" media="screen">
 		 
 		 body{
@@ -193,81 +149,26 @@
 		}
 	</style>
 
+
 </head>
-<body>
-<!-- navbar -->
-    <!-- 使用Boostrap Navbar -->
-    <!-- 設定Navbar緊貼畫面上緣 -->
-    <!-- b4-navbar-default 安裝Bootstrap外掛,可以使用快捷指令 -->
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top">
-        <a class="navbar-brand" href="index.html">
-            <span class="logo"><i class="fas fa-bomb"></i></span>
-            <span class="logo2">S.F.G</span>
-            <span class="logo3">{{{</span>
-        </a>
-        <!-- 手機選單按鈕 -->
-        <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId"
-            aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        
-        <div class="navbar2 navbar-dark">
-            <div class="row">
-                <div class="item col-md-2"><a href="#"></a>商城</div>
-                <div class="item col-md-2"><a href="#"></a>團購</div>
-                <div class="item col-md-2"><a href="#"></a>交易</div>
-                <div class="item col-md-2"><a href="#"></a>討論區</div>
-                <div class="item col-md-2"><a href="#"></a>紅利</div>
-                <div class="item col-md-2"><a href="#"></a>Q&A</div>
-            </div>
-        </div>
-
-        <div class="collapse navbar-collapse" id="collapsibleNavId">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">登入</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">註冊</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">會員中心</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<%=request.getContextPath()%>/front-end/favouriteProduct/listAllFavouriteProduct.jsp">我的最愛</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<%=request.getContextPath()%>/front-end/shopCart/shopCart.jsp">購物車(<%=buylist.size() %>)</a>
-                </li>
-
-            </ul>
-        </div>
-
-
-    </nav>
-    <!-- navbar end -->
-    <section class="blank0"></section>
-    
-    <!-- 內容 -->
-    <section class="blank1">
-
-<div id="productShow" style="margin-left:350px">
-	
-	<%@ include file="page/page1.file" %> 
-	<c:forEach var="proVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-		<div class="display" >
+<body bgcolor='white'>
+	<div class="display" >
 		<div class="img"><img src="" alt=""></div>
-	<div class="card">
-		<div class="p_img" name="p_image">
-			<img class="rounded" src="<%=request.getContextPath()%>/front-end/product/proPic.do?p_id=${proVO.p_id}">
+	<div div class="row justify-content-around">
+		<div class="col-12 col-lg-6 commimg">
+			<img class="rounded" src="<%=request.getContextPath()%>/back-end/product/proPic.do?p_id=${proVO.p_id}">
 		</div>
-		<div class="p_word">
-		<div class="p_tital" name="p_name"><front class="p_name">${proVO.p_name}</front></div>
-		<form class="p_nameform" action="<%=request.getContextPath()%>/front-end/product/pro.do" method="POST">
-			<input type="hidden" name="p_id" value="${proVO.p_id}">
-			<input type="hidden" name="action" value="getOne_For_Display">
-		</form>
+		<div class="col-12 col-lg-6  comm">
+			<div class="p_tital" name="p_name">${proVO.p_name}</div>
 			<div class="p_price">$${proVO.p_price}</div>
+			
+			
+			<div class="quantity">
+			數量:
+			<button id="minus" type="botton" class="btn btn-outline-dark">-</button>
+			<input type="text" class="quantity" name="quantity" value="1" style="width:35px">
+			<button id="plus" type="botton" class="btn btn-outline-dark">+</button>
+			</div>
 			
 			<div class="p_love" > 
 			<c:choose>
@@ -281,27 +182,27 @@
 			</div>
 			
 			<div class="p_car" >
-			<form name="shoppingForm" action="<%=request.getContextPath()%>/front-end/product/Shopping.do" method="POST">
-			<input type="hidden" name="p_id" value="${proVO.p_id}">
-      		<input type="hidden" name="p_name" value="${proVO.p_name}">
-      		<input type="hidden" name="quantity" value="1">
-      		<input type="hidden" name="p_price" value="${proVO.p_price}">
-      		<input type="hidden" name="p_stock" value="${proVO.p_stock}">
-      		<input type="hidden" name="action" value="ADD">	
-      		<input type="hidden" name="url" value="<%=request.getRequestURI()%>?<%=request.getQueryString()%>">
-      		<input type="image" class="img-icon" alt="Submit" src="<%=request.getContextPath()%>/front-end/product/images/icons/shopping-cart.png"  title="加入購物車" >
-			</FORM>
+			<input type="hidden" id="p_id" name="p_id" value="${proVO.p_id}">
+      		<input type="hidden" id="p_name" name="p_name" value="${proVO.p_name}">
+      		<input type="hidden" id="quantity" name="quantity" class="quantity" value="1">
+      		<input type="hidden" id="p_price" name="p_price" value="${proVO.p_price}">
+      		<input type="hidden" id="p_stock" name="p_stock" value="${proVO.p_stock}">
+      		<input type="hidden" id="action" name="action" value="ADD">	
+      		<input type="hidden" id="url" name="url" value="<%=request.getServletPath()%>?<%=request.getQueryString()%>">
+      		<input type="image" class="img-icon"  src="<%=request.getContextPath()%>/front-end/product/images/icons/shopping-cart.png"  title="加入購物車" >
 			</div>
-			
 		</div>
 	</div>
-		
-	</c:forEach>
 </div>
-<%@ include file="page/page2.file" %>
-<br>
 
-<script>
+
+
+    <!-- body 結束標籤之前，載入Bootstrap 的 JS 及其相依性安裝(jQuery、Popper) -->
+    <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    
+    <script>
 // 加入最愛
 $('img.img-icon').click(function(){
 	var source = $(this).attr('src');
@@ -319,7 +220,7 @@ $('img.img-icon').click(function(){
 			data: {
 				p_id: p_id,
 				mem_id: mem_id,
-				action: 'insert'
+				action: 'insert2'
 			},
 			success: function(){
 				Swal.fire({
@@ -331,20 +232,8 @@ $('img.img-icon').click(function(){
 			}
 		});
 		}else{
-			<%
-				session.setAttribute("location", request.getRequestURI()+"?"+request.getQueryString());
-			%>
-			Swal.fire({
-				icon: 'info',
-				title: '請登入會員',
-				showConfirmButton: false,
-				timer: 1500
-			})
-			var timer = setTimeout(function(){
-				document.location.href = '<%=request.getContextPath()%>/front-end/member/login.jsp';
-			}, 1500);
-				
-			
+			<%session.setAttribute("location", request.getRequestURI()+"?"+request.getQueryString());%>	
+			document.location.href = '<%=request.getContextPath()%>/front-end/member/login.jsp';
 		}
 	}
 	else if (source.includes('full')){
@@ -377,26 +266,44 @@ $('img.img-icon').click(function(){
 	}
 	}
 	});
-	
+//加入購物車	
 $('input.img-icon').click(function(){
-	Swal.fire({
-		icon: 'info',
-		title: '加入成功',
-		showConfirmButton: false,
-		timer: 750
+	$.ajax({
+		url: '<%=request.getContextPath()%>/front-end/product/Shopping.do',
+		type: 'POST',
+		data: {
+			p_id:$('#p_id').val(),
+      		p_name:$('#p_name').val(),
+      		quantity:$('#quantity').val(),
+      		p_price:$('#p_price').val(),
+      		p_stock:$('#p_stock').val(),
+      		action:$('#action').val(),
+      		url:$('url').val()
+		}
 	})
-	});
-	
-//連結至商品
-$('front.p_name').click(function(){
-	var index =$('front.p_name').index(this);
-	console.log(index);
-$(".p_nameform").eq(index).submit()
-	});
-</script>
+	Swal.fire({
+				icon: 'info',
+				title: '加入'+$('#quantity').val()+'項商品',
+				showConfirmButton: false,
+				timer: 750
+			})
+});
+//控制加入數量
+$(document).ready(function() {
+	var quantity = 1;
+	var maxquantity = ${proVO.p_stock};
+	$("#minus").click(function(){
+		if(quantity > 1)
+			$("input.quantity").attr("value", --quantity);
+	})
 
+	$("#plus").click(function(){
+		if(maxquantity>quantity)
+			$("input.quantity").attr("value", ++quantity);
+	})
 
-
+});
+	</script>
 
 </body>
 </html>
