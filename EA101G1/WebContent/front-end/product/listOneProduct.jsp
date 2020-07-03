@@ -136,7 +136,7 @@ img.rounded{
      </div>
     </div>
     
-    <div class="col-md-7">
+    <div class="col-7">
       <div class="row"style="height:10%"><div class="p_name">${proVO.p_name}</div></div>
       
       <div class="row"style="height:10%">
@@ -164,16 +164,14 @@ img.rounded{
 			</div></div>
 		</div>
         <div class="col-md-8"><div class="car"><div class="p_car" >
-			<form name="shoppingForm" action="<%=request.getContextPath()%>/front-end/product/Shopping.do" method="POST">
-			<input type="hidden" name="p_id" value="${proVO.p_id}">
-      		<input type="hidden" name="p_name" value="${proVO.p_name}">
-      		<input type="hidden" name="quantity" value="1">
-      		<input type="hidden" name="p_price" value="${proVO.p_price}">
-      		<input type="hidden" name="p_stock" value="${proVO.p_stock}">
-      		<input type="hidden" name="action" value="ADD">	
-      		<input type="hidden" name="url" value="<%=request.getRequestURI()%>?<%=request.getQueryString()%>">
-      		<input type="image" class="img-icon" alt="Submit" src="<%=request.getContextPath()%>/front-end/product/images/icons/shopping-cart.png"  title="加入購物車" >
-			</FORM>
+			<input type="hidden" id="p_id" name="p_id" value="${proVO.p_id}">
+      		<input type="hidden" id="p_name" name="p_name" value="${proVO.p_name}">
+      		<input type="hidden" id="quantity" name="quantity" class="quantity" value="1">
+      		<input type="hidden" id="p_price" name="p_price" value="${proVO.p_price}">
+      		<input type="hidden" id="p_stock" name="p_stock" value="${proVO.p_stock}">
+      		<input type="hidden" id="action" name="action" value="ADD">	
+      		<input type="hidden" id="url" name="url" value="<%=request.getServletPath()%>?<%=request.getQueryString()%>">
+      		<input type="image" class="img-icon"  src="<%=request.getContextPath()%>/front-end/product/images/icons/shopping-cart.png"  title="加入購物車" >
 			</div>
 		</div>
 		
@@ -202,106 +200,105 @@ img.rounded{
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     
     <script>
-// 加入最愛
-$('img.img-icon').click(function(){
-	var source = $(this).attr('src');
-	if (source.includes('empty')){
-		// empty 為 空心愛心圖案, 代表收藏文章功能, 按下後置換圖片, 並且以AJAX方式送出請求
-		if(${sessionScope.memberVO ne null}) {
-		var thisID = this.id;
-		var p_id = thisID.substring(0, 4);
-		var mem_id = thisID.substring(4, 11);
-		$(this).attr('src', '<%=request.getContextPath()%>/front-end/product/images/icons/full.png');
-		$(this).attr('title', '取消最愛');
-		$.ajax({
-			url: '<%=request.getContextPath()%>/front-end/product/favp.do',
-			type: 'POST',
-			data: {
-				p_id: p_id,
-				mem_id: mem_id,
-				action: 'insert2'
-			},
-			success: function(){
-				Swal.fire({
-					icon: 'info',
-					title: '加入成功',
-					showConfirmButton: false,
-					timer: 750
-				})
-			}
-		});
-		}else{
-			<%session.setAttribute("location", request.getRequestURI()+"?"+request.getQueryString());%>	
-			document.location.href = '<%=request.getContextPath()%>/front-end/member/login.jsp';
-		}
-	}
-	else if (source.includes('full')){
-		if(${sessionScope.memberVO ne null}) {
-		var thisID = this.id;
-		var p_id = thisID.substring(0, 4);
-		var mem_id = thisID.substring(4, 11);
-		$(this).attr('src', '<%=request.getContextPath()%>/front-end/product/images/icons/empty.png');
-		$(this).attr('title', '加入最愛');
-		$.ajax({
-			url: '<%=request.getContextPath()%>/front-end/product/favp.do',
-			type: 'POST',
-			data: {
-				p_id: p_id,
-				mem_id: mem_id,
-				action: 'delete2'
-			},
-			success: function(){
-				Swal.fire({
-					icon: 'info',
-					title: '已取消',
-					showConfirmButton: false,
-					timer: 750
-				})
-			}
-	});
-	}else{
-		<%session.setAttribute("location", request.getRequestURI()+"?"+request.getQueryString());%>	
-		document.location.href = '<%=request.getContextPath()%>/front-end/member/login.jsp';
-	}
-	}
-	});
-//加入購物車	
-$('input.img-icon').click(function(){
-	$.ajax({
-		url: '<%=request.getContextPath()%>/front-end/product/Shopping.do',
-		type: 'POST',
-		data: {
-			p_id:$('#p_id').val(),
-      		p_name:$('#p_name').val(),
-      		quantity:$('#quantity').val(),
-      		p_price:$('#p_price').val(),
-      		p_stock:$('#p_stock').val(),
-      		action:$('#action').val(),
-      		url:$('url').val()
-		}
-	})
-	Swal.fire({
-				icon: 'info',
-				title: '加入'+$('#quantity').val()+'項商品',
-				showConfirmButton: false,
-				timer: 750
-			})
-});
-//控制加入數量
-$(document).ready(function() {
-	var quantity = 1;
-	var maxquantity = ${proVO.p_stock};
-	$("#minus").click(function(){
-		if(quantity > 1)
-			$("input.quantity").attr("value", --quantity);
-	})
+    $('img.img-icon').click(function(){
+    	var source = $(this).attr('src');
+    	if (source.includes('empty')){
+    		// empty 為 空心愛心圖案, 代表收藏文章功能, 按下後置換圖片, 並且以AJAX方式送出請求
+    		if(${sessionScope.memberVO ne null}) {
+    		var thisID = this.id;
+    		var p_id = thisID.substring(0, 4);
+    		var mem_id = thisID.substring(4, 11);
+    		$(this).attr('src', '<%=request.getContextPath()%>/front-end/product/images/icons/full.png');
+    		$(this).attr('title', '取消最愛');
+    		$.ajax({
+    			url: '<%=request.getContextPath()%>/front-end/product/favp.do',
+    			type: 'POST',
+    			data: {
+    				p_id: p_id,
+    				mem_id: mem_id,
+    				action: 'insert2'
+    			},
+    			success: function(){
+    				Swal.fire({
+    					icon: 'info',
+    					title: '加入成功',
+    					showConfirmButton: false,
+    					timer: 750
+    				})
+    			}
+    		});
+    		}else{
+    			<%session.setAttribute("location", request.getRequestURI()+"?"+request.getQueryString());%>	
+    			document.location.href = '<%=request.getContextPath()%>/front-end/member/login.jsp';
+    		}
+    	}
+    	else if (source.includes('full')){
+    		if(${sessionScope.memberVO ne null}) {
+    		var thisID = this.id;
+    		var p_id = thisID.substring(0, 4);
+    		var mem_id = thisID.substring(4, 11);
+    		$(this).attr('src', '<%=request.getContextPath()%>/front-end/product/images/icons/empty.png');
+    		$(this).attr('title', '加入最愛');
+    		$.ajax({
+    			url: '<%=request.getContextPath()%>/front-end/product/favp.do',
+    			type: 'POST',
+    			data: {
+    				p_id: p_id,
+    				mem_id: mem_id,
+    				action: 'delete2'
+    			},
+    			success: function(){
+    				Swal.fire({
+    					icon: 'info',
+    					title: '已取消',
+    					showConfirmButton: false,
+    					timer: 750
+    				})
+    			}
+    	});
+    	}else{
+    		<%session.setAttribute("location", request.getRequestURI()+"?"+request.getQueryString());%>	
+    		document.location.href = '<%=request.getContextPath()%>/front-end/member/login.jsp';
+    	}
+    	}
+    	});
+    //加入購物車	
+    $('input.img-icon').click(function(){
+    	$.ajax({
+    		url: '<%=request.getContextPath()%>/front-end/product/Shopping.do',
+    		type: 'POST',
+    		data: {
+    			p_id:$('#p_id').val(),
+          		p_name:$('#p_name').val(),
+          		quantity:$('#quantity').val(),
+          		p_price:$('#p_price').val(),
+          		p_stock:$('#p_stock').val(),
+          		action:$('#action').val(),
+          		url:$('url').val()
+    		}
+    	})
+    	Swal.fire({
+    				icon: 'info',
+    				title: '加入'+$('#quantity').val()+'項商品',
+    				showConfirmButton: false,
+    				timer: 750
+    			})
+    });
+    //控制加入數量
+    $(document).ready(function() {
+    	var quantity = 1;
+    	var maxquantity = ${proVO.p_stock};
+    	$("#minus").click(function(){
+    		if(quantity > 1)
+    			$("input.quantity").attr("value", --quantity);
+    	})
 
-	$("#plus").click(function(){
-		if(maxquantity>quantity)
-			$("input.quantity").attr("value", ++quantity);
-	})
+    	$("#plus").click(function(){
+    		if(maxquantity>quantity)
+    			$("input.quantity").attr("value", ++quantity);
+    	})
 
-});
+    });
 	</script>
 
 </body>
