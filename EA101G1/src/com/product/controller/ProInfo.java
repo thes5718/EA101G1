@@ -10,44 +10,47 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 import javax.sql.DataSource;
 @MultipartConfig
-public class ProPic extends HttpServlet {
+public class ProInfo extends HttpServlet {
 
 	Connection con;
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 
-		res.setContentType("image/gif");
-		ServletOutputStream out = res.getOutputStream();
+		res.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = res.getWriter();
 
 		try {
 			Statement stmt = con.createStatement();
 			String P_ID = req.getParameter("p_id");
 			ResultSet rs = stmt.executeQuery(
-				"SELECT P_IMAGE FROM PRODUCT WHERE P_ID ='"+P_ID+"'");
+				"SELECT P_INFO FROM PRODUCT WHERE P_ID ='"+"P001"+"'");
 
 			if (rs.next()) {
-				BufferedInputStream in = new BufferedInputStream(rs.getBinaryStream("p_image"));
-				byte[] buf = new byte[4 * 1024]; // 4K buffer
-				int len;
-				while ((len = in.read(buf)) != -1) {
-					out.write(buf, 0, len);
-				}
-				in.close();
+				Reader reader = rs.getCharacterStream(1);
+				out.print(readString(reader));
+
+				rs.close();
 			} else {
 				res.sendError(HttpServletResponse.SC_NOT_FOUND);
 			}
 			rs.close();
-			stmt.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-			InputStream in = getServletContext().getResourceAsStream("/NoData/null.jpg");
-			byte[] b = new byte[in.available()];
-			in.read(b);
-			out.write(b);
-			in.close();
+		} catch (SQLException se) {
+			System.out.println(se);
+		} catch (IOException ie) {
+			System.out.println(ie);
+		} finally {
+			// 依建立順序關閉資源 (越晚建立越早關閉)
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					System.out.println(se);
+				}
+			}
 		}
 	}
+
 
 	public void init() throws ServletException {
 		try {
@@ -61,12 +64,17 @@ public class ProPic extends HttpServlet {
 		}
 	}
 
-	public void destroy() {
-		try {
-			if (con != null) con.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
+	public static String readString(Reader reader) throws IOException {
+		StringBuilder sb = new StringBuilder();
+		BufferedReader br = new BufferedReader(reader);
+		String str;
+		while((str = br.readLine()) != null) {
+			sb.append(str);
+			sb.append("\n");
 		}
+		br.close();
+
+		return sb.toString();
 	}
 
 }

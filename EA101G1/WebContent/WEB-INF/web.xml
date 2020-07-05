@@ -45,6 +45,18 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>ProInfo</servlet-name>
+		<servlet-class>com.product.controller.ProInfo</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>ProInfo</servlet-name>
+		<url-pattern>/back-end/product/proInfo.do</url-pattern>
+		<url-pattern>/front-end/product/proInfo.do</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
 		<servlet-name>ShopCartPic</servlet-name>
 		<servlet-class>com.shopCart.controller.ShopCartPic</servlet-class>
 	</servlet>

@@ -16,6 +16,7 @@
 <%= proVO==null%>
 <jsp:useBean id="proSvc" scope="page" class="com.product.model.ProService" />
 <jsp:useBean id="favpSvc" scope="page" class="com.favouriteProduct.model.FavpService" />
+<jsp:useBean id="ptSvc" scope="page" class="com.productType.model.PtService" />
 <html>
 <head>
 <meta charset="UTF-8">
@@ -58,18 +59,18 @@
 <style type="text/css" media="screen">
 	div.container{
   border: 1px solid red;
-  height:900px;
+  height:600px;
   width:1400px;
 }
 div.row{
   border: 1px solid green;
   height:100%;
 }
-div.col-md-6{
+div.col-6{
   border: 1px solid blue;
 }
 
-div.col-md-5, div.col-md-7{
+div.col-5, div.col-7{
   border: 1px solid orange;
 }
 
@@ -82,7 +83,7 @@ div.p_img{
   margin-top:100px;
 }
 
-div.col-md-7{
+div.col-7{
   margin-botton:10px;
 }
 img.rounded{
@@ -125,6 +126,10 @@ img.rounded{
 		.img-icon:hover {
 			cursor:pointer;
 		}
+		
+		button{
+		width
+		}
 	</style>
 
 
@@ -134,40 +139,40 @@ img.rounded{
 <div class="container">
   <div class="row">
     
-    <div class="col-md-5">
+    <div class="col-5">
      <div class="p_img">
      <img class="rounded" src="<%=request.getContextPath()%>/back-end/product/proPic.do?p_id=${proVO.p_id}">
      </div>
     </div>
     
     <div class="col-7">
-      <div class="row"style="height:10%"><div class="p_name">${proVO.p_name}</div></div>
+      <div class="row"style="height:10%"><div class="p_name"><front style="font-size:30px">${proVO.p_name}</front></div></div>
       
       <div class="row"style="height:10%">
-        <div class="col-md-4"><div class="p_type"></div></div>
-        <div class="col-md-8"></div>
+        <div class="col-4"><div class="p_type"><front style="font-size:20px">${ptSvc.getOneProductType(proVO.pt_id).typename}</front></div></div>
+        <div class="col-8"></div>
       </div>
       
       <div class="row"style="height:60%">
-        <div class="col-md-4"></div>
-        <div class="col-md-8"><div class="p_info">${proVO.p_info}</div></div>
+        <div class="col-4"></div>
+        <div class="col-8"><div class="p_info">${proVO.p_info}</div></div>
       </div>
       
       <div class="row"style="height:10%">
-        <div class="col-md-4"><div class="p_stock">${proVO.p_stock}</div></div>
-        <div class="col-md-8"><div class="p_price">${proVO.p_price}</div>
+        <div class="col-4"><div class="p_stock">庫存:${proVO.p_stock}</div></div>
+        <div class="col-8"><div class="p_price">價錢:$${proVO.p_price}</div>
       </div>
       </div>
       
       <div class="row"style="height:10%">
-        <div class="col-md-4"><div class="quantity"><div class="quantity">
+        <div class="col-4"><div class="quantity"><div class="quantity">
 			數量:
-			<button id="minus" type="botton" class="btn btn-outline-dark">-</button>
-			<input type="text" class="quantity" name="quantity" value="1" style="width:35px">
-			<button id="plus" type="botton" class="btn btn-outline-dark">+</button>
+			<button id="minus" type="botton" class="btn btn-outline-dark" style="height:40px;width:40px">-</button>
+			<input type="text" class="quantity" name="quantity" value="1" style="width:35px; height:38px">
+			<button id="plus" type="botton" class="btn btn-outline-dark" style="width:40px;height:40px">+</button>
 			</div></div>
 		</div>
-        <div class="col-md-8"><div class="car"><div class="p_car" >
+        <div class="col-8"><div class="car"><div class="p_car" >
 			<input type="hidden" id="p_id" name="p_id" value="${proVO.p_id}">
       		<input type="hidden" id="p_name" name="p_name" value="${proVO.p_name}">
       		<input type="hidden" id="quantity" name="quantity" class="quantity" value="1">
