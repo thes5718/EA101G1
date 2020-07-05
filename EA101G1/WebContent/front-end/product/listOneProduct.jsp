@@ -7,7 +7,11 @@
 <%@ page import="com.product.model.*" %>
 
 <%
-    ProVO proVO = (ProVO)request.getAttribute("proVO");
+//     ProVO proVO = (ProVO)request.getAttribute("proVO");
+	ProService ProSvc = new ProService();
+	String p_id = request.getParameter("p_id");
+	ProVO proVO = ProSvc.getOnePro(p_id);
+	pageContext.setAttribute("proVO",proVO);
 %>
 <%= proVO==null%>
 <jsp:useBean id="proSvc" scope="page" class="com.product.model.ProService" />

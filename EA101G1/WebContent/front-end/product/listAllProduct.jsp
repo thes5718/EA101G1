@@ -262,7 +262,7 @@
 			<img class="rounded" src="<%=request.getContextPath()%>/front-end/product/proPic.do?p_id=${proVO.p_id}">
 		</div>
 		<div class="p_word">
-		<div class="p_tital" name="p_name"><front class="p_name">${proVO.p_name}</front></div>
+		<div class="p_tital" name="p_name"><a href="<%=request.getContextPath()%>/front-end/product/listOneProduct.jsp?p_id=${proVO.p_id}"><front class="p_name">${proVO.p_name}</front></a></div>
 		<form class="p_nameform" action="<%=request.getContextPath()%>/front-end/product/pro.do" method="POST">
 			<input type="hidden" name="p_id" value="${proVO.p_id}">
 			<input type="hidden" name="action" value="getOne_For_Display">
@@ -388,11 +388,11 @@ $('input.img-icon').click(function(){
 	});
 	
 //連結至商品
-$('front.p_name').click(function(){
-	var index =$('front.p_name').index(this);
-	console.log(index);
-$(".p_nameform").eq(index).submit()
-	});
+// $('front.p_name').click(function(){
+// 	var index =$('front.p_name').index(this);
+// 	console.log(index);
+// $(".p_nameform").eq(index).submit()
+// 	});
 </script>
 
 
