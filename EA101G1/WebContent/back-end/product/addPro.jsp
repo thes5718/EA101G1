@@ -107,8 +107,8 @@ div #preview {
 			</tr>
 			<tr>
 				<td>商品描述:</td>
-				<td><textarea name="p_info" rows="6" cols="40">
-				<c:if test="${not empty proVO.getP_info()}"><%=proVO.getP_info()%></c:if></textarea><front style="color:red">${errorMsgs.p_info}</front></td>
+				<td><pre><textarea name="p_info" rows="6" cols="40">
+				<c:if test="${not empty proVO.getP_info()}"><%=proVO.getP_info()%></c:if></textarea></pre><front style="color:red">${errorMsgs.p_info}</front></td>
 			</tr>
 			<tr>
 				<td>庫存量:</td>

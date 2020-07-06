@@ -57,6 +57,7 @@ public class ProServlet extends HttpServlet {
 				/*************************** 2.開始查詢資料 *****************************************/
 				ProService ProSvc = new ProService();
 				ProVO proVO = ProSvc.getOnePro(p_id);
+				
 				if (proVO == null) {
 					errorMsgs.add("查無資料");
 				}

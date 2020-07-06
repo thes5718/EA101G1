@@ -154,8 +154,7 @@ img.rounded{
       </div>
       
       <div class="row"style="height:60%">
-        <div class="col-4"></div>
-        <div class="col-8"><div class="p_info">${proVO.p_info}</div></div>
+        <div class="col-8"><div class="p_info"><pre>${proVO.p_info}</pre></div></div>
       </div>
       
       <div class="row"style="height:10%">
@@ -165,12 +164,12 @@ img.rounded{
       </div>
       
       <div class="row"style="height:10%">
-        <div class="col-4"><div class="quantity"><div class="quantity">
+        <div class="col-4"><div class="quantity">
 			數量:
-			<button id="minus" type="botton" class="btn btn-outline-dark" style="height:40px;width:40px">-</button>
-			<input type="text" class="quantity" name="quantity" value="1" style="width:35px; height:38px">
-			<button id="plus" type="botton" class="btn btn-outline-dark" style="width:40px;height:40px">+</button>
-			</div></div>
+			<button id="minus" type="botton" class="btn btn-outline-dark" style="height:40px;width:40px;margin-bottom:6px"><i class="fas fa-minus"></i></button>
+			<input type="text" class="quantity" name="quantity" value="1" style="width:35px; height:38px;margin-top:6px">
+			<button id="plus" type="botton" class="btn btn-outline-dark" style="width:40px;height:40px;margin-bottom:6px"><i class="fas fa-plus"></i></button>
+			</div>
 		</div>
         <div class="col-8"><div class="car"><div class="p_car" >
 			<input type="hidden" id="p_id" name="p_id" value="${proVO.p_id}">
@@ -308,6 +307,20 @@ img.rounded{
     	})
 
     });
+    
+    $("input.quantity").change(function() {
+		quantity = $("input.quantity").val();
+		if ($(this).val() > maxquantity) {
+			quantity = 1;
+			swal({
+				text : "數量不夠"
+			});
+		} else {
+			$(".input.quantity").attr("value", quantity);
+		}
+		$(".input.quantity").attr("value", quantity);
+
+	})
 	</script>
 
 </body>
