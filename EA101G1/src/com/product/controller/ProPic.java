@@ -40,7 +40,7 @@ public class ProPic extends HttpServlet {
 			rs.close();
 			stmt.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 			InputStream in = getServletContext().getResourceAsStream("/NoData/null.jpg");
 			byte[] b = new byte[in.available()];
 			in.read(b);
@@ -52,7 +52,7 @@ public class ProPic extends HttpServlet {
 	public void init() throws ServletException {
 		try {
 			Context ctx = new javax.naming.InitialContext();
-			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB5");
+			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
 			con = ds.getConnection();
 		} catch (NamingException e) {
 			e.printStackTrace();
